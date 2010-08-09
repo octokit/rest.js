@@ -3,6 +3,12 @@ var async = require("../lib/async");
 var even = async.range(0, null, 2)
 var odd = async.range(1, null, 2)
 
+even.zip(odd)
+    .slice(0, 4)
+    .toArray(function(err, arr) {
+        console.log("zip " + JSON.stringify(arr))
+    })
+    
 even.slice(0, 3).concat(odd.slice(0, 3))
     .toArray(function(err, arr) {
         console.log(arr)
