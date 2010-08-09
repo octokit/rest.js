@@ -3,6 +3,18 @@ var async = require("../lib/async");
 var even = async.range(0, null, 2)
 var odd = async.range(1, null, 2)
 
+even.slice(0, 4)
+    .reverse()
+    .toArray(function(err, result) {
+        console.log("revers " + result)
+    })
+
+odd.slice(2, 6)
+    .join(" - ")
+    .end(function(err, result) {
+        console.log(result)
+    })
+
 even.zip(odd)
     .slice(0, 4)
     .toArray(function(err, arr) {
@@ -12,6 +24,29 @@ even.zip(odd)
 even.slice(0, 3).concat(odd.slice(0, 3))
     .toArray(function(err, arr) {
         console.log(arr)
+    })
+
+async.list([4, 2, 3, 9])
+    .sort()
+    .join(" < ")
+    .end(function(err, result) {
+        console.log("sorted " + result)
+    })
+
+async.list([1, 8, 3, 5])
+    .some(function odd(item) {
+        return item % 2 == 0
+    })
+    .end(function(err, result) {
+        console.log("Any odd? " + result)
+    })
+
+async.list([1, 8, 3, 5])
+    .every(function odd(item) {
+        return item % 2 == 0
+    })
+    .end(function(err, result) {
+        console.log("All odd? " + result)
     })
 
 async.range(1, 5)

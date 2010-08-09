@@ -23,13 +23,33 @@ list([2, 4, 1, 3]).
 	
 	
 
-delay
-splice
+Array Functions
+
+reverse YES (DONE)
+sort YES (DONE)
+concat YES (DONE)
+join YES (DONE)
+slice YES (DONE)
+
+iteration:
+
+filter YES (DONE)
+forEach YES (DONE)
+every YES (DONE)
+some YES (DONE)
+map YES (DONE)
+some YES (DONE)
+reduce YES (DONE)
+reduceRight NO
+
 call
-sub class generator -> use new this(...) instead of new Generator()
-reduce
-concat
-zip
+
+zip YES (DONE)
+
+OTHER
+delay
+
+
 
 callEachParallel/parallel (geht nicht!)
 
@@ -44,3 +64,7 @@ demos
 - unit test
 - source code loader
 - fs - stat, copy
+
+
+how to node
+var fs = require('fs');
