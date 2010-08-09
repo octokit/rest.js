@@ -29,6 +29,7 @@ call
 sub class generator -> use new this(...) instead of new Generator()
 reduce
 concat
+zip
 
 callEachParallel/parallel (geht nicht!)
 
@@ -36,8 +37,6 @@ get (xhr)
 keys
 values
 
-interleave
-zip
 
 plugins
 
