@@ -1,3 +1,6 @@
+Demo
+====
+
 range(1, 10)
 	.each(function(item, next) {
 		console.log(item);
@@ -24,14 +27,13 @@ list([2, 4, 1, 3]).
 	
 
 Array Functions
+===============
 
 reverse YES (DONE)
 sort YES (DONE)
 concat YES (DONE)
 join YES (DONE)
 slice YES (DONE)
-
-iteration:
 
 filter YES (DONE)
 forEach YES (DONE)
@@ -42,29 +44,22 @@ some YES (DONE)
 reduce YES (DONE)
 reduceRight NO
 
-call
-
+callEach YES (DONE)
 zip YES (DONE)
 
-OTHER
+
+Ideas
+=====
+
 delay
-
-
-
-callEachParallel/parallel (geht nicht!)
-
 get (xhr)
 keys
 values
 
 
-plugins
+Demos
+=====
 
-demos
 - unit test
 - source code loader
 - fs - stat, copy
-
-
-how to node
-var fs = require('fs');
