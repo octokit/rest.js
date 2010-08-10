@@ -6,7 +6,7 @@
 
 var async = require("../lib/async")
 
-async.readdir(".")
+async.readdir(__dirname)
     .stat()
     .filter(function(file) {
         return file.stat.isFile()
@@ -15,4 +15,10 @@ async.readdir(".")
     .each(function(file) {
         console.log(file.data)
     })
+    .end()
+
+
+return
+async.files(["1.txt", "2.txt", "3.txt"])
+    .unlink()
     .end()
