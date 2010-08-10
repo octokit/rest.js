@@ -111,7 +111,7 @@ async.list([
         console.log("second")
         next(null, "kinners")
     }
-]).callEach()
+]).call()
     .toArray(function(err, arr) {
         console.log(arr)
     })
