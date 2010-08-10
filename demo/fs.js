@@ -18,7 +18,7 @@ async.readdir(__dirname)
     .end()
 
 
-return
-async.files(["1.txt", "2.txt", "3.txt"])
+async.files(["1.txt", "2.txt", "3.txt"], __dirname + "/assets")
+    .inspect()
     .unlink()
     .end()
