@@ -6,7 +6,7 @@
 
 var assert = require("assert")
 
-var suite = {
+var Test = {
     setUp: function() {
         next()
     },
@@ -37,7 +37,7 @@ var suite = {
     },
 }
 
-var atest = require("../lib/atest")
-atest.suite(suite).run().report().end();
+var atest = require("../lib/async/test")
+atest.testcase(Test).run().report().end();
 
 // filter
