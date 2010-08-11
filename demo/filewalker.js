@@ -13,10 +13,10 @@ function postOrder(next) {
         .end(next)
 }
 
-function inOrder(next) {
+function preOrder(next) {
     console.log("")
-    console.log("in order walker:")
-    async.walkfiles(__dirname, null, true)
+    console.log("pre order walker:")
+    async.walkfiles(__dirname, null, async.PREORDER)
         .each(function(file) {
             console.log(file.path)
         })
@@ -81,7 +81,7 @@ function copydir(srcPath, destPath, callback) {
         if (err)
             return callback(err)
             
-        async.walkfiles(srcPath, null, true)
+        async.walkfiles(srcPath, null, async.PREORDER)
             .stat()
             .each(function(file, next) {
                 var relative = file.path.substring(srcPath.length)
@@ -106,4 +106,4 @@ function copy(next) {
 }
 
 //copy(function() {})
-async.list([postOrder, inOrder, filerAssets]).call().end()
+async.list([postOrder, preOrder, filerAssets]).call().end()
