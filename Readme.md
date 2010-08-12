@@ -242,9 +242,9 @@ Check if the source generates only even numbers:
 
 This returns [false]
 
-### Filter: call()
+### Filter: call([context])
 
-Calls each of source values in sequence, which have to be functions. The functions can either be synchronous and return a value of be asynchronous and call the passed callback on completion. The generated sequence are the function's return values.
+Calls each of source values in sequence, which have to be functions. The functions can either be synchronous and return a value of be asynchronous and call the passed callback on completion. The generated sequence are the function's return values. The optional `context` argument defines the `this` context of the called functions.
 
     async.list([
         function sync() {
@@ -319,17 +319,16 @@ Perform the iteration until the generator's source either returns `async.STOP` o
 
 This will print the last generated value (the result of `very`) on the console.
 
-### Driver: toArray(callback)
+### Driver: toArray([breakOnError=true], callback)
 
-Perform the iteration until the generator's source either returns `async.STOP` or indicates an error. An array of all generated values is passed to the callback.
-
+Perform the iteration until the generator's source either returns `async.STOP`. If `breakOnError` is true the iteration is stopped on the first error. Otherwise the iteration continues and all errors are collected in an error array. An array of all generated values is passed to the callback.
 
     async.list([1, 8, 3, 5])
         .map(function odd(item, next) {
             next(err, item * 10)
         })
-        .toArray(function(err, arr) {
-            console.log(arr)
+        .toArray(function(err, values) {
+            console.log(values)
         }) 
 
 The last callback will be called with arr set to [10, 80, 30, 50].
