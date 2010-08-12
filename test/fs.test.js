@@ -121,9 +121,54 @@ var Test = {
                 assert.ok(!err)
                 next()                
             })
+    },
+    
+    "test mkdir/rmdir": function(next) {
+        async.files([testDir + "/newdir"])
+            .mkdir(0755)
+            .each(function(file, next) {
+                Path.exists(file.path, function(exists) {
+                    assert.ok(exists)
+                    next()
+                })
+            })
+            .rmdir()
+            .each(function(file, next) {
+                Path.exists(file.path, function(exists) {
+                    assert.ok(!exists)
+                    next()
+                })
+            })
+            .end(function(err) {
+                assert.ok(!err)
+                next()                
+            })
+    },
+    
+    "test write file with data from argument": function(next) {
+        async.files([testDir + "/4.txt"])
+            .writeFile("4")
+            .readFile()
+            .end(function(err, file) {
+                assert.ok(!err)
+                assert.equal(file.data, "4")
+                next()
+            })
+    },
+    
+    "test write file with data from stream": function(next) {
+        async.files([testDir + "/5.txt"])
+            .each(function(file) {
+                file.data = "5"
+            })
+            .writeFile()
+            .readFile()
+            .end(function(err, file) {
+                assert.ok(!err)
+                assert.equal(file.data, "5")
+                next()
+            })
     }
-
-
 }
 
 module.exports = require("../lib/async/test").testcase(Test)
