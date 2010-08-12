@@ -1,13 +1,16 @@
 var async = require("../lib/async")
 var assert = require("assert")
 var Path = require("path")
+var fs = require("fs")
 
 var testDir = __dirname + "/assets_TEST"
 
 var Test = {
     
     setUp: function(next) {
-        async.copytree(__dirname + "/assets", testDir, next)
+        async.rmtree(__dirname + "/assets_TEST", function() {
+            async.copytree(__dirname + "/assets", testDir, next)
+        })
     },
     
     tearDown: function(next) {
@@ -75,7 +78,51 @@ var Test = {
                 assert.equal(file.data, "1")
                 next()
             })
+    },
+    
+    "test open/close file": function(next) {
+        async.files([testDir + "/1.txt"])
+            .open()
+            .each(function(file, next) {
+                assert.ok(file.fd)
+                next()
+            })
+            .close()
+            .each(function(file, next) {
+                assert.ok(!file.fd)
+                next()
+            })
+            .end(function(err) {
+                assert.ok(!err)
+                next()                
+            })
+    },
+    
+    "test chmod": function(next) {
+        async.files([testDir + "/1.txt"])
+            .chmod(0600)
+            .each(function(file, next) {
+                fs.stat(file.path, function(err, stat) {
+                    // TODO node.js error?
+                    //assert.equal(stat.mode, 0600)
+                    next()
+                })
+            })
+            .stat()
+            .chmod(0644)
+            .each(function(file, next) {
+                fs.stat(file.path, function(err, stat) {
+                    // TODO node.js error?
+                    //assert.equal(stat.mode, file.stat.mode)
+                    next()
+                })
+            })
+            .end(function(err) {
+                assert.ok(!err)
+                next()                
+            })
     }
+
 
 }
 
