@@ -26,7 +26,7 @@ With async.js this can be written as
         asncFunction3,
         asncFunction4,
         asncFunction5,
-    ]).callEach().end(function(err, result) {
+    ]).call().end(function(err, result) {
         // do something useful
     });
     
