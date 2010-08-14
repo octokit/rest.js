@@ -2,9 +2,13 @@
 
 var async = require("../lib/async")
 
-function ls(pattern, callback) {
+function ls(pattern, options, callback) {
+    
+    var fileFilter = options.all ? noFilter : filterHidden
+    var printFile = options.long ? printFileLong : printFileShort
+    
     async.glob(pattern)
-        .filter(filterHidden)
+        .filter(fileFilter)
         .stat()
         .sort(function(file1, file2) {
             return file1.stat.isDirectory() + 0 > file2.stat.isDirectory() + 0
@@ -13,7 +17,7 @@ function ls(pattern, callback) {
             if (file.stat.isDirectory()) {
                 console.log("\n" + file.path + ":")
                 async.readdir(file.path)
-                    .filter(filterHidden)
+                    .filter(fileFilter)
                     .stat()
                     .each(printFile)
                     .end(next)
@@ -29,7 +33,15 @@ function ls(pattern, callback) {
         return file.name.charAt(0) !== "."
     }
     
-    function printFile(file) {
+    function noFilter() {
+        return true
+    }
+    
+    function printFileShort(file) {
+        console.log(file.path)
+    }
+    
+    function printFileLong(file) {
         var stat = file.stat
         var owner = stat.uid + ":" + stat.gid
         console.log([
@@ -74,4 +86,5 @@ function ls1(pattern, callback) {
         .end(callback)
 }
 
-ls(process.argv[2] || ".")
+// TODO command line parser
+ls(process.argv[2] || ".", {all: false, long: true})
