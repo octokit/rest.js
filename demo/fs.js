@@ -16,9 +16,3 @@ async.readdir(__dirname)
         console.log(file.data)
     })
     .end()
-
-
-async.files(["1.txt", "2.txt", "3.txt"], __dirname + "/assets")
-    .inspect()
-    .unlink()
-    .end()
