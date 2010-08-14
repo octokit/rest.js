@@ -3,17 +3,20 @@ var assert = require("assert")
 var Path = require("path")
 var fs = require("fs")
 
-var testDir = __dirname + "/assets_TEST"
+var testDir = "assets_TEST"
 
 var Test = {
     
     setUp: function(next) {
+        this.$dir = process.cwd()
+        process.chdir(__dirname)
         async.rmtree(__dirname + "/assets_TEST", function() {
             async.copytree(__dirname + "/assets", testDir, next)
         })
     },
     
     tearDown: function(next) {
+        process.chdir(this.$dir)
         async.rmtree(__dirname + "/assets_TEST", next)
     },
     
@@ -168,7 +171,109 @@ var Test = {
                 assert.equal(file.data, "5")
                 next()
             })
-    }
+    },
+    
+    "test glob without magic": function(next) {
+        async.glob(testDir + "/1.txt")
+            .get("path")
+            .toArray(function(err, values) {
+                assert.equal(JSON.stringify(values), JSON.stringify([testDir + "/1.txt"]))
+                next()
+            })
+    },
+    
+    "test glob with * in file name": function(next) {
+        async.glob(testDir + "/*.txt")
+            .get("path")
+            .toArray(function(err, values) {
+                var expected = ["1" , "2", "3", "11"].map(function(val) {
+                    return testDir + "/" + val + ".txt"
+                })
+                assert.equal(JSON.stringify(values.sort()), JSON.stringify(expected.sort()))
+                next()
+            })
+    },
+    
+    "test glob with ? in file name": function(next) {
+        async.glob(testDir + "/?.txt")
+            .get("path")
+            .toArray(function(err, values) {
+                var expected = ["1" , "2", "3"].map(function(val) {
+                    return testDir + "/" + val + ".txt"
+                })
+                assert.equal(JSON.stringify(values.sort()), JSON.stringify(expected.sort()))
+                next()
+            })
+    },
+    
+    "test glob with only file magic": function(next) {
+        process.chdir(testDir)
+        async.glob("*.txt")
+            .get("path")
+            .toArray(function(err, values) {
+                var expected = ["1" , "2", "3", "11"].map(function(val) {
+                    return val + ".txt"
+                })
+                assert.equal(JSON.stringify(values.sort()), JSON.stringify(expected.sort()))
+                next()
+            })
+    },
+    
+    "test glob without magic for not existing file should return empty list": function(next) {
+        async.glob(testDir + "/notexisting/juhu.txt")
+            .toArray(function(err, values) {
+                assert.equal(values.length, 0)
+                next()
+            })
+    },
+    
+    "test glob with non existing file name should return empty list" : function(next) {
+        async.glob(testDir + "/notexisting/*.txt")
+            .toArray(function(err, values) {
+                assert.equal(values.length, 0)
+                next()
+            })        
+    },
+    
+    "test glob with * in path": function(next) {
+        async.glob(testDir + "/dir*/*.txt")
+            .get("path")
+            .toArray(function(err, values) {
+                var expected = [
+                    testDir + "/dir1/1.txt", 
+                    testDir + "/dir2/2.txt", 
+                    testDir + "/dir11/11.txt"
+                ]
+                assert.equal(JSON.stringify(values.sort()), JSON.stringify(expected.sort()))
+                next()
+            })        
+    },
+
+    "test glob with ? in path": function(next) {
+        async.glob(testDir + "/dir?/*.txt")
+            .get("path")
+            .toArray(function(err, values) {
+                var expected = [
+                    testDir + "/dir1/1.txt",
+                    testDir + "/dir2/2.txt"
+                ]
+                assert.equal(JSON.stringify(values.sort()), JSON.stringify(expected.sort()))
+                next()
+            })        
+    },
+    
+    "test glob with * in path and ? name": function(next) {
+        async.glob(testDir + "/dir*/?.txt")
+            .get("path")
+            .toArray(function(err, values) {
+                var expected = [
+                    testDir + "/dir1/1.txt", 
+                    testDir + "/dir2/2.txt"
+                ]
+                assert.equal(JSON.stringify(values.sort()), JSON.stringify(expected.sort()))
+                next()
+            })        
+    },    
 }
 
 module.exports = require("../lib/async/test").testcase(Test)
