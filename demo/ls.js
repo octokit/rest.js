@@ -10,9 +10,6 @@ function ls(pattern, options, callback) {
     async.glob(pattern)
         .filter(fileFilter)
         .stat()
-        .sort(function(file1, file2) {
-            return file1.stat.isDirectory() + 0 > file2.stat.isDirectory() + 0
-        })
         .each(function(file, next) {
             if (file.stat.isDirectory()) {
                 console.log("\n" + file.path + ":")
