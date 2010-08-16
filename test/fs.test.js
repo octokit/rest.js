@@ -172,7 +172,47 @@ var Test = {
                 next()
             })
     },
-    
+
+    "test walk files pre order": function(next) {
+        async.walkfiles(testDir + "/walk", null, async.PREORDER)
+            .get("path")
+            .toArray(function(err, values) {
+                var expected = [
+                    "",
+                    "/dir1",
+                    "/dir1/1.txt",
+                    "/dir2",
+                    "/dir2/dir22",
+                    "/dir2/2.txt",
+                    "/1.txt"
+                ].map(function(dir) {
+                    return testDir + "/walk" + dir
+                })
+                assert.equal(JSON.stringify(values), JSON.stringify(expected))
+                next()
+            })
+    },
+
+    "test walk files post order": function(next) {
+        async.walkfiles(testDir + "/walk", null, async.POSTORDER)
+            .get("path")
+            .toArray(function(err, values) {
+                var expected = [
+                    "/dir1/1.txt",
+                    "/dir1",
+                    "/dir2/dir22",
+                    "/dir2/2.txt",
+                    "/dir2",
+                    "/1.txt",
+                    ""
+                ].map(function(dir) {
+                    return testDir + "/walk" + dir
+                })
+                assert.equal(JSON.stringify(values), JSON.stringify(expected))
+                next()
+            })
+    },
+
     "test glob without magic": function(next) {
         async.glob(testDir + "/1.txt")
             .get("path")
