@@ -11,7 +11,7 @@ async.readdir(__dirname)
     .filter(function(file) {
         return file.stat.isFile()
     })
-    .readFile()
+    .readFile("utf8")
     .each(function(file) {
         console.log(file.data)
     })

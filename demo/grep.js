@@ -8,9 +8,9 @@ function grep(pattern, file, callback) {
         .filter(function(file) {
             return !file.stat.isDirectory()
         })
-        .readFile()
+        .readFile("utf8")
         .each(function(file) {            
-            var lines = file.data.toString("utf8").split("\n")
+            var lines = file.data.split("\n")
             delete file.data
             
             lines.forEach(function(line) {
