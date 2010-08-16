@@ -4,7 +4,7 @@ var async = require("../lib/async")
 
 function ls(pattern, options, callback) {
     
-    var fileFilter = options.all ? noFilter : filterHidden
+    var fileFilter = options.all ? null : filterHidden
     var printFile = options.long ? printFileLong : printFileShort
     
     async.glob(pattern)
@@ -31,10 +31,6 @@ function ls(pattern, options, callback) {
         
     function filterHidden(file) {
         return file.name.charAt(0) !== "."
-    }
-    
-    function noFilter() {
-        return true
     }
     
     function printFileShort(file) {
