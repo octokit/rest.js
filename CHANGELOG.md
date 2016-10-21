@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## 4.1.1
+
+Bugfixes:
+  * Replace ES6 code so the library runs for versions of node < v4.
+
 ## 4.1.0
 
 Features:
