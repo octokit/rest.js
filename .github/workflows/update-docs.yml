@@ -18,4 +18,4 @@ jobs:
       - uses: maxheld83/ghpages@master
         env:
           BUILD_DIR: docs/public/
-          GH_PAT: ${{ secrets.GH_PAT }}
+          GH_PAT: ${{ secrets.OCTOKITBOT_PAT }}
