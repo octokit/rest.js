@@ -1,5 +1,8 @@
-import { Octokit, RestEndpointMethodTypes } from "../src";
 import { Agent } from "http";
+
+import { EndpointDefaults } from "@octokit/types";
+
+import { Octokit, RestEndpointMethodTypes } from "../src";
 
 // ************************************************************
 // THIS CODE IS NOT EXECUTED. IT IS JUST FOR TYPECHECKING
@@ -93,7 +96,8 @@ export default async function () {
     console.log(`${options.method} ${options.url}: ${response.status}`);
   });
 
-  const findInCache = (etag: string) => ({ hello: "world" });
+  const findInCache = (etag: string) => ({} as EndpointDefaults);
+  // @ts-expect-error TODO: .error hook should accept a return of a valid response
   octokit.hook.error("request", async (error, options) => {
     if ("status" in error && error.status === 304) {
       return findInCache(error.headers.etag);

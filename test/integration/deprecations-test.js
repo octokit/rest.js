@@ -157,8 +157,7 @@ describe("deprecations", () => {
           },
         ],
         {
-          Link:
-            '<https://deprecation-host.com/repositories/1/pulls/123/reviews?per_page=1&page=2>; rel="next", <https://deprecation-host.com/repositories/1/pulls/123/reviews?per_page=1&page=2>; rel="last"',
+          Link: '<https://deprecation-host.com/repositories/1/pulls/123/reviews?per_page=1&page=2>; rel="next", <https://deprecation-host.com/repositories/1/pulls/123/reviews?per_page=1&page=2>; rel="last"',
         }
       )
 
@@ -179,8 +178,7 @@ describe("deprecations", () => {
           ],
         },
         {
-          Link:
-            '<https://deprecation-host.com/repositories/1/pulls/123/reviews?per_page=1&page=1>; rel="first", <https://deprecation-host.com/repositories/1/pulls/123/reviews?per_page=1&page=1>; rel="prev"',
+          Link: '<https://deprecation-host.com/repositories/1/pulls/123/reviews?per_page=1&page=1>; rel="first", <https://deprecation-host.com/repositories/1/pulls/123/reviews?per_page=1&page=1>; rel="prev"',
         }
       );
 
@@ -1330,8 +1328,7 @@ describe("deprecations", () => {
           ],
         },
         {
-          Link:
-            '<https://api.github.com/installation/repositories?per_page=1&page=2>; rel="next", <https://api.github.com/installation/repositories?per_page=1&page=2>; rel="last"',
+          Link: '<https://api.github.com/installation/repositories?per_page=1&page=2>; rel="next", <https://api.github.com/installation/repositories?per_page=1&page=2>; rel="last"',
         }
       )
 
@@ -1352,8 +1349,7 @@ describe("deprecations", () => {
           ],
         },
         {
-          Link:
-            '<https://api.github.com/installation/repositories?per_page=1&page=1>; rel="first", <https://api.github.com/installation/repositories?per_page=1&page=1>; rel="prev"',
+          Link: '<https://api.github.com/installation/repositories?per_page=1&page=1>; rel="first", <https://api.github.com/installation/repositories?per_page=1&page=1>; rel="prev"',
         }
       )
 
@@ -1374,8 +1370,7 @@ describe("deprecations", () => {
           ],
         },
         {
-          Link:
-            '<https://api.github.com/search/issues?q=repo%3Aweb-platform-tests%2Fwpt+is%3Apr+is%3Aopen+updated%3A%3E2019-02-26&per_page=1&page=2>; rel="next", <https://api.github.com/search/issues?q=repo%3Aweb-platform-tests%2Fwpt+is%3Apr+is%3Aopen+updated%3A%3E2019-02-26&per_page=1&page=2>; rel="last"',
+          Link: '<https://api.github.com/search/issues?q=repo%3Aweb-platform-tests%2Fwpt+is%3Apr+is%3Aopen+updated%3A%3E2019-02-26&per_page=1&page=2>; rel="next", <https://api.github.com/search/issues?q=repo%3Aweb-platform-tests%2Fwpt+is%3Apr+is%3Aopen+updated%3A%3E2019-02-26&per_page=1&page=2>; rel="last"',
         }
       )
 
@@ -1397,8 +1392,7 @@ describe("deprecations", () => {
           ],
         },
         {
-          Link:
-            '<https://api.github.com/search/issues?q=repo%3Aweb-platform-tests%2Fwpt+is%3Apr+is%3Aopen+updated%3A%3E2019-02-26&per_page=1&page=1>; rel="first", <https://api.github.com/search/issues?q=repo%3Aweb-platform-tests%2Fwpt+is%3Apr+is%3Aopen+updated%3A%3E2019-02-26&per_page=1&page=1>; rel="prev"',
+          Link: '<https://api.github.com/search/issues?q=repo%3Aweb-platform-tests%2Fwpt+is%3Apr+is%3Aopen+updated%3A%3E2019-02-26&per_page=1&page=1>; rel="first", <https://api.github.com/search/issues?q=repo%3Aweb-platform-tests%2Fwpt+is%3Apr+is%3Aopen+updated%3A%3E2019-02-26&per_page=1&page=1>; rel="prev"',
         }
       );
 
@@ -1410,15 +1404,14 @@ describe("deprecations", () => {
         },
       },
     });
-    const searchOptions = octokit.rest.search.issuesAndPullRequests.endpoint.merge(
-      {
+    const searchOptions =
+      octokit.rest.search.issuesAndPullRequests.endpoint.merge({
         q: "repo:web-platform-tests/wpt is:pr is:open updated:>2019-02-26",
         per_page: 1,
         headers: {
           "accept-encoding": "",
         },
-      }
-    );
+      });
     const listReposOptions = octokit.rest.apps.listRepos.endpoint.merge({
       per_page: 1,
     });
