@@ -24,14 +24,14 @@ describe("api.github.com", () => {
         expect(error.message).toEqual(
           `Validation Failed: {"resource":"Label","code":"invalid","field":"color"}`
         );
-        expect(error.errors).toStrictEqual([
+        expect(error.response.data.errors).toStrictEqual([
           {
             resource: "Label",
             code: "invalid",
             field: "color",
           },
         ]);
-        expect(error.documentation_url).toMatch(
+        expect(error.response.data.documentation_url).toMatch(
           new RegExp("rest/reference/issues#create-a-label")
         );
       });
