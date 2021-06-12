@@ -103,7 +103,7 @@ describe("request errors", () => {
       .catch((error) => {
         expect(error.name).to.equal("HttpError");
         expect(error.status).to.equal(401);
-        expect(error.headers).to.deep.equal({
+        expect(error.response.headers).to.deep.equal({
           "content-type": "application/json",
           "x-foo": "bar",
         });

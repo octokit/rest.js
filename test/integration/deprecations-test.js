@@ -422,7 +422,7 @@ describe("deprecations", () => {
           "2FA required, but options.on2fa is not a function. See https://github.com/octokit/rest.js#authentication"
         );
         expect(error.status).to.equal(401);
-        expect(!!error.headers).to.equal(true);
+        expect(!!error.response.headers).to.equal(true);
         expect(!!error.request).to.equal(true);
       });
   });
@@ -977,7 +977,7 @@ describe("deprecations", () => {
           "2FA required, but options.on2fa is not a function. See https://github.com/octokit/rest.js#authentication"
         );
         expect(error.status).to.equal(401);
-        expect(!!error.headers).to.equal(true);
+        expect(!!error.response.headers).to.equal(true);
         expect(!!error.request).to.equal(true);
       });
   });
