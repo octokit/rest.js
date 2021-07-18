@@ -27,6 +27,7 @@ jobs:
         uses: actions/setup-node@v2
         with:
           version: "${{ matrix.node_version }}"
+          cache: npm
       - run: npm ci
       - run: npm run start-fixtures-server &
       - run: sleep 3
