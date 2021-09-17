@@ -23,13 +23,13 @@ jobs:
           - 16
     steps:
       - uses: actions/checkout@master
-      - name: "Test with Node.js ${{ matrix.node_version }}"
+      - name: Test with Node.js ${{ matrix.node_version }}
         uses: actions/setup-node@v2
         with:
-          version: "${{ matrix.node_version }}"
           cache: npm
+          node-version: 16
       - run: npm ci
       - run: npm run start-fixtures-server &
       - run: sleep 3
       - run: npm run test
-      - run: "npm run test:typescript"
+      - run: npm run test:typescript
