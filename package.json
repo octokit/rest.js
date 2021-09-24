@@ -39,7 +39,7 @@
   },
   "devDependencies": {
     "@octokit/auth": "^3.0.3",
-    "@octokit/fixtures-server": "^6.0.25",
+    "@octokit/fixtures-server": "^7.0.0",
     "@octokit/request": "^5.6.1",
     "@pika/pack": "^0.5.0",
     "@pika/plugin-build-node": "^0.9.2",
