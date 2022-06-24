@@ -56,7 +56,7 @@
     "typescript": "^4.0.0"
   },
   "scripts": {
-    "build": "pika build",
+    "build": "pika-pack build",
     "coverage": "nyc report --reporter=html && open coverage/index.html",
     "lint": "prettier --check '{src,test}/**/*.{js,json,ts}' 'docs/*.{js,json}' 'docs/src/**/*' *.md package.json",
     "lint:fix": "prettier --write '{src,test}/**/*.{js,json,ts}' 'docs/*.{js,json}' 'docs/src/**/*' *.md package.json",
