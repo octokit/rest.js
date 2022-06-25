@@ -22,7 +22,7 @@
     "marked": "^4.0.0",
     "prismjs": "^1.16.0",
     "react": "^18.0.0",
-    "react-debounce-render": "^7.0.0",
+    "react-debounce-render": "^8.0.0",
     "react-dom": "^18.0.0",
     "react-helmet": "^6.0.0",
     "react-typography": "^0.16.18",
