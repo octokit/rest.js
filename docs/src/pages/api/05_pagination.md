@@ -37,12 +37,16 @@ octokit
 To stop paginating early, you can call the `done()` function passed as 2nd argument to the response map function. Note that you still have to return the value you want to map the response to, otherwise the last response will be mapped to undefined.
 
 ```js
-octokit.paginate("GET /organizations", (response, done) => {
-  if (response.data.find((issues) => issue.body.includes("something"))) {
-    done();
-  }
-  return response.data;
-});
+octokit.paginate(
+  "GET /repos/{owner}/{repo}/issues",
+  { owner: "octokit", repo: "rest.js" },
+  (response, done) => {
+    if (response.data.find((issue) => issue.body.includes("something"))) {
+      done();
+    }
+    return response.data;
+  },
+);
 ```
 
 To paginate responses for one of the registered endpoint methods such as `octokit.rest.issues.listForRepo()` you can pass the method directly as first argument to `octokit.paginate`:
