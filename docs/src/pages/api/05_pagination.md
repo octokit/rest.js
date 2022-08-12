@@ -45,7 +45,7 @@ octokit.paginate(
       done();
     }
     return response.data;
-  },
+  }
 );
 ```
 
