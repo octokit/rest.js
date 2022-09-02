@@ -24,7 +24,7 @@ jobs:
     steps:
       - uses: actions/checkout@master
       - name: Test with Node.js ${{ matrix.node_version }}
-        uses: actions/setup-node@2fddd8803e2f5c9604345a0b591c3020ee971a93
+        uses: actions/setup-node@9efe00a0025efeba48d576d3e3098477d681ce43
         with:
           cache: npm
           node-version: 16
