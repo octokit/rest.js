@@ -19,9 +19,7 @@ export const pageQuery = graphql`
   {
     # query for the configured current version slug
     sitePlugin(name: { eq: "gatsby-plugin-versioned-docs" }) {
-      pluginOptions {
-        currentVersion
-      }
+      pluginOptions
     }
   }
 `;

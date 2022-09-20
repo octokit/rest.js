@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import apiStyles from "./api.module.css";
+import * as apiStyles from "./api.module.css";
 import ApiSubMenu from "../components/api-sub-menu";
 import EndPointGroup from "../components/endpoint-group";
 
