@@ -2,7 +2,7 @@ import React, { Component } from "react";
 
 import { graphql, StaticQuery, navigate } from "gatsby";
 
-import layoutStyles from "../components/layout.module.css";
+import * as layoutStyles from "../components/layout.module.css";
 import "../components/layout.css";
 
 import Api from "../components/api";
@@ -54,9 +54,7 @@ export default class IndexPage extends Component {
                 }
                 # get the current version as defined in gatsby-config.js
                 sitePlugin(name: { eq: "gatsby-plugin-versioned-docs" }) {
-                  pluginOptions {
-                    currentVersion
-                  }
+                  pluginOptions
                 }
               }
             `}
