@@ -1,18 +1,21 @@
 import React from "react";
-import Helmet from "react-helmet";
 import { graphql } from "gatsby";
 
 export default function Index(props) {
   const { currentVersion } = props.data.sitePlugin.pluginOptions;
+  return <a href={`${currentVersion}/`} >Redirecting to /{currentVersion}...</a>;
+}
+
+export function Head(props) {
+  const { currentVersion } = props.data.sitePlugin.pluginOptions;
   return (
-    <Helmet>
+    <>
       {/* redirect the root path "/" to the current version */}
-      <meta http-equiv="refresh" content={`0;url=./${currentVersion}`} />
-      <script>
-        if (window.location.hash) (window.location.pathname += "v16/")
-      </script>
-    </Helmet>
+      <meta http-equiv="refresh" content={`0;url=./${currentVersion}/`} />
+      <script>{`if (window.location.hash) { window.location.pathname += "${currentVersion}/"; }`}</script>
+    </>
   );
+
 }
 
 export const pageQuery = graphql`
