@@ -104,7 +104,7 @@ module.exports = {
             name: "v18", // the path of the older version
             branch: "18.x", // older versions specify a branch name for this repo
             endpoints: "4.x", // ...and one for the endpoint methods
-          }
+          },
         ],
       },
     },
