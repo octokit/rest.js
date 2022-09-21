@@ -5,16 +5,14 @@ import { graphql } from "gatsby";
 import IndexPage from "./index-page";
 
 export default ({ data, pageContext }) => {
-  return (
-      <IndexPage version={pageContext.version} data={data} />
-  );
+  return <IndexPage version={pageContext.version} data={data} />;
 };
 
 export function Head() {
   return (
     <>
-        <meta charset="utf-8" />
-        <title>octokit/rest.js</title>
+      <meta charset="utf-8" />
+      <title>octokit/rest.js</title>
     </>
   );
 }

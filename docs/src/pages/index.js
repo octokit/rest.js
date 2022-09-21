@@ -3,7 +3,7 @@ import { graphql } from "gatsby";
 
 export default function Index(props) {
   const { currentVersion } = props.data.sitePlugin.pluginOptions;
-  return <a href={`${currentVersion}/`} >Redirecting to /{currentVersion}...</a>;
+  return <a href={`${currentVersion}/`}>Redirecting to /{currentVersion}...</a>;
 }
 
 export function Head(props) {
@@ -15,7 +15,6 @@ export function Head(props) {
       <script>{`if (window.location.hash) { window.location.pathname += "${currentVersion}/"; }`}</script>
     </>
   );
-
 }
 
 export const pageQuery = graphql`
