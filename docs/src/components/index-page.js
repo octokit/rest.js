@@ -38,7 +38,7 @@ export default class IndexPage extends Component {
   render() {
     return (
       <div>
-        <header className={layoutStyles.header}>
+        <header>
           <StaticQuery
             query={graphql`
               {
@@ -62,7 +62,7 @@ export default class IndexPage extends Component {
               const { currentVersion } = data.sitePlugin.pluginOptions;
               return (
                 <>
-                  <div className={layoutStyles.dropdownSelect}>
+                  <div>
                     <select
                       value={this.props.version}
                       onChange={this.onVersionChange}
