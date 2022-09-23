@@ -1,21 +1,21 @@
-import React, { Fragment } from "react";
-import { Helmet } from "react-helmet";
+import React from "react";
 
 import { graphql } from "gatsby";
 
 import IndexPage from "./index-page";
 
 export default ({ data, pageContext }) => {
-  return (
-    <Fragment>
-      <Helmet>
-        <meta charset="utf-8" />
-        <title>octokit/rest.js</title>
-      </Helmet>
-      <IndexPage version={pageContext.version} data={data} />
-    </Fragment>
-  );
+  return <IndexPage version={pageContext.version} data={data} />;
 };
+
+export function Head() {
+  return (
+    <>
+      <meta charset="utf-8" />
+      <title>octokit/rest.js</title>
+    </>
+  );
+}
 
 export const query = graphql`
   query TemplateQuery($version: String, $endpoints: String) {
