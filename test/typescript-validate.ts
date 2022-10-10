@@ -97,10 +97,10 @@ export default async function () {
   });
 
   const findInCache = (etag: string) => ({} as EndpointDefaults);
-  // @ts-expect-error TODO: .error hook should accept a return of a valid response
+
   octokit.hook.error("request", async (error, options) => {
     if ("status" in error && error.status === 304) {
-      return findInCache(error.response.headers.etag);
+      return findInCache(String(error.response?.headers.etag));
     }
 
     throw error;
