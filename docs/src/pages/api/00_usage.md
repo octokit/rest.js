@@ -198,10 +198,10 @@ const myOctokit = new MyOctokit({
         return true;
       }
     },
-    onAbuseLimit: (retryAfter, options) => {
+    onSecondaryRateLimit: (retryAfter, options, octokit) => {
       // does not retry, only logs a warning
-      myOctokit.log.warn(
-        `Abuse detected for request ${options.method} ${options.url}`
+      octokit.log.warn(
+        `Secondary quota detected for request ${options.method} ${options.url}`
       );
     },
   },
