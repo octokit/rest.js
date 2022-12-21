@@ -6,7 +6,7 @@ When you send too many requests in too little time you will likely hit errors du
 
 In order to automatically throttle requests as recommended in [GitHub’s best practices for integrators](https://docs.github.com/en/rest/guides/best-practices-for-integrators), we recommend you install the [`@octokit/plugin-throttling` plugin](https://github.com/octokit/plugin-throttling.js).
 
-The `throttle.onAbuseLimit` and `throttle.onRateLimit` options are required.
+The `throttle.onSecondaryRateLimit` and `throttle.onRateLimit` options are required.
 
 Return `true` from these functions to automatically retry the request after `retryAfter` seconds. Return `false` or `undefined` to skip retry and throw the error. For rate limit errors, `retryAfter` defaults to seconds until `X-RateLimit-Reset`. For abuse errors, `retryAfter` defaults to the `retry-after` header but is a minimum of five seconds.
 
@@ -29,10 +29,10 @@ const octokit = new MyOctokit({
         return true;
       }
     },
-    onAbuseLimit: (retryAfter, options) => {
+    onSecondaryRateLimit: (retryAfter, options, octokit) => {
       // does not retry, only logs a warning
       octokit.log.warn(
-        `Abuse detected for request ${options.method} ${options.url}`
+        `Secondary quota detected for request ${options.method} ${options.url}`
       );
     },
   },
