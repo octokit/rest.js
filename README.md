@@ -3,7 +3,7 @@
 > GitHub REST API client for JavaScript
 
 [![@latest](https://img.shields.io/npm/v/@octokit/rest.svg)](https://www.npmjs.com/package/@octokit/rest)
-[![Build Status](https://github.com/octokit/rest.js/workflows/Test/badge.svg)](https://github.com/octokit/rest.js/actions?query=workflow%3ATest+branch%3Amaster)
+[![Build Status](https://github.com/octokit/rest.js/workflows/Test/badge.svg)](https://github.com/octokit/rest.js/actions?query=workflow%3ATest+branch%3Amain)
 
 ## Usage
 
@@ -13,10 +13,10 @@
 Browsers
 </th><td width=100%>
 Load <code>@octokit/rest</code> directly from <a href="https://cdn.skypack.dev">cdn.skypack.dev</a>
-        
+
 ```html
 <script type="module">
-import { Octokit } from "https://cdn.skypack.dev/@octokit/rest";
+  import { Octokit } from "https://cdn.skypack.dev/@octokit/rest";
 </script>
 ```
 

@@ -48,14 +48,14 @@ variable (or set it in a `.env` file) to avoid running against GitHub's rate lim
 
 Here is an overview of [how `@octokit/rest` works](HOW_IT_WORKS.md).
 
-- Create a topic branch from the master branch.
+- Create a topic branch from the main branch.
 - Check for unnecessary whitespace / changes with `git diff --check` before committing.
 - Keep git commit messages clear and appropriate. Ideally follow commit conventions described below.
 
 ## Submitting the Pull Request
 
 - Push your changes to your topic branch on your fork of the repo.
-- Submit a pull request from your topic branch to the master branch on the `rest.js` repository.
+- Submit a pull request from your topic branch to the main branch on the `rest.js` repository.
 - Be sure to tag any issues your pull request is taking care of / contributing to. \* Adding "Closes #123" to a pull request description will auto close the issue once the pull request is merged in.
 
 ## Testing a pull request from github repo locally:

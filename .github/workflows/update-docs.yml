@@ -1,8 +1,8 @@
-name: Update docs on pushes to master
+name: Update docs on pushes to main
 "on":
   push:
     branches:
-      - master
+      - main
 jobs:
   update_docs:
     runs-on: ubuntu-latest
