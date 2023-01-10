@@ -15,7 +15,7 @@ function createEndpointsSource(version, branch) {
 module.exports = ({ currentVersion, versions }) => ({
   plugins: [
     // source remote endpoints data for the current version
-    createEndpointsSource(currentVersion, 'master'),
+    createEndpointsSource(currentVersion, 'main'),
     // map over the version config object and add git sources
     // for their docs from this repo and generated endpoint method docs
     ...versions.flatMap(({ name, branch, endpoints }) => [

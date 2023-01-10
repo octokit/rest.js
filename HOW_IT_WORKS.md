@@ -15,9 +15,9 @@
 
 ## Endpoint options (① - ④)
 
-`@octokit/rest` exposes a method for each [REST API endpoint](https://docs.github.com/en/rest/reference/), for example `octokit.rest.repos.listForOrg()` for [`GET /orgs/{org}/repos`](https://docs.github.com/en/rest/reference/repos/#list-organization-repositories). The methods are generated in [`@octokit/plugin-rest-endpoint-methods`](https://github.com/octokit/plugin-rest-endpoint-methods.js/). The [`src/generated/endpoints.ts` file](https://github.com/octokit/plugin-rest-endpoint-methods.js/blob/master/src/generated/endpoints.ts) defines the **② endpoint default options** `method`, `url`, and in some cases `mediaType` and `headers`.
+`@octokit/rest` exposes a method for each [REST API endpoint](https://docs.github.com/en/rest/reference/), for example `octokit.rest.repos.listForOrg()` for [`GET /orgs/{org}/repos`](https://docs.github.com/en/rest/reference/repos/#list-organization-repositories). The methods are generated in [`@octokit/plugin-rest-endpoint-methods`](https://github.com/octokit/plugin-rest-endpoint-methods.js/). The [`src/generated/endpoints.ts` file](https://github.com/octokit/plugin-rest-endpoint-methods.js/blob/main/src/generated/endpoints.ts) defines the **② endpoint default options** `method`, `url`, and in some cases `mediaType` and `headers`.
 
-**② endpoint default options** are merged with **① global defaults**, which are based on [@octokit/endpoint/src/defaults.ts](https://github.com/octokit/endpoint.js/blob/master/src/defaults.ts) and the options that were passed into the `new Octokit(options)` constructor.
+**② endpoint default options** are merged with **① global defaults**, which are based on [@octokit/endpoint/src/defaults.ts](https://github.com/octokit/endpoint.js/blob/main/src/defaults.ts) and the options that were passed into the `new Octokit(options)` constructor.
 
 Both are merged with **③ user options** passed into each method. Altogether they result in **④ endpoint options**.
 
