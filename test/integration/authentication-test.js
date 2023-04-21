@@ -1,6 +1,7 @@
 const lolex = require("lolex");
 const nock = require("nock");
-const { createActionAuth, createAppAuth } = require("@octokit/auth");
+const { createAppAuth } = require("@octokit/auth-app");
+const { createActionAuth } = require("@octokit/auth-action");
 
 const { Octokit } = require("../..");
 
