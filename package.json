@@ -41,6 +41,7 @@
     "@octokit/auth": "^3.0.3",
     "@octokit/fixtures-server": "^7.0.0",
     "@octokit/request": "^6.0.0",
+    "@octokit/tsconfig": "^1.0.2",
     "@types/jest": "^29.0.0",
     "@types/node": "^18.0.0",
     "esbuild": "^0.17.19",
