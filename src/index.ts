@@ -15,5 +15,3 @@ export const Octokit = Core.plugin(
 });
 
 export type Octokit = InstanceType<typeof Octokit>;
-export type { RestEndpointMethodTypes };
-  
