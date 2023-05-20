@@ -9,6 +9,7 @@ describe("Smoke tests", () => {
   });
 
   it("can be used as a type", () => {
+    // @ts-expect-error TS6133 Unused variable
     let octokit: Octokit;
     octokit = new Octokit();
   });
