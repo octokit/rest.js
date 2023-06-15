@@ -42,7 +42,7 @@
     "@octokit/auth-app": "^4.0.13",
     "@octokit/fixtures-server": "^7.0.0",
     "@octokit/request": "^6.2.5",
-    "@octokit/tsconfig": "^1.0.2",
+    "@octokit/tsconfig": "^2.0.0",
     "@types/jest": "^29.0.0",
     "@types/node": "^18.0.0",
     "esbuild": "^0.18.0",
@@ -67,7 +67,14 @@
   },
   "license": "MIT",
   "jest": {
-    "preset": "ts-jest",
+    "transform": {
+      "^.+\\.(ts|tsx)$": [
+        "ts-jest",
+        {
+          "tsconfig": "test/tsconfig.test.json"
+        }
+      ]
+    },
     "testPathIgnorePatterns": [
       "/docs/"
     ],
