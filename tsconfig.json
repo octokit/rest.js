@@ -7,5 +7,7 @@
     "emitDeclarationOnly": true,
     "sourceMap": true
   },
-  "include": ["src/**/*"]
+  "include": [
+    "src/**/*"
+  ]
 }
