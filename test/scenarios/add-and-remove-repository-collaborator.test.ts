@@ -13,7 +13,7 @@ describe("api.github.com", () => {
         githubUserB = fixtureToInstance(fixture, {
           auth: "token 0000000000000000000000000000000000000002",
         });
-      }
+      },
     );
   });
   it("add-and-remove-repository-collaborator-test", () => {

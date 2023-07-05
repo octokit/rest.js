@@ -23,7 +23,7 @@ describe("https://github.com/octokit/rest.js/issues/1553", () => {
   it.skip("octokit.rest.teams.listMembersLegacy.endpoint()", () => {
     const octokit = new Octokit();
     expect(typeof octokit.rest.teams.listMembersLegacy.endpoint).to.equal(
-      "function"
+      "function",
     );
   });
 });

@@ -27,7 +27,7 @@ b597b5d`,
       .then((response) => {
         expect(response.data).toMatch(/<h3 dir="auto">Hello<\/h3>/);
         expect(response.data).toMatch(
-          /\/octokit-fixture-org\/hello-world\/commit\/b597b5d6eead8f1a9e9d3243cd70a890a6155ca8/
+          /\/octokit-fixture-org\/hello-world\/commit\/b597b5d6eead8f1a9e9d3243cd70a890a6155ca8/,
         );
         expect(response.data).toMatch(/<tt>b597b5d<\/tt>/);
 
@@ -59,7 +59,7 @@ b597b5d`,
       .then((response) => {
         expect(response.data).toMatch(/<h3 dir="auto">Hello<\/h3>/);
         expect(response.data).toMatch(
-          /\/octokit-fixture-org\/hello-world\/commit\/b597b5d6eead8f1a9e9d3243cd70a890a6155ca8/
+          /\/octokit-fixture-org\/hello-world\/commit\/b597b5d6eead8f1a9e9d3243cd70a890a6155ca8/,
         );
         expect(response.data).toMatch(/<tt>b597b5d<\/tt>/);
       });

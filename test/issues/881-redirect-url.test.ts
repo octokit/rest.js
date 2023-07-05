@@ -13,7 +13,7 @@ describe("https://github.com/octokit/rest.js/issues/881", () => {
         "https://api.github.com/repos/octocat/Hello-World/tarball/master",
         {
           redirectUrl: REDIRECT_URL,
-        }
+        },
       )
       .headOnce(REDIRECT_URL, 200);
 
@@ -34,7 +34,7 @@ describe("https://github.com/octokit/rest.js/issues/881", () => {
       .then((response) => {
         // @ts-ignore https://github.com/octokit/types.ts/issues/211
         expect(response.url).toEqual(
-          "https://issue-881-codeload.github.com/octocat/Hello-World/legacy.tar.gz/master"
+          "https://issue-881-codeload.github.com/octocat/Hello-World/legacy.tar.gz/master",
         );
       });
   });

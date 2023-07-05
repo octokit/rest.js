@@ -27,7 +27,7 @@ octokit
   .paginate(
     "GET /repos/{owner}/{repo}/issues",
     { owner: "octokit", repo: "rest.js" },
-    (response) => response.data.map((issue) => issue.title)
+    (response) => response.data.map((issue) => issue.title),
   )
   .then((issueTitles) => {
     // issueTitles is now an array with the titles only
@@ -45,7 +45,7 @@ octokit.paginate(
       done();
     }
     return response.data;
-  }
+  },
 );
 ```
 
@@ -70,7 +70,7 @@ for await (const response of octokit.paginate.iterator(
   {
     owner: "octokit",
     repo: "rest.js",
-  }
+  },
 )) {
   // do whatever you want with each response, break out of the loop, etc.
 }

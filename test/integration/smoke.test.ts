@@ -95,7 +95,7 @@ describe("Smoke tests", () => {
           expect(consoleStub.info.mock.calls.length).toEqual(2);
           expect(consoleStub.warn.mock.calls.length).toEqual(0);
           expect(consoleStub.error.mock.calls.length).toEqual(0);
-        }
+        },
       );
   });
 });

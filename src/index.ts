@@ -9,7 +9,7 @@ import { VERSION } from "./version";
 export const Octokit = Core.plugin(
   requestLog,
   legacyRestEndpointMethods,
-  paginateRest
+  paginateRest,
 ).defaults({
   userAgent: `octokit-rest.js/${VERSION}`,
 });

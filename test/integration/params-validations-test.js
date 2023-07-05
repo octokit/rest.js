@@ -17,7 +17,7 @@ describe("params validations", () => {
 
       .catch((error) => {
         expect(error.message).to.equal(
-          "Empty value for parameter 'org': undefined"
+          "Empty value for parameter 'org': undefined",
         );
         expect(error.status).to.equal(400);
       });
@@ -38,7 +38,7 @@ describe("params validations", () => {
       .catch((error) => {
         expect(error.status).to.equal(500);
         expect(error.message).to.equal(
-          "request to https://127.0.0.1:8/orgs/foo failed, reason: connect ECONNREFUSED 127.0.0.1:8"
+          "request to https://127.0.0.1:8/orgs/foo failed, reason: connect ECONNREFUSED 127.0.0.1:8",
         );
       });
   });
@@ -56,7 +56,7 @@ describe("params validations", () => {
       .catch((error) => {
         expect(error.status).to.equal(400);
         expect(error.message).to.equal(
-          "Invalid value for parameter 'filter': \"foo\""
+          "Invalid value for parameter 'filter': \"foo\"",
         );
       });
   });
@@ -74,7 +74,7 @@ describe("params validations", () => {
       .catch((error) => {
         expect(error.status).to.equal(400);
         expect(error.message).to.equal(
-          "Invalid value for parameter 'position': \"foo\""
+          "Invalid value for parameter 'position': \"foo\"",
         );
       });
   });
@@ -94,7 +94,7 @@ describe("params validations", () => {
       .catch((error) => {
         expect(error.status).to.equal(400);
         expect(error.message).to.equal(
-          "Invalid value for parameter 'position': \"Age Ain’t Nothing\" is NaN"
+          "Invalid value for parameter 'position': \"Age Ain’t Nothing\" is NaN",
         );
       });
   });
@@ -117,7 +117,7 @@ describe("params validations", () => {
       .catch((error) => {
         expect(error.status).to.equal(400);
         expect(error.message).to.equal(
-          "JSON parse error of value for parameter 'config': \"I’m no Je-Son!\""
+          "JSON parse error of value for parameter 'config': \"I’m no Je-Son!\"",
         );
       });
   });
@@ -183,7 +183,7 @@ describe("params validations", () => {
       .catch((error) => {
         expect(error.status).to.equal(400);
         expect(error.message).to.equal(
-          "Invalid value for parameter 'tree[0].type': \"foo\""
+          "Invalid value for parameter 'tree[0].type': \"foo\"",
         );
       });
   });

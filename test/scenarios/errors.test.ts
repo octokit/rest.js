@@ -22,7 +22,7 @@ describe("api.github.com", () => {
 
       .catch((error) => {
         expect(error.message).toEqual(
-          `Validation Failed: {"resource":"Label","code":"invalid","field":"color"}`
+          `Validation Failed: {"resource":"Label","code":"invalid","field":"color"}`,
         );
         expect(error.response.data.errors).toStrictEqual([
           {
@@ -32,7 +32,7 @@ describe("api.github.com", () => {
           },
         ]);
         expect(error.response.data.documentation_url).toMatch(
-          new RegExp("rest/reference/issues#create-a-label")
+          new RegExp("rest/reference/issues#create-a-label"),
         );
       });
   });

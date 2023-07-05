@@ -189,7 +189,7 @@ const myOctokit = new MyOctokit({
   throttle: {
     onRateLimit: (retryAfter, options) => {
       myOctokit.log.warn(
-        `Request quota exhausted for request ${options.method} ${options.url}`
+        `Request quota exhausted for request ${options.method} ${options.url}`,
       );
 
       if (options.request.retryCount === 0) {
@@ -201,7 +201,7 @@ const myOctokit = new MyOctokit({
     onSecondaryRateLimit: (retryAfter, options, octokit) => {
       // does not retry, only logs a warning
       octokit.log.warn(
-        `Secondary quota detected for request ${options.method} ${options.url}`
+        `Secondary quota detected for request ${options.method} ${options.url}`,
       );
     },
   },
