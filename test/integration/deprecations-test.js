@@ -135,7 +135,7 @@ describe("deprecations", () => {
     });
 
     expect(url).to.equal(
-      "https://api.github.com/repos/octocat/hello-world/issues/123"
+      "https://api.github.com/repos/octocat/hello-world/issues/123",
     );
     expect(options.url).to.equal("/repos/{owner}/{repo}/issues/{issue_number}");
     expect("number" in options).to.equal(false);
@@ -158,7 +158,7 @@ describe("deprecations", () => {
         ],
         {
           Link: '<https://deprecation-host.com/repositories/1/pulls/123/reviews?per_page=1&page=2>; rel="next", <https://deprecation-host.com/repositories/1/pulls/123/reviews?per_page=1&page=2>; rel="last"',
-        }
+        },
       )
 
       .get("/repositories/1/pulls/123/reviews")
@@ -179,7 +179,7 @@ describe("deprecations", () => {
         },
         {
           Link: '<https://deprecation-host.com/repositories/1/pulls/123/reviews?per_page=1&page=1>; rel="first", <https://deprecation-host.com/repositories/1/pulls/123/reviews?per_page=1&page=1>; rel="prev"',
-        }
+        },
       );
 
     let warnCalledCount = 0;
@@ -252,7 +252,7 @@ describe("deprecations", () => {
         {},
         {
           "x-github-otp": "required; app",
-        }
+        },
       );
 
     nock("https://authentication-test-host.com", {
@@ -295,7 +295,7 @@ describe("deprecations", () => {
         {},
         {
           "x-github-otp": "required; app",
-        }
+        },
       );
 
     nock("https://authentication-test-host.com", {
@@ -338,7 +338,7 @@ describe("deprecations", () => {
         {},
         {
           "x-github-otp": "required; app",
-        }
+        },
       );
 
     nock("https://authentication-test-host.com", {
@@ -353,7 +353,7 @@ describe("deprecations", () => {
         {},
         {
           "x-github-otp": "required; app",
-        }
+        },
       );
 
     const octokit = new Octokit({
@@ -396,7 +396,7 @@ describe("deprecations", () => {
         {},
         {
           "x-github-otp": "required; app",
-        }
+        },
       );
 
     const octokit = new Octokit({
@@ -419,7 +419,7 @@ describe("deprecations", () => {
       })
       .catch((error) => {
         expect(error.message).to.equal(
-          "2FA required, but options.on2fa is not a function. See https://github.com/octokit/rest.js#authentication"
+          "2FA required, but options.on2fa is not a function. See https://github.com/octokit/rest.js#authentication",
         );
         expect(error.status).to.equal(401);
         expect(!!error.response.headers).to.equal(true);
@@ -616,7 +616,7 @@ describe("deprecations", () => {
     });
 
     expect(warnCalledWith).to.match(
-      /octokit\.authenticate\(\) is deprecated and has no effect/
+      /octokit\.authenticate\(\) is deprecated and has no effect/,
     );
   });
 
@@ -757,7 +757,7 @@ describe("deprecations", () => {
         {},
         {
           "x-github-otp": "required; app",
-        }
+        },
       );
 
     nock("https://authentication-test-host.com", {
@@ -795,7 +795,7 @@ describe("deprecations", () => {
         {},
         {
           "x-github-otp": "required; app",
-        }
+        },
       );
 
     nock("https://authentication-test-host.com", {
@@ -833,7 +833,7 @@ describe("deprecations", () => {
         {},
         {
           "x-github-otp": "required; app",
-        }
+        },
       );
 
     nock("https://authentication-test-host.com", {
@@ -848,7 +848,7 @@ describe("deprecations", () => {
         {},
         {
           "x-github-otp": "required; app",
-        }
+        },
       );
 
     const octokit = new Octokit({
@@ -886,7 +886,7 @@ describe("deprecations", () => {
         {},
         {
           "x-github-otp": "required; app",
-        }
+        },
       );
 
     nock("https://authentication-test-host.com", {
@@ -910,7 +910,7 @@ describe("deprecations", () => {
         {},
         {
           "x-github-otp": "required; app",
-        }
+        },
       );
 
     nock("https://authentication-test-host.com", {
@@ -954,7 +954,7 @@ describe("deprecations", () => {
         {},
         {
           "x-github-otp": "required; app",
-        }
+        },
       );
 
     const octokit = new Octokit({
@@ -974,7 +974,7 @@ describe("deprecations", () => {
 
       .catch((error) => {
         expect(error.message).to.equal(
-          "2FA required, but options.on2fa is not a function. See https://github.com/octokit/rest.js#authentication"
+          "2FA required, but options.on2fa is not a function. See https://github.com/octokit/rest.js#authentication",
         );
         expect(error.status).to.equal(401);
         expect(!!error.response.headers).to.equal(true);
@@ -1106,15 +1106,15 @@ describe("deprecations", () => {
     return Promise.all([
       octokit.request(
         "GET /applications/{client_id}/tokens/{access_token}",
-        options
+        options,
       ),
       octokit.request(
         "POST /applications/{client_id}/tokens/{access_token}",
-        options
+        options,
       ),
       octokit.request(
         "DELETE /applications/{client_id}/tokens/{access_token}",
-        options
+        options,
       ),
     ]);
   });
@@ -1143,7 +1143,7 @@ describe("deprecations", () => {
         reqheaders: {
           authorization: "token abc4567",
         },
-      }
+      },
     )
       .get("/")
       .reply(200, {});
@@ -1269,7 +1269,7 @@ describe("deprecations", () => {
 
     octokit.hook.wrap("request", (request, options) => {
       expect(options.headers["user-agent"]).to.match(
-        /^blah octokit\.js\/0\.0\.0-development /
+        /^blah octokit\.js\/0\.0\.0-development /,
       );
       return "ok";
     });
@@ -1297,7 +1297,7 @@ describe("deprecations", () => {
 
     octokit.hook.wrap("request", (request, options) => {
       expect(options.headers.accept).to.equal(
-        "application/vnd.github.jean-grey-preview+json,application/vnd.github.symmetra-preview+json"
+        "application/vnd.github.jean-grey-preview+json,application/vnd.github.symmetra-preview+json",
       );
       return "ok";
     });
@@ -1329,7 +1329,7 @@ describe("deprecations", () => {
         },
         {
           Link: '<https://api.github.com/installation/repositories?per_page=1&page=2>; rel="next", <https://api.github.com/installation/repositories?per_page=1&page=2>; rel="last"',
-        }
+        },
       )
 
       .get("/installation/repositories")
@@ -1350,7 +1350,7 @@ describe("deprecations", () => {
         },
         {
           Link: '<https://api.github.com/installation/repositories?per_page=1&page=1>; rel="first", <https://api.github.com/installation/repositories?per_page=1&page=1>; rel="prev"',
-        }
+        },
       )
 
       .get("/search/issues")
@@ -1371,7 +1371,7 @@ describe("deprecations", () => {
         },
         {
           Link: '<https://api.github.com/search/issues?q=repo%3Aweb-platform-tests%2Fwpt+is%3Apr+is%3Aopen+updated%3A%3E2019-02-26&per_page=1&page=2>; rel="next", <https://api.github.com/search/issues?q=repo%3Aweb-platform-tests%2Fwpt+is%3Apr+is%3Aopen+updated%3A%3E2019-02-26&per_page=1&page=2>; rel="last"',
-        }
+        },
       )
 
       .get("/search/issues")
@@ -1393,7 +1393,7 @@ describe("deprecations", () => {
         },
         {
           Link: '<https://api.github.com/search/issues?q=repo%3Aweb-platform-tests%2Fwpt+is%3Apr+is%3Aopen+updated%3A%3E2019-02-26&per_page=1&page=1>; rel="first", <https://api.github.com/search/issues?q=repo%3Aweb-platform-tests%2Fwpt+is%3Apr+is%3Aopen+updated%3A%3E2019-02-26&per_page=1&page=1>; rel="prev"',
-        }
+        },
       );
 
     let warnCallCount = 0;
@@ -1431,7 +1431,7 @@ describe("deprecations", () => {
           expect(result.data.total_count).to.equal(2);
           expect(result.data.items.length).to.equal(1);
           return result;
-        })
+        }),
       )
 
       .then(() => {

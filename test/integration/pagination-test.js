@@ -30,7 +30,7 @@ describe("pagination", () => {
         }),
       octokit
         .paginate("GET /organizations", { per_page: 1 }, (response) =>
-          response.data.map((org) => org.id)
+          response.data.map((org) => org.id),
         )
         .then((organizations) => {
           expect(organizations).to.deep.equal([1, 2]);
@@ -42,7 +42,7 @@ describe("pagination", () => {
             url: "/organizations",
             per_page: 1,
           },
-          (response) => response.data.map((org) => org.id)
+          (response) => response.data.map((org) => org.id),
         )
         .then((organizations) => {
           expect(organizations).to.deep.equal([1, 2]);
@@ -202,7 +202,7 @@ describe("pagination", () => {
         },
         {
           Link: '<https://api.github.com/search/issues?q=repo%3Aweb-platform-tests%2Fwpt+is%3Apr+is%3Aopen+updated%3A%3E2019-02-26&per_page=1&page=2>; rel="next", <https://api.github.com/search/issues?q=repo%3Aweb-platform-tests%2Fwpt+is%3Apr+is%3Aopen+updated%3A%3E2019-02-26&per_page=1&page=2>; rel="last"',
-        }
+        },
       )
 
       .get("/search/issues")
@@ -224,7 +224,7 @@ describe("pagination", () => {
         },
         {
           Link: '<https://api.github.com/search/issues?q=repo%3Aweb-platform-tests%2Fwpt+is%3Apr+is%3Aopen+updated%3A%3E2019-02-26&per_page=1&page=1>; rel="prev", <https://api.github.com/search/issues?q=repo%3Aweb-platform-tests%2Fwpt+is%3Apr+is%3Aopen+updated%3A%3E2019-02-26&per_page=1&page=1>; rel="first"',
-        }
+        },
       );
 
     const octokit = new Octokit();
@@ -259,7 +259,7 @@ describe("pagination", () => {
         },
         {
           Link: '<https://api.github.com/installation/repositories?per_page=1&page=2>; rel="next", <https://api.github.com/installation/repositories?per_page=1&page=2>; rel="last"',
-        }
+        },
       )
 
       .get("/installation/repositories")
@@ -280,7 +280,7 @@ describe("pagination", () => {
         },
         {
           Link: '<https://api.github.com/installation/repositories?per_page=1&page=1>; rel="prev", <https://api.github.com/installation/repositories?per_page=1&page=1>; rel="first"',
-        }
+        },
       );
 
     const octokit = new Octokit();
@@ -311,7 +311,7 @@ describe("pagination", () => {
         },
         {
           Link: '<https://api.github.com/user/installations?per_page=1&page=2>; rel="next", <https://api.github.com/user/installations?per_page=1&page=2>; rel="last"',
-        }
+        },
       )
 
       .get("/user/installations")
@@ -331,7 +331,7 @@ describe("pagination", () => {
         },
         {
           Link: '<https://api.github.com/user/installations?per_page=1&page=1>; rel="prev", <https://api.github.com/user/installations?per_page=1&page=1>; rel="first"',
-        }
+        },
       );
 
     const octokit = new Octokit();

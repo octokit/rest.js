@@ -25,7 +25,7 @@ export function loadFixture(scenario: string) {
     .catch((error) => {
       if (error.status === "ECONNREFUSED") {
         throw new Error(
-          'Fixtures server could not be reached. Make sure to start it with "npm run start-fixtures-server"'
+          'Fixtures server could not be reached. Make sure to start it with "npm run start-fixtures-server"',
         );
       }
 
@@ -35,17 +35,17 @@ export function loadFixture(scenario: string) {
 
 export function fixtureToInstance(
   { url }: OptionsWithUrl,
-  options?: OctokitOptions
+  options?: OctokitOptions,
 ) {
   return new Octokit(
     Object.assign(options || {}, {
       baseUrl: url,
-    })
+    }),
   );
 }
 
 export function getInstance(scenario: string, options?: OctokitOptions) {
   return loadFixture(scenario).then((fixture) =>
-    fixtureToInstance(fixture, options)
+    fixtureToInstance(fixture, options),
   );
 }

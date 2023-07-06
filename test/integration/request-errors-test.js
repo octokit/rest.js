@@ -90,7 +90,7 @@ describe("request errors", () => {
       {},
       {
         "x-foo": "bar",
-      }
+      },
     );
 
     const octokit = new Octokit({
@@ -123,7 +123,7 @@ describe("request errors", () => {
 
       .catch((error) => {
         expect(error.request.headers.authorization).to.equal(
-          "token [REDACTED]"
+          "token [REDACTED]",
         );
       });
   });

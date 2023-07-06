@@ -22,7 +22,7 @@ describe("custom client certificate", () => {
         response.writeHead(200);
         response.write("ok");
         response.end();
-      }
+      },
     );
 
     server.listen(0, done);

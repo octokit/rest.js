@@ -46,7 +46,7 @@ export default async function () {
   const userIssuesResponse = await octokit.rest.issues.listForAuthenticatedUser(
     {
       state: "open",
-    }
+    },
   );
   userIssuesResponse.data[0].locked;
 
@@ -96,7 +96,7 @@ export default async function () {
     console.log(`${options.method} ${options.url}: ${response.status}`);
   });
 
-  const findInCache = (etag: string) => ({} as EndpointDefaults);
+  const findInCache = (etag: string) => ({}) as EndpointDefaults;
 
   octokit.hook.error("request", async (error, options) => {
     if ("status" in error && error.status === 304) {
@@ -152,7 +152,7 @@ export default async function () {
     .paginate(
       "GET /repos/{owner}/{repo}/labels",
       { owner: "octokit", repo: "rest.js" },
-      (response) => response.data.map((label) => label.name)
+      (response) => response.data.map((label) => label.name),
     )
     .then((labelNames) => {
       // labelNames is now an array with the names only
@@ -163,7 +163,7 @@ export default async function () {
     repo: "rest.js",
   });
   for await (const response of octokit.paginate.iterator<{ id: number }>(
-    options
+    options,
   )) {
     // do whatever you want with each response, break out of the loop, etc.
     console.log(response.data.map((repo) => repo.id));
@@ -177,7 +177,7 @@ export default async function () {
       console.log(
         `${options.method} ${options.url} – ${response.status} in ${
           Date.now() - time
-        }ms`
+        }ms`,
       );
       return response;
     });
@@ -218,7 +218,7 @@ export default async function () {
   console.log(data.color);
 
   async function updateLabel(
-    options: RestEndpointMethodTypes["issues"]["updateLabel"]["parameters"]
+    options: RestEndpointMethodTypes["issues"]["updateLabel"]["parameters"],
   ): Promise<RestEndpointMethodTypes["issues"]["updateLabel"]["response"]> {
     console.log(options);
 

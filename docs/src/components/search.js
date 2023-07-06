@@ -60,7 +60,7 @@ export default class Search extends Component {
           <SearchResults
             results={this.state.results.slice(
               0,
-              this.state.visibleResultsCount
+              this.state.visibleResultsCount,
             )}
           />
         </ul>
