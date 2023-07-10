@@ -32,8 +32,8 @@
   ],
   "repository": "github:octokit/rest.js",
   "dependencies": {
-    "@octokit/core": "^4.2.1",
-    "@octokit/plugin-paginate-rest": "^7.0.0",
+    "@octokit/core": "^5.0.0",
+    "@octokit/plugin-paginate-rest": "^8.0.0",
     "@octokit/plugin-request-log": "^1.0.4",
     "@octokit/plugin-rest-endpoint-methods": "^7.1.2"
   },
@@ -41,7 +41,7 @@
     "@octokit/auth-action": "^2.0.3",
     "@octokit/auth-app": "^4.0.13",
     "@octokit/fixtures-server": "^7.0.0",
-    "@octokit/request": "^6.2.5",
+    "@octokit/request": "^8.0.4",
     "@octokit/tsconfig": "^2.0.0",
     "@types/jest": "^29.0.0",
     "@types/node": "^18.0.0",
