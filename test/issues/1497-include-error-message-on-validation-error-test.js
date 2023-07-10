@@ -58,7 +58,7 @@ describe("https://github.com/octokit/rest.js/issues/1497", () => {
       .catch((error) => {
         expect(error).to.have.property(
           "message",
-          `Validation Failed: "Only organization repositories can have users and team restrictions"`
+          `Validation Failed: "Only organization repositories can have users and team restrictions"`,
         );
       });
   });

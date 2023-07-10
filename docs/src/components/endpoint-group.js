@@ -32,7 +32,7 @@ export default class EndPointGroup extends Component {
     entries.forEach((entry) => {
       if (entry.isIntersecting) {
         console.log(
-          `EndPointGroup.entry.intersectionRatio: ${entry.intersectionRatio}`
+          `EndPointGroup.entry.intersectionRatio: ${entry.intersectionRatio}`,
         );
         const isAbove = entry.boundingClientRect.y < entry.rootBounds.y;
         console.log(`isAbove ${isAbove}`);
@@ -41,7 +41,7 @@ export default class EndPointGroup extends Component {
 
         if (entry.intersectionRatio >= 0.1) {
           console.log(
-            `EndPointGroup.onIntersection ${this.props.node.fieldValue}`
+            `EndPointGroup.onIntersection ${this.props.node.fieldValue}`,
           );
           this.props.onVisibleEndPointGroup(this.props.node.fieldValue);
         }

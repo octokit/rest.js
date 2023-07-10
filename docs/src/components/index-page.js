@@ -76,7 +76,7 @@ export default class IndexPage extends Component {
                           <option key={id} value={sourceInstanceName}>
                             {sourceInstanceName}
                           </option>
-                        )
+                        ),
                       )}
                     </select>
                   </div>

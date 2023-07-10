@@ -16,7 +16,7 @@ describe("https://github.com/octokit/rest.js/issues/1279", () => {
         {},
         {
           "x-github-otp": "required; app",
-        }
+        },
       );
 
     nock("https://authentication-test-host.com", {
@@ -65,7 +65,7 @@ describe("https://github.com/octokit/rest.js/issues/1279", () => {
         {},
         {
           "x-github-otp": "required; app",
-        }
+        },
       );
 
     nock("https://authentication-test-host.com", {
@@ -90,7 +90,7 @@ describe("https://github.com/octokit/rest.js/issues/1279", () => {
         {},
         {
           "x-github-otp": "required; app",
-        }
+        },
       );
 
     nock("https://authentication-test-host.com", {
