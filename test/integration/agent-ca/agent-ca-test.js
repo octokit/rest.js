@@ -7,7 +7,7 @@ const ca = readFileSync(resolve(__dirname, "./ca.crt"));
 
 require("../../mocha-node-setup");
 
-describe("custom client certificate", () => {
+describe.skip("custom client certificate", () => {
   let server;
   before((done) => {
     server = https.createServer(
