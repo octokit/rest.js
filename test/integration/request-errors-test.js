@@ -2,8 +2,6 @@ const nock = require("nock");
 
 const { Octokit } = require("../../");
 
-require("../mocha-node-setup");
-
 describe("request errors", () => {
   it("timeout", () => {
     nock("https://request-errors-test.com").get("/").delay(2000).reply(200, {});

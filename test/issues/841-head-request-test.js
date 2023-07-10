@@ -1,8 +1,6 @@
 const nock = require("nock");
 const { Octokit } = require("../../");
 
-require("../mocha-node-setup");
-
 describe("https://github.com/octokit/rest.js/issues/841", () => {
   it("supports sending GET requests with method: HEAD", () => {
     nock("https://head-request-test.com")

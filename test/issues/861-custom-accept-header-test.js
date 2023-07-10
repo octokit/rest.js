@@ -1,8 +1,6 @@
 const nock = require("nock");
 const { Octokit } = require("../../");
 
-require("../mocha-node-setup");
-
 describe("https://github.com/octokit/rest.js/issues/861", () => {
   it("custom accept header", () => {
     nock("https://issues-861-test.com", {

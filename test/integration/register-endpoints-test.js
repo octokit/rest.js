@@ -2,8 +2,6 @@ const nock = require("nock");
 
 const { Octokit } = require("../../");
 
-require("../mocha-node-setup");
-
 describe("registerEndpoints", () => {
   it("optins are not altered in registered endpoint methods", () => {
     nock("https://api.github.com")

@@ -5,8 +5,6 @@ const { createActionAuth } = require("@octokit/auth-action");
 
 const { Octokit } = require("../..");
 
-require("../mocha-node-setup");
-
 describe("authentication", () => {
   it("unauthenticated", () => {
     nock("https://authentication-test-host.com").get("/").reply(200, {});

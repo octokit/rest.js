@@ -5,8 +5,6 @@ const { resolve } = require("path");
 const { Octokit } = require("../../..");
 const ca = readFileSync(resolve(__dirname, "./ca.crt"));
 
-require("../../mocha-node-setup");
-
 describe.skip("custom client certificate", () => {
   let server;
   before((done) => {

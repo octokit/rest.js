@@ -2,8 +2,6 @@ const nock = require("nock");
 
 const { Octokit } = require("../../");
 
-require("../mocha-node-setup");
-
 describe("params validations", () => {
   it("octokit.rest.orgs.get({})", () => {
     const octokit = new Octokit();

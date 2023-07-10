@@ -1,8 +1,6 @@
 const nock = require("nock");
 const { Octokit } = require("../../");
 
-require("../mocha-node-setup");
-
 describe("https://github.com/octokit/rest.js/issues/1497", () => {
   it("octokit.rest.repos.updateBranchProtection()", () => {
     nock("https://request-errors-test.com", {
