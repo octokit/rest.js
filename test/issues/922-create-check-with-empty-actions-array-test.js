@@ -1,8 +1,6 @@
 const nock = require("nock");
 const { Octokit } = require("../../");
 
-require("../mocha-node-setup");
-
 describe("https://github.com/octokit/rest.js/issues/922", () => {
   it("octokit.rest.issues.update({..., milestone: null})", () => {
     nock("https://api.github.com")

@@ -34,7 +34,7 @@ describe("api.github.com", () => {
       .then((response) => {
         expect(response.data.length).toEqual(1);
 
-        return githubUserB.repos.acceptInvitation({
+        return githubUserB.repos.acceptInvitationForAuthenticatedUser({
           invitation_id: response.data[0].id,
         });
       })

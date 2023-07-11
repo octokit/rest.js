@@ -2,8 +2,6 @@ const nock = require("nock");
 
 const { Octokit } = require("../../");
 
-require("../mocha-node-setup");
-
 describe("request 304s", () => {
   let octokit;
 

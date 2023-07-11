@@ -1,11 +1,9 @@
-const https = require("https");
 const { readFileSync } = require("fs");
 const { resolve } = require("path");
+const { fetch: undiciFetch, Agent } = require("undici");
 
 const { Octokit } = require("../../..");
 const ca = readFileSync(resolve(__dirname, "./ca.crt"));
-
-require("../../mocha-node-setup");
 
 describe("custom client certificate", () => {
   let server;
@@ -28,13 +26,23 @@ describe("custom client certificate", () => {
     server.listen(0, done);
   });
 
-  it("https.Agent({ca})", () => {
-    const agent = new https.Agent({
-      ca,
+  it("undici.Agent({ca})", () => {
+    const agent = new Agent({
+      keepAliveTimeout: 10,
+      keepAliveMaxTimeout: 10,
+      connect: { ca: ca },
     });
+    const myFetch = (url, opts) => {
+      return undiciFetch(url, {
+        ...opts,
+        dispatcher: agent,
+      });
+    };
     const octokit = new Octokit({
       baseUrl: "https://localhost:" + server.address().port,
-      request: { agent },
+      request: {
+        fetch: myFetch,
+      },
     });
 
     return octokit.rest.repos.get({
@@ -43,14 +51,26 @@ describe("custom client certificate", () => {
     });
   });
 
-  it("https.Agent({ca, rejectUnauthorized})", () => {
-    const agent = new https.Agent({
-      ca: "invalid",
-      rejectUnauthorized: false,
+  it("undici.Agent({ca, rejectUnauthorized})", () => {
+    const agent = new Agent({
+      keepAliveTimeout: 10,
+      keepAliveMaxTimeout: 10,
+      connect: {
+        ca: "invalid",
+        rejectUnauthorized: true,
+      },
     });
+    const myFetch = (url, opts) => {
+      return undiciFetch(url, {
+        ...opts,
+        dispatcher: agent,
+      });
+    };
     const octokit = new Octokit({
       baseUrl: "https://localhost:" + server.address().port,
-      request: { agent },
+      request: {
+        fetch: myFetch,
+      },
     });
 
     return octokit.rest.repos.get({

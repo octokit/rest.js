@@ -2,8 +2,6 @@ const nock = require("nock");
 
 const { Octokit } = require("../../");
 
-require("../mocha-node-setup");
-
 describe("pagination", () => {
   it(".paginate()", () => {
     nock("https://pagination-test.com")

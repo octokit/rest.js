@@ -4,8 +4,6 @@ const nock = require("nock");
 const DeprecatedOctokit = require("../../");
 const { Octokit } = DeprecatedOctokit;
 
-require("../mocha-node-setup");
-
 const Mocktokit = Octokit.plugin((octokit) => {
   octokit.hook.wrap("request", () => null);
 });

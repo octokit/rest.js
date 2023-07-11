@@ -32,28 +32,30 @@
   ],
   "repository": "github:octokit/rest.js",
   "dependencies": {
-    "@octokit/core": "^4.2.1",
-    "@octokit/plugin-paginate-rest": "^6.1.2",
+    "@octokit/core": "^5.0.0",
+    "@octokit/plugin-paginate-rest": "^8.0.0",
     "@octokit/plugin-request-log": "^1.0.4",
-    "@octokit/plugin-rest-endpoint-methods": "^7.1.2"
+    "@octokit/plugin-rest-endpoint-methods": "^9.0.0"
   },
   "devDependencies": {
-    "@octokit/auth-action": "^2.0.3",
-    "@octokit/auth-app": "^4.0.13",
+    "@octokit/auth-action": "^4.0.0",
+    "@octokit/auth-app": "^6.0.0",
     "@octokit/fixtures-server": "^7.0.0",
-    "@octokit/request": "^6.2.5",
+    "@octokit/request": "^8.0.4",
     "@octokit/tsconfig": "^2.0.0",
     "@types/jest": "^29.0.0",
     "@types/node": "^18.0.0",
     "esbuild": "^0.18.0",
-    "fetch-mock": "^9.0.0",
+    "fetch-mock": "npm:@gr2m/fetch-mock@9.11.0-pull-request-644.1",
     "glob": "^10.2.5",
     "jest": "^29.0.0",
+    "nock": "^13.3.1",
     "prettier": "3.0.0",
     "semantic-release": "^21.0.0",
     "semantic-release-plugin-update-version-in-files": "^1.0.0",
     "ts-jest": "^29.0.0",
-    "typescript": "^5.0.0"
+    "typescript": "^5.0.0",
+    "undici": "^5.22.1"
   },
   "scripts": {
     "build": "node scripts/build.mjs && tsc -p tsconfig.json",
@@ -120,6 +122,6 @@
     ]
   },
   "engines": {
-    "node": ">= 14"
+    "node": ">= 18"
   }
 }

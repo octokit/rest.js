@@ -1,7 +1,5 @@
 const { Octokit } = require("../../");
 
-require("../mocha-node-setup");
-
 describe("plugins", () => {
   it("gets called in constructor", () => {
     const MyOctokit = Octokit.plugin((octokit) => {

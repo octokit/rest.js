@@ -18,16 +18,15 @@ jobs:
     strategy:
       matrix:
         node_version:
-          - 14
-          - 16
           - 18
+          - 20
     steps:
       - uses: actions/checkout@v3
       - name: Test with Node.js ${{ matrix.node_version }}
         uses: actions/setup-node@v3
         with:
           cache: npm
-          node-version: 16
+          node-version: ${{ matrix.node_version }}
       - run: npm ci
       - run: npm run start-fixtures-server &
       - run: sleep 3

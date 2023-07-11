@@ -1,8 +1,6 @@
 const nock = require("nock");
 const { Octokit } = require("../../");
 
-require("../mocha-node-setup");
-
 describe("https://github.com/octokit/rest.js/issues/1279", () => {
   it("2fa code gets stored and passed as header to listAuthorizations", () => {
     nock("https://authentication-test-host.com", {
