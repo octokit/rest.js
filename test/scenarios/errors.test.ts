@@ -24,16 +24,13 @@ describe("api.github.com", () => {
         expect(error.message).toEqual(
           `Validation Failed: {"resource":"Label","code":"invalid","field":"color"}`,
         );
-        // To-Do: Figure out why the objects are not strictly equal
-        expect(JSON.stringify(error.response.data.errors)).toStrictEqual(
-          JSON.stringify([
-            {
-              resource: "Label",
-              code: "invalid",
-              field: "color",
-            },
-          ]),
-        );
+        expect(error.response.data.errors).toEqual([
+          {
+            resource: "Label",
+            code: "invalid",
+            field: "color",
+          },
+        ]);
         expect(error.response.data.documentation_url).toMatch(
           new RegExp("rest/reference/issues#create-a-label"),
         );
