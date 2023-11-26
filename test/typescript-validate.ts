@@ -1,4 +1,4 @@
-import { Agent } from "http";
+import { Agent } from "node:http";
 
 import { EndpointDefaults } from "@octokit/types";
 
