@@ -1,7 +1,7 @@
 // this file is not run directly but instead required in paginate-issues-test.js
 // for Node v10 and higher only
 
-import { getInstance, OctokitType } from "../util.js";
+import { getInstance, OctokitType } from "../util.ts";
 
 describe("api.github.com", () => {
   let octokit: OctokitType;

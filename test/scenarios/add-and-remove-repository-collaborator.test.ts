@@ -1,4 +1,4 @@
-import { loadFixture, fixtureToInstance, OctokitType } from "../util.js";
+import { loadFixture, fixtureToInstance, OctokitType } from "../util.ts";
 
 describe("api.github.com", () => {
   let githubUserA: OctokitType;
