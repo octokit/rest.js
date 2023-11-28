@@ -1,4 +1,4 @@
-import { getInstance, OctokitType } from "../util";
+import { getInstance, OctokitType } from "../util.js";
 
 describe("api.github.com", () => {
   let octokit: OctokitType;

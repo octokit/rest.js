@@ -1,6 +1,6 @@
 import fetchMock from "fetch-mock";
 
-import { Octokit } from "../../src";
+import { Octokit } from "../../src/index.ts";
 
 describe("https://github.com/octokit/rest.js/issues/881", () => {
   it("returns response.url", () => {

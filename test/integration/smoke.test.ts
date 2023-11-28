@@ -1,6 +1,6 @@
 import fetchMock from "fetch-mock";
 
-import { Octokit } from "../../src";
+import { Octokit } from "../../src/index.ts";
 
 describe("Smoke tests", () => {
   it("is a function", () => {

@@ -1,5 +1,5 @@
-const { readFileSync } = require("fs");
-const { resolve } = require("path");
+const { readFileSync } = require("node:fs");
+const { resolve } = require("node:path");
 const { fetch: undiciFetch, Agent } = require("undici");
 
 const { Octokit } = require("../../..");
