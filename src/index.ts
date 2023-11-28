@@ -4,7 +4,7 @@ import { paginateRest } from "@octokit/plugin-paginate-rest";
 import { legacyRestEndpointMethods } from "@octokit/plugin-rest-endpoint-methods";
 export type { RestEndpointMethodTypes } from "@octokit/plugin-rest-endpoint-methods";
 
-import { VERSION } from "./version";
+import { VERSION } from "./version.js";
 
 export const Octokit = Core.plugin(
   requestLog,

@@ -1,4 +1,4 @@
-import { getInstance, OctokitType } from "../util";
+import { getInstance, OctokitType } from "../util.ts";
 
 type IteratorResult = {
   value: {

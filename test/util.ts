@@ -2,7 +2,7 @@
 
 import { request } from "@octokit/request";
 
-import { Octokit } from "../src";
+import { Octokit } from "../src/index.ts";
 
 type Unpacked<T> = T extends (infer U)[]
   ? U

@@ -1,8 +1,8 @@
-import { Agent } from "http";
+import { Agent } from "node:http";
 
 import { EndpointDefaults } from "@octokit/types";
 
-import { Octokit, RestEndpointMethodTypes } from "../src";
+import { Octokit, RestEndpointMethodTypes } from "../src/index.ts";
 
 // ************************************************************
 // THIS CODE IS NOT EXECUTED. IT IS JUST FOR TYPECHECKING

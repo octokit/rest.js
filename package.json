@@ -65,7 +65,7 @@
     "start-fixtures-server": "octokit-fixtures-server",
     "pretest": "npm run -s lint",
     "test": "jest --coverage",
-    "test:typescript": "npx tsc --noEmit --declaration --noUnusedLocals test/typescript-validate.ts"
+    "test:typescript": "npx tsc --noEmit --declaration --allowImportingTsExtensions --moduleResolution node16 --module node16 --noUnusedLocals test/typescript-validate.ts"
   },
   "license": "MIT",
   "jest": {
@@ -87,6 +87,9 @@
         "functions": 100,
         "lines": 100
       }
+    },
+    "moduleNameMapper": {
+      "^(.+)\\.jsx?$": "$1"
     }
   },
   "release": {
