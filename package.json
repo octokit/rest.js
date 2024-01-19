@@ -53,7 +53,7 @@
     "prettier": "^3.2.4",
     "semantic-release": "^23.0.0",
     "semantic-release-plugin-update-version-in-files": "^1.1.0",
-    "ts-jest": "^29.0.0",
+    "ts-jest": "^29.1.1",
     "typescript": "^5.0.0",
     "undici": "^6.0.0"
   },
