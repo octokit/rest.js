@@ -40,7 +40,7 @@
   "devDependencies": {
     "@octokit/auth-action": "^4.0.1",
     "@octokit/auth-app": "^6.0.3",
-    "@octokit/fixtures-server": "^7.0.0",
+    "@octokit/fixtures-server": "^7.0.10",
     "@octokit/request": "^8.0.4",
     "@octokit/tsconfig": "^2.0.0",
     "@types/jest": "^29.0.0",
