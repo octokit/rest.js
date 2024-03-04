@@ -1,5 +1,6 @@
 import { describe, it, expect, vi } from "vitest";
 import fetchMock from "fetch-mock";
+import { jest } from "@jest/globals";
 
 import { Octokit } from "../../src/index.ts";
 
