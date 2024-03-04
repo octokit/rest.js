@@ -25,7 +25,6 @@ async function main() {
     platform: "neutral",
     format: "esm",
     ...sharedOptions,
-    sourcemap: false,
   });
 
   // Remove the types file from the dist-src folder
@@ -36,30 +35,6 @@ async function main() {
   for (const typeFile of typeFiles) {
     await rm(typeFile);
   }
-
-  const entryPoints = ["./pkg/dist-src/index.js"];
-
-  await Promise.all([
-    // Build the a CJS Node.js bundle
-    esbuild.build({
-      entryPoints,
-      outdir: "pkg/dist-node",
-      bundle: true,
-      platform: "node",
-      target: "node14",
-      format: "cjs",
-      ...sharedOptions,
-    }),
-    // Build an ESM browser bundle
-    esbuild.build({
-      entryPoints,
-      outdir: "pkg/dist-web",
-      bundle: true,
-      platform: "browser",
-      format: "esm",
-      ...sharedOptions,
-    }),
-  ]);
 
   // Copy the README, LICENSE to the pkg folder
   await copyFile("LICENSE", "pkg/LICENSE");
@@ -77,11 +52,15 @@ async function main() {
     JSON.stringify(
       {
         ...pkg,
-        files: ["dist-*/**", "bin/**"],
-        main: "dist-node/index.js",
-        module: "dist-web/index.js",
+        files: ["dist-*/**"],
+        main: "dist-src/index.js",
         types: "dist-types/index.d.ts",
-        source: "dist-src/index.js",
+        exports: {
+          ".": {
+            types: "./dist-types/index.d.ts",
+            import: "./dist-src/index.js",
+          }
+        },
         sideEffects: false,
       },
       null,
