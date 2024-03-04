@@ -28,8 +28,7 @@ Node
 Install with <code>npm install @octokit/rest</code>
 
 ```js
-const { Octokit } = require("@octokit/rest");
-// or: import { Octokit } from "@octokit/rest";
+import { Octokit } from "@octokit/rest";
 ```
 
 </td></tr>
