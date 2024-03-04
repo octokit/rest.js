@@ -1,5 +1,3 @@
-const btoa = require("btoa-lite");
-
 import { getInstance, OctokitType } from "../util.ts";
 
 describe("api.github.com", () => {
