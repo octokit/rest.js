@@ -35,11 +35,11 @@
   "dependencies": {
     "@octokit/core": "^6.0.1",
     "@octokit/plugin-paginate-rest": "^10.0.0",
-    "@octokit/plugin-request-log": "^4.0.0",
+    "@octokit/plugin-request-log": "^5.0.0",
     "@octokit/plugin-rest-endpoint-methods": "^11.0.1"
   },
   "devDependencies": {
-    "@octokit/auth-action": "^5.0.0-beta.1",
+    "@octokit/auth-action": "^5.0.0",
     "@octokit/auth-app": "^7.0.0-beta.4",
     "@octokit/fixtures-server": "^8.0.0",
     "@octokit/request": "^9.0.1",
