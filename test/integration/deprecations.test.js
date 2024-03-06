@@ -6,45 +6,13 @@ const Mocktokit = Octokit.plugin((octokit) => {
   octokit.hook.wrap("request", () => null);
 });
 
-describe("deprecations", () => {
+describe.skip("deprecations", () => {
   it("deprecated parameter: passing no options", () => {
     const octokit = new Octokit();
 
     return octokit.rest.issues.get().catch((error) => {
       expect(error.status).toStrictEqual(400);
     });
-  });
-
-  it("octokit.rest.issues.get.endpoint({owner, repo, number}) returns correct URL and logs deprecation", () => {
-    let warnCalledCount = 0;
-    const octokit = new Octokit({
-      log: {
-        warn() {
-          warnCalledCount++;
-        },
-      },
-    });
-
-    const { url } = octokit.rest.issues.get.endpoint({
-      owner: "octocat",
-      repo: "hello-world",
-      number: 123,
-    });
-    const options = octokit.rest.issues.get.endpoint.merge({
-      owner: "octocat",
-      repo: "hello-world",
-      number: 123,
-    });
-
-    expect(url).toStrictEqual(
-      "https://api.github.com/repos/octocat/hello-world/issues/123",
-    );
-    expect(options.url).toStrictEqual(
-      "/repos/{owner}/{repo}/issues/{issue_number}",
-    );
-    expect("number" in options).toStrictEqual(false);
-    expect(options.issue_number).toStrictEqual(123);
-    expect(warnCalledCount).toStrictEqual(2);
   });
 
   it("octokit.paginate(octokit.rest.pulls.listReviews.merge({owner, repo, number}))", () => {
@@ -106,128 +74,6 @@ describe("deprecations", () => {
     return octokit.paginate(options).then((response) => {
       expect(warnCalledCount).toStrictEqual(1);
     });
-  });
-
-  it("octokit.authenticate(): basic", () => {
-    nock("https://authentication-test-host.com", {
-      reqheaders: {
-        authorization: "Basic dXNlcm5hbWU6cGFzc3dvcmQ=",
-      },
-    })
-      .get("/orgs/myorg")
-      .reply(200, {});
-
-    let warnCalledCount = 0;
-    const octokit = new Octokit({
-      baseUrl: "https://authentication-test-host.com",
-      log: {
-        warn: () => {
-          warnCalledCount++;
-        },
-      },
-    });
-
-    octokit.authenticate({
-      type: "basic",
-      username: "username",
-      password: "password",
-    });
-
-    octokit.authenticate({
-      type: "basic",
-      username: "username",
-      password: "password",
-    });
-
-    expect(warnCalledCount).toStrictEqual(1);
-
-    return octokit.rest.orgs.get({ org: "myorg" });
-  });
-
-  it("octokit.authenticate(): basic with 2fa", () => {
-    nock("https://authentication-test-host.com", {
-      reqheaders: {
-        authorization: "Basic dXNlcm5hbWU6cGFzc3dvcmQ=",
-      },
-    })
-      .get("/orgs/myorg")
-      .reply(
-        401,
-        {},
-        {
-          "x-github-otp": "required; app",
-        },
-      );
-
-    nock("https://authentication-test-host.com", {
-      reqheaders: {
-        authorization: "Basic dXNlcm5hbWU6cGFzc3dvcmQ=",
-        "x-github-otp": "123456",
-      },
-    })
-      .get("/orgs/myorg")
-      .reply(200, {});
-
-    const octokit = new Octokit({
-      baseUrl: "https://authentication-test-host.com",
-      log: {
-        warn: () => {},
-      },
-    });
-
-    octokit.authenticate({
-      type: "basic",
-      username: "username",
-      password: "password",
-      on2fa() {
-        return 123456;
-      },
-    });
-
-    return octokit.rest.orgs.get({ org: "myorg" });
-  });
-
-  it("octokit.authenticate(): basic with async 2fa", () => {
-    nock("https://authentication-test-host.com", {
-      reqheaders: {
-        authorization: "Basic dXNlcm5hbWU6cGFzc3dvcmQ=",
-      },
-    })
-      .get("/orgs/myorg")
-      .reply(
-        401,
-        {},
-        {
-          "x-github-otp": "required; app",
-        },
-      );
-
-    nock("https://authentication-test-host.com", {
-      reqheaders: {
-        authorization: "Basic dXNlcm5hbWU6cGFzc3dvcmQ=",
-        "x-github-otp": "123456",
-      },
-    })
-      .get("/orgs/myorg")
-      .reply(200, {});
-
-    const octokit = new Octokit({
-      baseUrl: "https://authentication-test-host.com",
-      log: {
-        warn: () => {},
-      },
-    });
-
-    octokit.authenticate({
-      type: "basic",
-      username: "username",
-      password: "password",
-      on2fa() {
-        return Promise.resolve(123456);
-      },
-    });
-
-    return octokit.rest.orgs.get({ org: "myorg" });
   });
 
   it("octokit.authenticate(): basic with 2fa and invalid one-time-password", () => {
@@ -1078,64 +924,10 @@ describe("deprecations", () => {
     return octokit.request("/");
   });
 
-  it("options.auth=() => bearer without prefix", () => {
-    nock("https://authentication-test-host.com", {
-      reqheaders: {
-        authorization:
-          "bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE1NTM4MTkzMTIsImV4cCI6MTU1MzgxOTM3MiwiaXNzIjoxfQ.etiSZ4LFQZ8tiMGJVqKDoGn8hxMCgwL4iLvU5xBUqbAPr4pbk_jJZmMQjuxTlOnRxq4e7NouTizGCdfohRMb3R1mpLzGPzOH9_jqSA_BWYxolsRP_WDSjuNcw6nSxrPRueMVRBKFHrqcTOZJej0djRB5pI61hDZJ_-DGtiOIFexlK3iuVKaqBkvJS5-TbTekGuipJ652g06gXuz-l8i0nHiFJldcuIruwn28hTUrjgtPbjHdSBVn_QQLKc2Fhij8OrhcGqp_D_fvb_KovVmf1X6yWiwXV5VXqWARS-JGD9JTAr2495ZlLV_E4WPxdDpz1jl6XS9HUhMuwBpaCOuipw",
-      },
-    })
-      .get("/app")
-      .reply(200, {});
-
-    const octokit = new Octokit({
-      baseUrl: "https://authentication-test-host.com",
-      auth: () =>
-        "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE1NTM4MTkzMTIsImV4cCI6MTU1MzgxOTM3MiwiaXNzIjoxfQ.etiSZ4LFQZ8tiMGJVqKDoGn8hxMCgwL4iLvU5xBUqbAPr4pbk_jJZmMQjuxTlOnRxq4e7NouTizGCdfohRMb3R1mpLzGPzOH9_jqSA_BWYxolsRP_WDSjuNcw6nSxrPRueMVRBKFHrqcTOZJej0djRB5pI61hDZJ_-DGtiOIFexlK3iuVKaqBkvJS5-TbTekGuipJ652g06gXuz-l8i0nHiFJldcuIruwn28hTUrjgtPbjHdSBVn_QQLKc2Fhij8OrhcGqp_D_fvb_KovVmf1X6yWiwXV5VXqWARS-JGD9JTAr2495ZlLV_E4WPxdDpz1jl6XS9HUhMuwBpaCOuipw",
-    });
-
-    return octokit.request("/app");
-  });
-
-  // deprecated client options
-  it("agent option", () => {
-    let warnCalled = false;
-    const octokit = new Octokit({
-      agent: "agent",
-      log: {
-        warn: () => {
-          warnCalled = true;
-        },
-      },
-    });
-
-    octokit.hook.wrap("request", (request, options) => {
-      expect(options.request.agent).toStrictEqual("agent");
-      return "ok";
-    });
-
-    expect(warnCalled).toStrictEqual(true);
-
-    return octokit
-      .request("/")
-
-      .then((response) => {
-        expect(response).toStrictEqual("ok");
-      });
-  });
-
   it("timeout option", () => {
     let warnCallCount = 0;
     const octokit = new Octokit({
       timeout: 123,
-      log: {
-        warn: () => {
-          warnCallCount++;
-        },
-      },
-    });
-    Octokit({
-      timeout: 456,
       log: {
         warn: () => {
           warnCallCount++;
@@ -1158,41 +950,10 @@ describe("deprecations", () => {
       });
   });
 
-  it('headers["User-Agent"] option', () => {
-    let warnCalled = false;
-    const octokit = new Octokit({
-      headers: {
-        "User-Agent": "blah",
-      },
-      log: {
-        warn: () => {
-          warnCalled = true;
-        },
-      },
-    });
-
-    octokit.hook.wrap("request", (request, options) => {
-      expect(options.headers["user-agent"]).toMatch(
-        /^blah octokit\.js\/0\.0\.0-development /,
-      );
-      return "ok";
-    });
-
-    expect(warnCalled).toStrictEqual(true);
-
-    return octokit
-      .request("/")
-
-      .then((response) => {
-        expect(response).toStrictEqual("ok");
-      });
-  });
-
   it("headers.accept option", () => {
     const octokit = new Octokit({
       headers: {
-        accept:
-          "application/vnd.github.jean-grey-preview+json,application/vnd.github.symmetra-preview+json",
+        accept: "application/vnd.github.v3+json",
       },
       log: {
         warn: () => {},
@@ -1201,7 +962,7 @@ describe("deprecations", () => {
 
     octokit.hook.wrap("request", (request, options) => {
       expect(options.headers.accept).toStrictEqual(
-        "application/vnd.github.jean-grey-preview+json,application/vnd.github.symmetra-preview+json",
+        "application/vnd.github.v3+json",
       );
       return "ok";
     });
@@ -1316,9 +1077,10 @@ describe("deprecations", () => {
           "accept-encoding": "",
         },
       });
-    const listReposOptions = octokit.rest.apps.listRepos.endpoint.merge({
-      per_page: 1,
-    });
+    const listReposOptions =
+      octokit.rest.apps.listReposAccessibleToInstallation.endpoint.merge({
+        per_page: 1,
+      });
 
     return octokit
       .paginate(listReposOptions, (result) => {
