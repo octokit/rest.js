@@ -97,11 +97,11 @@ describe("params validations", () => {
       });
   });
 
-  it("Not a valid JSON string for octokit.rest.repos.createHook({..., config})", () => {
+  it("Not a valid JSON string for octokit.rest.repos.createWebhook({..., config})", () => {
     const octokit = new Octokit();
 
     return octokit.rest.repos
-      .createHook({
+      .createWebhook({
         owner: "foo",
         repo: "bar",
         name: "captain",
