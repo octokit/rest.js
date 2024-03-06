@@ -5,8 +5,7 @@ describe("https://github.com/octokit/rest.js/issues/1497", () => {
   it("octokit.rest.repos.updateBranchProtection()", () => {
     nock("https://request-errors-test.com", {
       reqheaders: {
-        accept:
-          "application/vnd.github.hellcat-preview+json,application/vnd.github.luke-cage-preview+json,application/vnd.github.zzzax-preview+json",
+        accept: "application/vnd.github.v3",
         authorization: "token secret123",
       },
     })
@@ -36,7 +35,6 @@ describe("https://github.com/octokit/rest.js/issues/1497", () => {
     });
     return octokit.rest.repos
       .updateBranchProtection({
-        mediaType: { previews: ["hellcat", "luke-cage", "zzzax"] },
         owner: "gr2m",
         repo: "sandbox",
         branch: "gr2m-patch-1",
