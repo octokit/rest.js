@@ -11,8 +11,8 @@ The `throttle.onSecondaryRateLimit` and `throttle.onRateLimit` options are requi
 Return `true` from these functions to automatically retry the request after `retryAfter` seconds. Return `false` or `undefined` to skip retry and throw the error. For rate limit errors, `retryAfter` defaults to seconds until `X-RateLimit-Reset`. For abuse errors, `retryAfter` defaults to the `retry-after` header but is a minimum of five seconds.
 
 ```js
-const { Octokit } = require("@octokit/rest");
-const { throttling } = require("@octokit/plugin-throttling");
+import { Octokit } from "@octokit/rest";
+import { throttling } from "@octokit/plugin-throttling";
 const MyOctokit = Octokit.plugin(throttling);
 
 const octokit = new MyOctokit({

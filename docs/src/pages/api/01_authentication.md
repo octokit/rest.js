@@ -16,7 +16,7 @@ Learn more about all official and community [authentication strategies](https://
 By default, `@octokit/rest` authenticates using the [token authentication strategy](https://github.com/octokit/auth-token.js). Pass in a token using `options.auth`. It can be a personal access token, an OAuth token, an installation access token or a JSON Web Token for GitHub App authentication. The `Authorization` request header will be set according to the type of token.
 
 ```js
-const { Octokit } = require("@octokit/rest");
+import { Octokit } from "@octokit/rest";
 
 const octokit = new Octokit({
   auth: "mypersonalaccesstoken123",
@@ -30,8 +30,8 @@ To use a different authentication strategy, set `options.authStrategy`.
 Here is an example for GitHub App authentication
 
 ```js
-const { Octokit } = require("@octokit/rest");
-const { createAppAuth } = require("@octokit/auth-app");
+import { Octokit } from "@octokit/rest";
+import { createAppAuth } from "@octokit/auth-app";
 
 const appOctokit = new Octokit({
   authStrategy: createAppAuth,

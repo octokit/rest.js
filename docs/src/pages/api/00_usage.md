@@ -24,15 +24,14 @@ Load <code>@octokit/rest</code> directly from <a href="https://esm.sh">esm.sh</a
 Install with <code>npm install @octokit/rest</code>
 
 ```js
-const { Octokit } = require("@octokit/rest");
-// or: import { Octokit } from "@octokit/rest";
+import { Octokit } from "@octokit/rest";
 ```
 
 </div>
 <hr />
 
 ```js
-const { Octokit } = require("@octokit/rest");
+import { Octokit } from "@octokit/rest";
 ```
 
 Now instantiate your octokit API. All options are optional, but authentication is strongly encouraged.
