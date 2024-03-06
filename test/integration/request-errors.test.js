@@ -43,7 +43,7 @@ describe("request errors", () => {
       .catch((error) => {
         expect(error.name).toStrictEqual("HttpError");
         expect(error.status).toStrictEqual(500);
-        expect(error.stacl).not.toBeUndefined();
+        expect(error.stack).not.toBeUndefined();
       });
   });
 

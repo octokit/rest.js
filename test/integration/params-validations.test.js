@@ -155,14 +155,14 @@ describe("params validations", () => {
       })
       .reply(200, {});
 
-    return octokit.rest.activity.listNotifications({
+    return octokit.rest.activity.listNotificationsForAuthenticatedUser({
       since: "2018-01-21T23:27:31.000Z",
     });
   });
 
   it("octokit.rest.gitdata.createTree() with invalid tree[] object", () => {
     const octokit = new Octokit();
-    return octokit.rest.gitdata
+    return octokit.rest.git
       .createTree({
         owner: "foo",
         repo: "bar",
