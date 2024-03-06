@@ -1,21 +1,21 @@
-const { readFileSync } = require("node:fs");
-const { resolve } = require("node:path");
-const { fetch: undiciFetch, Agent } = require("undici");
+import { readFileSync } from "node:fs";
+import { fetch as undiciFetch, Agent } from "undici";
+import https from "node:https";
 
-const { Octokit } = require("../../..");
-const ca = readFileSync(resolve(__dirname, "./ca.crt"));
+import { Octokit } from "../../../pkg/dist-src/index.js";
+const ca = readFileSync(new URL("./ca.crt", import.meta.url));
 
 describe("custom client certificate", () => {
   let server;
-  before((done) => {
+  beforeAll((done) => {
     server = https.createServer(
       {
-        key: readFileSync(resolve(__dirname, "./localhost.key")),
-        cert: readFileSync(resolve(__dirname, "./localhost.crt")),
+        key: readFileSync(new URL("./localhost.key", import.meta.url)),
+        cert: readFileSync(new URL("./localhost.crt", import.meta.url)),
       },
       function (request, response) {
-        expect(request.method).to.equal("GET");
-        expect(request.url).to.equal("/repos/octokit/rest.js");
+        expect(request.method).toStrictEqual("GET");
+        expect(request.url).toStrictEqual("/repos/octokit/rest.js");
 
         response.writeHead(200);
         response.write("ok");
@@ -79,5 +79,5 @@ describe("custom client certificate", () => {
     });
   });
 
-  after((done) => server.close(done));
+  afterAll(() => server.close());
 });

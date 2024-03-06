@@ -1,5 +1,5 @@
-const nock = require("nock");
-const { Octokit } = require("../../");
+import nock from "nock";
+import { Octokit } from "../../pkg/dist-src/index.js";
 
 describe("https://github.com/octokit/rest.js/issues/1279", () => {
   it("2fa code gets stored and passed as header to listAuthorizations", () => {
@@ -114,11 +114,11 @@ describe("https://github.com/octokit/rest.js/issues/1279", () => {
     });
 
     return octokit.request("/").then(() => {
-      expect(on2faCalledCounter).to.equal(1);
+      expect(on2faCalledCounter).toStrictEqual(1);
       return octokit.authorization
         .listAuthorizations({ per_page: 100 })
         .then(() => {
-          expect(on2faCalledCounter).to.equal(2);
+          expect(on2faCalledCounter).toStrictEqual(2);
         });
     });
   });

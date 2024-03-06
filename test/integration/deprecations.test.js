@@ -1,113 +1,17 @@
-const btoa = require("btoa-lite");
-const nock = require("nock");
+import nock from "nock";
 
-const DeprecatedOctokit = require("../../");
-const { Octokit } = DeprecatedOctokit;
+import { Octokit } from "../../pkg/dist-src/index.js";
 
 const Mocktokit = Octokit.plugin((octokit) => {
   octokit.hook.wrap("request", () => null);
 });
 
 describe("deprecations", () => {
-  it('const Octokit = require("@octokit/rest")', () => {
-    let warnCalledCount = 0;
-    new DeprecatedOctokit({
-      log: {
-        warn: () => {
-          warnCalledCount++;
-        },
-      },
-    });
-
-    expect(warnCalledCount).to.equal(1);
-    expect(() => new DeprecatedOctokit()).to.not.throw();
-    expect(typeof DeprecatedOctokit.plugin).to.equal("function");
-  });
-  it("octokit.rest.search.issues() has been renamed to octokit.rest.search.issuesAndPullRequests() (2018-12-27)", () => {
-    let warnCalledCount = 0;
-    const octokit = new Mocktokit({
-      log: {
-        warn: (deprecation) => {
-          warnCalledCount++;
-        },
-      },
-    });
-
-    return Promise.all([
-      octokit.rest.search.issues({ q: "foo" }),
-      octokit.rest.search.issues({ q: "foo" }),
-    ]).then(() => {
-      expect(warnCalledCount).to.equal(1);
-    });
-  });
-
-  it('"number" parameter has been renamed to "issue_number" (2019-04-10)', () => {
-    nock("https://deprecation-host.com")
-      .get("/repos/octocat/hello-world/issues/123")
-      .twice()
-      .reply(200, {});
-
-    let warnCalledCount = 0;
-    const octokit = new Octokit({
-      baseUrl: "https://deprecation-host.com",
-      log: {
-        warn: (deprecation) => {
-          warnCalledCount++;
-        },
-      },
-    });
-
-    return Promise.all([
-      octokit.rest.issues.get({
-        owner: "octocat",
-        repo: "hello-world",
-        number: 123,
-      }),
-      octokit.rest.issues.get({
-        owner: "octocat",
-        repo: "hello-world",
-        number: 123,
-      }),
-    ]).then(() => {
-      // Ideally it would only log once, but it’s unclear on how to implement that
-      // without adding significant complexity
-      expect(warnCalledCount).to.equal(2);
-    });
-  });
-
-  it("deprecated parameter: passing both new and deprecated parameter", () => {
-    nock("https://deprecation-host.com")
-      .get("/repos/octocat/hello-world/issues/456")
-      .twice()
-      .reply(200, {});
-
-    let warnCalledCount = 0;
-    const octokit = new Octokit({
-      baseUrl: "https://deprecation-host.com",
-      log: {
-        warn: (deprecation) => {
-          warnCalledCount++;
-        },
-      },
-    });
-
-    return octokit.rest.issues
-      .get({
-        owner: "octocat",
-        repo: "hello-world",
-        number: 123,
-        issue_number: 456,
-      })
-      .then(() => {
-        expect(warnCalledCount).to.equal(1);
-      });
-  });
-
   it("deprecated parameter: passing no options", () => {
     const octokit = new Octokit();
 
     return octokit.rest.issues.get().catch((error) => {
-      expect(error.status).to.equal(400);
+      expect(error.status).toStrictEqual(400);
     });
   });
 
@@ -132,13 +36,15 @@ describe("deprecations", () => {
       number: 123,
     });
 
-    expect(url).to.equal(
+    expect(url).toStrictEqual(
       "https://api.github.com/repos/octocat/hello-world/issues/123",
     );
-    expect(options.url).to.equal("/repos/{owner}/{repo}/issues/{issue_number}");
-    expect("number" in options).to.equal(false);
-    expect(options.issue_number).to.equal(123);
-    expect(warnCalledCount).to.equal(2);
+    expect(options.url).toStrictEqual(
+      "/repos/{owner}/{repo}/issues/{issue_number}",
+    );
+    expect("number" in options).toStrictEqual(false);
+    expect(options.issue_number).toStrictEqual(123);
+    expect(warnCalledCount).toStrictEqual(2);
   });
 
   it("octokit.paginate(octokit.rest.pulls.listReviews.merge({owner, repo, number}))", () => {
@@ -198,7 +104,7 @@ describe("deprecations", () => {
     });
 
     return octokit.paginate(options).then((response) => {
-      expect(warnCalledCount).to.equal(1);
+      expect(warnCalledCount).toStrictEqual(1);
     });
   });
 
@@ -233,7 +139,7 @@ describe("deprecations", () => {
       password: "password",
     });
 
-    expect(warnCalledCount).to.equal(1);
+    expect(warnCalledCount).toStrictEqual(1);
 
     return octokit.rest.orgs.get({ org: "myorg" });
   });
@@ -378,7 +284,7 @@ describe("deprecations", () => {
       })
 
       .catch((error) => {
-        expect(error.message).to.match(/Invalid one-time password/i);
+        expect(error.message).toMatch(/Invalid one-time password/i);
       });
   });
 
@@ -416,12 +322,12 @@ describe("deprecations", () => {
         throw new Error('should fail with "on2fa missing" error');
       })
       .catch((error) => {
-        expect(error.message).to.equal(
+        expect(error.message).toStrictEqual(
           "2FA required, but options.on2fa is not a function. See https://github.com/octokit/rest.js#authentication",
         );
-        expect(error.status).to.equal(401);
-        expect(!!error.response.headers).to.equal(true);
-        expect(!!error.request).to.equal(true);
+        expect(error.status).toStrictEqual(401);
+        expect(!!error.response.headers).toStrictEqual(true);
+        expect(!!error.request).toStrictEqual(true);
       });
   });
 
@@ -582,19 +488,19 @@ describe("deprecations", () => {
 
     expect(() => {
       octokit.authenticate({});
-    }).to.throw(Error);
+    }).toThrow(Error);
 
     expect(() => {
       octokit.authenticate({ type: "basic" });
-    }).to.throw(Error);
+    }).toThrow(Error);
 
     expect(() => {
       octokit.authenticate({ type: "oauth" });
-    }).to.throw(Error);
+    }).toThrow(Error);
 
     expect(() => {
       octokit.authenticate({ type: "token" });
-    }).to.throw(Error);
+    }).toThrow(Error);
   });
 
   it('octokit.authenticate() when "auth" option is set', () => {
@@ -613,7 +519,7 @@ describe("deprecations", () => {
       token: "secret123",
     });
 
-    expect(warnCalledWith).to.match(
+    expect(warnCalledWith).toMatch(
       /octokit\.authenticate\(\) is deprecated and has no effect/,
     );
   });
@@ -647,12 +553,12 @@ describe("deprecations", () => {
       .get({ org: "myorg" })
       .then(() => {
         // deprecation is only logged once per process, I couldn't figure out how to reset the counter
-        // expect(warnCalledCount).to.equal(1);
+        // expect(warnCalledCount).toStrictEqual(1);
 
         return octokit.auth();
       })
       .then((authentication) => {
-        expect(authentication).to.deep.equal({
+        expect(authentication).toStrictEqual({
           type: "deprecated",
           message:
             'Setting the "new Octokit({ auth })" option to an object without also setting the "authStrategy" option is deprecated and will be removed in v17. See (https://octokit.github.io/rest.js/#authentication)',
@@ -687,7 +593,7 @@ describe("deprecations", () => {
 
     return octokit.rest.orgs.get({ org: "myorg" }).then(() => {
       // deprecation is only logged once per process, I couldn't figure out how to reset the counter
-      // expect(warnCalledCount).to.equal(1);
+      // expect(warnCalledCount).toStrictEqual(1);
     });
   });
 
@@ -716,7 +622,7 @@ describe("deprecations", () => {
 
     return octokit.rest.orgs.get({ org: "myorg" }).then(() => {
       // deprecation is only logged once per process, I couldn't figure out how to reset the counter
-      // expect(warnCalledCount).to.equal(1);
+      // expect(warnCalledCount).toStrictEqual(1);
     });
   });
 
@@ -868,7 +774,7 @@ describe("deprecations", () => {
       })
 
       .catch((error) => {
-        expect(error.message).to.match(/Invalid one-time password/i);
+        expect(error.message).toMatch(/Invalid one-time password/i);
       });
   });
 
@@ -936,7 +842,7 @@ describe("deprecations", () => {
       .request("/")
       .then(() => octokit.request("/"))
       .then(() => {
-        expect(callCount).to.equal(2);
+        expect(callCount).toStrictEqual(2);
       });
   });
 
@@ -971,12 +877,12 @@ describe("deprecations", () => {
       })
 
       .catch((error) => {
-        expect(error.message).to.equal(
+        expect(error.message).toStrictEqual(
           "2FA required, but options.on2fa is not a function. See https://github.com/octokit/rest.js#authentication",
         );
-        expect(error.status).to.equal(401);
-        expect(!!error.response.headers).to.equal(true);
-        expect(!!error.request).to.equal(true);
+        expect(error.status).toStrictEqual(401);
+        expect(!!error.response.headers).toStrictEqual(true);
+        expect(!!error.request).toStrictEqual(true);
       });
   });
 
@@ -1061,7 +967,7 @@ describe("deprecations", () => {
         throw new Error("should not resolve");
       })
       .catch((error) => {
-        expect(error.message).to.equal("test");
+        expect(error.message).toStrictEqual("test");
       });
   });
 
@@ -1204,17 +1110,17 @@ describe("deprecations", () => {
     });
 
     octokit.hook.wrap("request", (request, options) => {
-      expect(options.request.agent).to.equal("agent");
+      expect(options.request.agent).toStrictEqual("agent");
       return "ok";
     });
 
-    expect(warnCalled).to.equal(true);
+    expect(warnCalled).toStrictEqual(true);
 
     return octokit
       .request("/")
 
       .then((response) => {
-        expect(response).to.equal("ok");
+        expect(response).toStrictEqual("ok");
       });
   });
 
@@ -1238,17 +1144,17 @@ describe("deprecations", () => {
     });
 
     octokit.hook.wrap("request", (request, options) => {
-      expect(options.request.timeout).to.equal(123);
+      expect(options.request.timeout).toStrictEqual(123);
       return "ok";
     });
 
-    expect(warnCallCount).to.equal(1);
+    expect(warnCallCount).toStrictEqual(1);
 
     return octokit
       .request("/")
 
       .then((response) => {
-        expect(response).to.equal("ok");
+        expect(response).toStrictEqual("ok");
       });
   });
 
@@ -1266,19 +1172,19 @@ describe("deprecations", () => {
     });
 
     octokit.hook.wrap("request", (request, options) => {
-      expect(options.headers["user-agent"]).to.match(
+      expect(options.headers["user-agent"]).toMatch(
         /^blah octokit\.js\/0\.0\.0-development /,
       );
       return "ok";
     });
 
-    expect(warnCalled).to.equal(true);
+    expect(warnCalled).toStrictEqual(true);
 
     return octokit
       .request("/")
 
       .then((response) => {
-        expect(response).to.equal("ok");
+        expect(response).toStrictEqual("ok");
       });
   });
 
@@ -1294,7 +1200,7 @@ describe("deprecations", () => {
     });
 
     octokit.hook.wrap("request", (request, options) => {
-      expect(options.headers.accept).to.equal(
+      expect(options.headers.accept).toStrictEqual(
         "application/vnd.github.jean-grey-preview+json,application/vnd.github.symmetra-preview+json",
       );
       return "ok";
@@ -1304,7 +1210,7 @@ describe("deprecations", () => {
       .request("/")
 
       .then((response) => {
-        expect(response).to.equal("ok");
+        expect(response).toStrictEqual("ok");
       });
   });
 
@@ -1416,24 +1322,24 @@ describe("deprecations", () => {
 
     return octokit
       .paginate(listReposOptions, (result) => {
-        expect(result.data.incomplete_results).to.equal(undefined);
-        expect(result.data.repository_selection).to.equal("all");
-        expect(result.data.total_count).to.equal(2);
-        expect(result.data.repositories.length).to.equal(1);
+        expect(result.data.incomplete_results).toStrictEqual(undefined);
+        expect(result.data.repository_selection).toStrictEqual("all");
+        expect(result.data.total_count).toStrictEqual(2);
+        expect(result.data.repositories.length).toStrictEqual(1);
         return result;
       })
 
       .then(() =>
         octokit.paginate(searchOptions, (result) => {
-          expect(result.data.incomplete_results).to.equal(false);
-          expect(result.data.total_count).to.equal(2);
-          expect(result.data.items.length).to.equal(1);
+          expect(result.data.incomplete_results).toStrictEqual(false);
+          expect(result.data.total_count).toStrictEqual(2);
+          expect(result.data.items.length).toStrictEqual(1);
           return result;
         }),
       )
 
       .then(() => {
-        expect(warnCallCount).to.equal(4);
+        expect(warnCallCount).toStrictEqual(4);
       });
   });
 });

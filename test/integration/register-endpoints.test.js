@@ -1,6 +1,6 @@
-const nock = require("nock");
+import nock from "nock";
 
-const { Octokit } = require("../../");
+import { Octokit } from "../../pkg/dist-src/index.js";
 
 describe("registerEndpoints", () => {
   it("optins are not altered in registered endpoint methods", () => {
@@ -50,7 +50,7 @@ describe("registerEndpoints", () => {
 
     const promise = octokit.foo.bar(options);
 
-    expect(options).to.deep.equal({
+    expect(options).toStrictEqual({
       owner: "octocat",
       repo: "hello-world",
       number: 123,

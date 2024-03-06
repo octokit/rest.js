@@ -1,6 +1,7 @@
-const nock = require("nock");
+import nock from "nock";
+import { expect, describe, it } from "@jest/globals";
 
-const { Octokit } = require("../../");
+import { Octokit } from "../../pkg/dist-src/index.js";
 
 describe("request errors", () => {
   it("timeout", () => {
@@ -21,9 +22,9 @@ describe("request errors", () => {
       })
 
       .catch((error) => {
-        expect(error.name).to.equal("HttpError");
-        expect(error.status).to.equal(500);
-        expect(error.message).to.match(/timeout/);
+        expect(error.name).toStrictEqual("HttpError");
+        expect(error.status).toStrictEqual(500);
+        expect(error.message).toMatch(/timeout/);
       });
   });
 
@@ -40,9 +41,9 @@ describe("request errors", () => {
       .get({ org: "myorg" })
 
       .catch((error) => {
-        expect(error.name).to.equal("HttpError");
-        expect(error.status).to.equal(500);
-        expect(error).to.have.property("stack");
+        expect(error.name).toStrictEqual("HttpError");
+        expect(error.status).toStrictEqual(500);
+        expect(error.stacl).not.toBeUndefined();
       });
   });
 
@@ -59,9 +60,9 @@ describe("request errors", () => {
       .get({ org: "myorg" })
 
       .catch((error) => {
-        expect(error.name).to.equal("HttpError");
-        expect(error.status).to.equal(404);
-        expect(error).to.have.property("stack");
+        expect(error.name).toStrictEqual("HttpError");
+        expect(error.status).toStrictEqual(404);
+        expect(error.stack).not.toBeUndefined();
       });
   });
 
@@ -76,9 +77,9 @@ describe("request errors", () => {
       .get({ org: "myorg" })
 
       .catch((error) => {
-        expect(error.name).to.equal("HttpError");
-        expect(error.status).to.equal(401);
-        expect(error).to.have.property("stack");
+        expect(error.name).toStrictEqual("HttpError");
+        expect(error.status).toStrictEqual(401);
+        expect(error.stack).not.toBeUndefined();
       });
   });
 
@@ -99,9 +100,9 @@ describe("request errors", () => {
       .get({ org: "myorg" })
 
       .catch((error) => {
-        expect(error.name).to.equal("HttpError");
-        expect(error.status).to.equal(401);
-        expect(error.response.headers).to.deep.equal({
+        expect(error.name).toStrictEqual("HttpError");
+        expect(error.status).toStrictEqual(401);
+        expect(error.response.headers).toStrictEqual({
           "content-type": "application/json",
           "x-foo": "bar",
         });
@@ -120,7 +121,7 @@ describe("request errors", () => {
       .request("/")
 
       .catch((error) => {
-        expect(error.request.headers.authorization).to.equal(
+        expect(error.request.headers.authorization).toStrictEqual(
           "token [REDACTED]",
         );
       });

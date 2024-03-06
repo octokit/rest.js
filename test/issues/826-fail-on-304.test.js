@@ -1,5 +1,5 @@
-const nock = require("nock");
-const { Octokit } = require("../../");
+import nock from "nock";
+import { Octokit } from "../../pkg/dist-src/index.js";
 
 describe("https://github.com/octokit/rest.js/issues/826", () => {
   it("throws error on 304 responses", () => {
@@ -19,7 +19,7 @@ describe("https://github.com/octokit/rest.js/issues/826", () => {
         expect.fail("should throw error");
       })
       .catch((error) => {
-        expect(error.status).to.equal(304);
+        expect(error.status).toStrictEqual(304);
       });
   });
 });

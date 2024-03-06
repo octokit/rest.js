@@ -1,5 +1,5 @@
-const nock = require("nock");
-const { Octokit } = require("../../");
+import nock from "nock";
+import { Octokit } from "../../pkg/dist-src/index.js";
 
 describe("https://github.com/octokit/rest.js/issues/1497", () => {
   it("octokit.rest.repos.updateBranchProtection()", () => {
@@ -54,8 +54,7 @@ describe("https://github.com/octokit/rest.js/issues/1497", () => {
         expect.fail("This should throw error.");
       })
       .catch((error) => {
-        expect(error).to.have.property(
-          "message",
+        expect(error.message).toStrictEqual(
           `Validation Failed: "Only organization repositories can have users and team restrictions"`,
         );
       });

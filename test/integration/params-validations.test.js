@@ -1,6 +1,6 @@
-const nock = require("nock");
+import nock from "nock";
 
-const { Octokit } = require("../../");
+import { Octokit } from "../../pkg/dist-src/index.js";
 
 describe("params validations", () => {
   it("octokit.rest.orgs.get({})", () => {
@@ -14,10 +14,10 @@ describe("params validations", () => {
       })
 
       .catch((error) => {
-        expect(error.message).to.equal(
+        expect(error.message).toStrictEqual(
           "Empty value for parameter 'org': undefined",
         );
-        expect(error.status).to.equal(400);
+        expect(error.status).toStrictEqual(400);
       });
   });
 
@@ -34,8 +34,8 @@ describe("params validations", () => {
       })
 
       .catch((error) => {
-        expect(error.status).to.equal(500);
-        expect(error.message).to.equal(
+        expect(error.status).toStrictEqual(500);
+        expect(error.message).toStrictEqual(
           "request to https://127.0.0.1:8/orgs/foo failed, reason: connect ECONNREFUSED 127.0.0.1:8",
         );
       });
@@ -52,8 +52,8 @@ describe("params validations", () => {
       })
 
       .catch((error) => {
-        expect(error.status).to.equal(400);
-        expect(error.message).to.equal(
+        expect(error.status).toStrictEqual(400);
+        expect(error.message).toStrictEqual(
           "Invalid value for parameter 'filter': \"foo\"",
         );
       });
@@ -70,8 +70,8 @@ describe("params validations", () => {
       })
 
       .catch((error) => {
-        expect(error.status).to.equal(400);
-        expect(error.message).to.equal(
+        expect(error.status).toStrictEqual(400);
+        expect(error.message).toStrictEqual(
           "Invalid value for parameter 'position': \"foo\"",
         );
       });
@@ -90,8 +90,8 @@ describe("params validations", () => {
       })
 
       .catch((error) => {
-        expect(error.status).to.equal(400);
-        expect(error.message).to.equal(
+        expect(error.status).toStrictEqual(400);
+        expect(error.message).toStrictEqual(
           "Invalid value for parameter 'position': \"Age Ain’t Nothing\" is NaN",
         );
       });
@@ -113,8 +113,8 @@ describe("params validations", () => {
       })
 
       .catch((error) => {
-        expect(error.status).to.equal(400);
-        expect(error.message).to.equal(
+        expect(error.status).toStrictEqual(400);
+        expect(error.message).toStrictEqual(
           "JSON parse error of value for parameter 'config': \"I’m no Je-Son!\"",
         );
       });
@@ -127,7 +127,7 @@ describe("params validations", () => {
 
     nock("https://milestones-test-host.com")
       .post("/repos/foo/bar/milestones", (body) => {
-        expect(body.due_on).to.equal("2012-10-09T23:39:01.000Z");
+        expect(body.due_on).toStrictEqual("2012-10-09T23:39:01.000Z");
         return true;
       })
       .reply(201, {});
@@ -148,7 +148,7 @@ describe("params validations", () => {
     nock("https://notifications-test-host.com")
       .get("/notifications")
       .query((query) => {
-        expect(query).to.eql({
+        expect(query).toStrictEqual({
           since: "2018-01-21T23:27:31.000Z",
         });
         return true;
@@ -179,8 +179,8 @@ describe("params validations", () => {
       })
 
       .catch((error) => {
-        expect(error.status).to.equal(400);
-        expect(error.message).to.equal(
+        expect(error.status).toStrictEqual(400);
+        expect(error.message).toStrictEqual(
           "Invalid value for parameter 'tree[0].type': \"foo\"",
         );
       });
@@ -202,8 +202,8 @@ describe("params validations", () => {
       })
 
       .catch((error) => {
-        expect(error.status).to.equal(400);
-        expect(error.message).to.equal("'description' cannot be null");
+        expect(error.status).toStrictEqual(400);
+        expect(error.message).toStrictEqual("'description' cannot be null");
       });
   });
 
@@ -226,7 +226,7 @@ describe("params validations", () => {
         // ignore error
       })
       .then(() => {
-        expect(options).to.deep.eql({
+        expect(options).toStrictEqual({
           org: "foo",
           headers: {
             "x-bar": "baz",

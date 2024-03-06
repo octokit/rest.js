@@ -1,5 +1,5 @@
-const nock = require("nock");
-const { Octokit } = require("../../");
+import nock from "nock";
+import { Octokit } from "../../pkg/dist-src/index.js";
 
 describe("https://github.com/octokit/rest.js/issues/841", () => {
   it("supports sending GET requests with method: HEAD", () => {
@@ -40,7 +40,7 @@ describe("https://github.com/octokit/rest.js/issues/841", () => {
           })
 
           .catch((error) => {
-            expect(error.status).to.equal(404);
+            expect(error.status).toStrictEqual(404);
           });
       });
   });

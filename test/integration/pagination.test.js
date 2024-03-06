@@ -1,6 +1,6 @@
-const nock = require("nock");
+import nock from "nock";
 
-const { Octokit } = require("../../");
+import { Octokit } from "../../pkg/dist-src/index.js";
 
 describe("pagination", () => {
   it(".paginate()", () => {
@@ -24,14 +24,14 @@ describe("pagination", () => {
       octokit
         .paginate("GET /organizations", { per_page: 1 })
         .then((organizations) => {
-          expect(organizations).to.deep.equal([{ id: 1 }, { id: 2 }]);
+          expect(organizations).toStrictEqual([{ id: 1 }, { id: 2 }]);
         }),
       octokit
         .paginate("GET /organizations", { per_page: 1 }, (response) =>
           response.data.map((org) => org.id),
         )
         .then((organizations) => {
-          expect(organizations).to.deep.equal([1, 2]);
+          expect(organizations).toStrictEqual([1, 2]);
         }),
       octokit
         .paginate(
@@ -43,7 +43,7 @@ describe("pagination", () => {
           (response) => response.data.map((org) => org.id),
         )
         .then((organizations) => {
-          expect(organizations).to.deep.equal([1, 2]);
+          expect(organizations).toStrictEqual([1, 2]);
         }),
     ]);
   });
@@ -67,7 +67,7 @@ describe("pagination", () => {
     return octokit
       .paginate("GET /organizations", { per_page: 1 }, (response) => undefined)
       .then((results) => {
-        expect(results).to.deep.equal([undefined, undefined]);
+        expect(results).toStrictEqual([undefined, undefined]);
       });
   });
 
@@ -93,7 +93,7 @@ describe("pagination", () => {
         return response.data.map((org) => org.id);
       })
       .then((organizations) => {
-        expect(organizations).to.deep.equal([1]);
+        expect(organizations).toStrictEqual([1]);
       });
   });
 
@@ -116,7 +116,7 @@ describe("pagination", () => {
     return octokit
       .paginate("GET /organizations", { per_page: 1 })
       .then((organizations) => {
-        expect(organizations).to.deep.equal([{ id: 1 }, { id: 2 }]);
+        expect(organizations).toStrictEqual([{ id: 1 }, { id: 2 }]);
       });
   });
 
@@ -154,7 +154,7 @@ describe("pagination", () => {
         request: { paginate: true },
       })
       .then((organizations) => {
-        expect(organizations).to.deep.equal([{ id: 1 }, { id: 2 }]);
+        expect(organizations).toStrictEqual([{ id: 1 }, { id: 2 }]);
       });
   });
 
@@ -176,7 +176,7 @@ describe("pagination", () => {
       [Symbol.asyncIterator]();
 
     return iterator.next().then((result) => {
-      expect(result.value.data.foo).to.equal("bar");
+      expect(result.value.data.foo).toStrictEqual("bar");
     });
   });
 
@@ -235,7 +235,7 @@ describe("pagination", () => {
     });
 
     return octokit.paginate(options).then((results) => {
-      expect(results).to.deep.equal([{ id: "123" }, { id: "456" }]);
+      expect(results).toStrictEqual([{ id: "123" }, { id: "456" }]);
     });
   });
 
@@ -282,12 +282,13 @@ describe("pagination", () => {
       );
 
     const octokit = new Octokit();
-    const options = octokit.rest.apps.listRepos.endpoint.merge({
-      per_page: 1,
-    });
+    const options =
+      octokit.rest.apps.listReposAccessibleToInstallation.endpoint.merge({
+        per_page: 1,
+      });
 
     return octokit.paginate(options).then((results) => {
-      expect(results).to.deep.equal([{ id: "123" }, { id: "456" }]);
+      expect(results).toStrictEqual([{ id: "123" }, { id: "456" }]);
     });
   });
 
@@ -339,7 +340,7 @@ describe("pagination", () => {
       });
 
     return octokit.paginate(options).then((results) => {
-      expect(results).to.deep.equal([{ id: "123" }, { id: "456" }]);
+      expect(results).toStrictEqual([{ id: "123" }, { id: "456" }]);
     });
   });
 
@@ -359,12 +360,13 @@ describe("pagination", () => {
       });
 
     const octokit = new Octokit();
-    const options = octokit.rest.apps.listRepos.endpoint.merge({
-      per_page: 1,
-    });
+    const options =
+      octokit.rest.apps.listReposAccessibleToInstallation.endpoint.merge({
+        per_page: 1,
+      });
 
     return octokit.paginate(options).then((results) => {
-      expect(results).to.deep.equal([{ id: "123" }]);
+      expect(results).toStrictEqual([{ id: "123" }]);
     });
   });
 
@@ -385,7 +387,7 @@ describe("pagination", () => {
     });
 
     return octokit.paginate(options).then((result) => {
-      expect(result[0].state).to.equal("success");
+      expect(result[0].state).toStrictEqual("success");
     });
   });
 });

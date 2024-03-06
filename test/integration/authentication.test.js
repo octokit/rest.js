@@ -1,9 +1,9 @@
-const lolex = require("lolex");
-const nock = require("nock");
-const { createAppAuth } = require("@octokit/auth-app");
-const { createActionAuth } = require("@octokit/auth-action");
+import { install } from "@sinonjs/fake-timers";
+import nock from "nock";
+import { createAppAuth } from "@octokit/auth-app";
+import { createActionAuth } from "@octokit/auth-action";
 
-const { Octokit } = require("../..");
+import { Octokit } from "../../pkg/dist-src/index.js";
 
 describe("authentication", () => {
   it("unauthenticated", () => {
@@ -14,7 +14,7 @@ describe("authentication", () => {
     });
 
     return octokit.auth().then((authentication) => {
-      expect(authentication).to.deep.equal({
+      expect(authentication).toStrictEqual({
         type: "unauthenticated",
       });
     });
@@ -120,7 +120,7 @@ describe("authentication", () => {
   it("invalid auth errors", () => {
     expect(() => {
       Octokit({ auth: {}, log: { warn() {} } });
-    }).to.throw(Error);
+    }).toThrow(Error);
   });
 
   it("action auth strategy", async () => {
@@ -203,7 +203,7 @@ x//0u+zd/R/QRUzLOw4N72/Hu+UG6MNt5iDZFCtapRaKt6OvSBwy8w==
       .get("/")
       .reply(200, {});
 
-    const clock = lolex.install({
+    const clock = install({
       now: 0,
       toFake: ["Date"],
     });
