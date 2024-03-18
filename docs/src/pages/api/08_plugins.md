@@ -10,10 +10,7 @@ import { Octokit } from "@octokit/rest";
 import myPlugin from "./lib/my-plugin.js";
 import octokitPluginExample from "octokit-plugin-example";
 
-const MyOctokit = Octokit.plugin(
-  myPlugin,
-  octokitPluginExample,
-);
+const MyOctokit = Octokit.plugin(myPlugin, octokitPluginExample);
 
 // lib/my-plugin.js
 const plugin = (octokit, options = { greeting: "Hello" }) => {
