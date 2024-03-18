@@ -21,8 +21,10 @@ describe("api.github.com", () => {
       })
 
       .catch((error) => {
-        expect(error.message).toEqual(
-          `Validation Failed: {"resource":"Label","code":"invalid","field":"color"} - http://localhost:3000/docs.github.com/k96d4icg0sn/rest/reference/issues#create-a-label`,
+        expect(error.message).toMatch(
+          new RegExp(
+            `Validation Failed: {"resource":"Label","code":"invalid","field":"color"} - http://localhost:3000/docs.github.com/[a-z0-9]{11}/rest/reference/issues#create-a-label`,
+          ),
         );
         expect(error.response.data.errors).toEqual([
           {
