@@ -1,4 +1,4 @@
-const { Octokit } = require("../../");
+import { Octokit } from "../../pkg/dist-src/index.js";
 
 describe("plugins", () => {
   it("gets called in constructor", () => {
@@ -6,7 +6,7 @@ describe("plugins", () => {
       octokit.foo = "bar";
     });
     const myClient = new MyOctokit();
-    expect(myClient.foo).to.equal("bar");
+    expect(myClient.foo).toStrictEqual("bar");
   });
 
   it("does not override plugins of original constructor", () => {
@@ -14,15 +14,15 @@ describe("plugins", () => {
       octokit.foo = "bar";
     });
     const myClient = new MyOctokit();
-    expect(myClient.foo).to.equal("bar");
+    expect(myClient.foo).toStrictEqual("bar");
 
     const octokit = new Octokit();
-    expect(octokit.foo).to.equal(undefined);
+    expect(octokit.foo).toStrictEqual(undefined);
   });
 
   it("receives client options", () => {
     const MyOctokit = Octokit.plugin((octokit, options) => {
-      expect(options.foo).to.equal("bar");
+      expect(options.foo).toStrictEqual("bar");
     });
     new MyOctokit({ foo: "bar" });
   });
@@ -36,6 +36,6 @@ describe("plugins", () => {
       }
     };
     const MyOctokit = Octokit.plugin(myPlugin).plugin(myPlugin);
-    expect(() => new MyOctokit()).to.not.throw();
+    expect(() => new MyOctokit()).not.toThrow();
   });
 });
