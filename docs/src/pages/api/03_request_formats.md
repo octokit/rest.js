@@ -17,7 +17,7 @@ const { data: prDiff } = await octokit.rest.pulls.get({
 });
 ```
 
-The [AbortController](https://developer.mozilla.org/en-US/docs/Web/API/AbortController) interface can be used to abort one or more requests as and when desired. When the request is initiated, an [AbortSignal](https://developer.mozilla.org/en-US/docs/Web/API/AbortSignal) instance can be passed as an option inside the request's options object. For usage in Node, the [`abort-controller`](https://github.com/mysticatea/abort-controller) package can be used.
+The [AbortController](https://developer.mozilla.org/en-US/docs/Web/API/AbortController) interface can be used to abort one or more requests as and when desired. When the request is initiated, an [AbortSignal](https://developer.mozilla.org/en-US/docs/Web/API/AbortSignal) instance can be passed as an option inside the request's options object.
 
 ```js
 const controller = new AbortController();
