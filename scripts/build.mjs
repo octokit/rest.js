@@ -53,12 +53,13 @@ async function main() {
       {
         ...pkg,
         files: ["dist-*/**"],
-        main: "dist-src/index.js",
         types: "dist-types/index.d.ts",
         exports: {
           ".": {
             types: "./dist-types/index.d.ts",
             import: "./dist-src/index.js",
+            // Tooling currently are having issues with the "exports" field when there is no "default", ex: TypeScript, eslint
+            default: "./dist-src/index.js",
           }
         },
         sideEffects: false,
