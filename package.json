@@ -2,7 +2,8 @@
   "name": "@octokit/rest",
   "version": "0.0.0-development",
   "publishConfig": {
-    "access": "public"
+    "access": "public",
+    "provenance": true
   },
   "type": "module",
   "description": "GitHub REST API client for Node.js",
