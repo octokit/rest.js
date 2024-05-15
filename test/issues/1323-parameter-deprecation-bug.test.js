@@ -1,5 +1,5 @@
-const nock = require("nock");
-const { Octokit } = require("../..");
+import nock from "nock";
+import { Octokit } from "../../pkg/dist-src/index.js";
 
 describe("https://github.com/octokit/rest.js/issues/1323", () => {
   it("should accept new parameter", () => {

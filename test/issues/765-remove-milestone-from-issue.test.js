@@ -1,11 +1,11 @@
-const nock = require("nock");
-const { Octokit } = require("../../");
+import nock from "nock";
+import { Octokit } from "../../pkg/dist-src/index.js";
 
 describe("https://github.com/octokit/rest.js/issues/765", () => {
   it("octokit.rest.issues.update({..., milestone: null})", () => {
     nock("https://api.github.com")
       .patch("/repos/epmatsw/example-repo/issues/1", (body) => {
-        expect(body).to.deep.equal({ milestone: null });
+        expect(body).toStrictEqual({ milestone: null });
         return true;
       })
       .reply(200, {});

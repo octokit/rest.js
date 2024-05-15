@@ -1,6 +1,6 @@
-const nock = require("nock");
+import nock from "nock";
 
-const { Octokit } = require("../../");
+import { Octokit } from "../../pkg/dist-src/index.js";
 
 describe("request 304s", () => {
   let octokit;
@@ -20,7 +20,7 @@ describe("request 304s", () => {
         expect.fail("should throw error");
       })
       .catch((error) => {
-        expect(error.status).to.equal(304);
+        expect(error.status).toStrictEqual(304);
       });
   });
 
@@ -38,7 +38,7 @@ describe("request 304s", () => {
         expect.fail("should throw error");
       })
       .catch((error) => {
-        expect(error.status).to.equal(304);
+        expect(error.status).toStrictEqual(304);
       });
   });
 });
