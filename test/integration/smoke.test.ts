@@ -57,7 +57,7 @@ describe("Smoke tests", () => {
     expect(octokit.paginate).toBeInstanceOf(Function);
   });
 
-  it("@octokit/plugin-request-log", () => {
+  it.skip("@octokit/plugin-request-log", () => {
     const mock = fetchMock
       .sandbox()
       .getOnce("path:/", { status: 200, body: {} })

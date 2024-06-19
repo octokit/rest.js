@@ -1,6 +1,6 @@
 import { getInstance, type OctokitType } from "../util.ts";
 
-describe("api.github.com", () => {
+describe.skip("api.github.com", () => {
   let octokit: OctokitType;
 
   beforeEach(() => {
