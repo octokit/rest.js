@@ -5,6 +5,7 @@
     "access": "public",
     "provenance": true
   },
+  "type": "module",
   "description": "GitHub REST API client for Node.js",
   "keywords": [
     "octokit",
@@ -33,26 +34,25 @@
   ],
   "repository": "github:octokit/rest.js",
   "dependencies": {
-    "@octokit/core": "^5.0.2",
-    "@octokit/plugin-paginate-rest": "11.3.1",
-    "@octokit/plugin-request-log": "^4.0.0",
-    "@octokit/plugin-rest-endpoint-methods": "13.2.2"
+    "@octokit/core": "^6.1.2",
+    "@octokit/plugin-paginate-rest": "^11.0.0",
+    "@octokit/plugin-request-log": "^5.1.0",
+    "@octokit/plugin-rest-endpoint-methods": "^13.0.0"
   },
   "devDependencies": {
-    "@octokit/auth-action": "^4.0.1",
-    "@octokit/auth-app": "^6.0.3",
-    "@octokit/fixtures-server": "^7.0.10",
-    "@octokit/request": "^8.1.6",
-    "@octokit/tsconfig": "^2.0.0",
+    "@octokit/auth-action": "^5.1.0",
+    "@octokit/auth-app": "^7.0.0",
+    "@octokit/fixtures-server": "^8.1.0",
+    "@octokit/request": "^9.1.1",
+    "@octokit/tsconfig": "^3.0.0",
     "@types/jest": "^29.5.11",
     "@types/node": "^20.11.5",
     "esbuild": "^0.21.0",
-    "fetch-mock": "npm:@gr2m/fetch-mock@9.11.0-pull-request-644.1",
+    "fetch-mock": "^10.0.0",
     "glob": "^10.3.10",
     "jest": "^29.7.0",
     "nock": "^13.5.0",
     "prettier": "^3.2.4",
-    "semantic-release": "^24.0.0",
     "semantic-release-plugin-update-version-in-files": "^1.1.0",
     "ts-jest": "^29.1.1",
     "typescript": "^5.3.3",
@@ -65,16 +65,20 @@
     "lint:fix": "prettier --write \"{src,test}/**/*.{js,json,ts}\" \"docs/*.js\" docs/package.json \"docs/src/**/*\" *.md package.json",
     "start-fixtures-server": "octokit-fixtures-server",
     "pretest": "npm run -s lint",
-    "test": "jest --coverage",
+    "test": "NODE_OPTIONS=\"$NODE_OPTIONS --experimental-vm-modules\" npx jest --coverage",
     "test:typescript": "npx tsc --noEmit --declaration --allowImportingTsExtensions --moduleResolution node16 --module node16 --noUnusedLocals test/typescript-validate.ts"
   },
   "license": "MIT",
   "jest": {
+    "extensionsToTreatAsEsm": [
+      ".ts"
+    ],
     "transform": {
       "^.+\\.(ts|tsx)$": [
         "ts-jest",
         {
-          "tsconfig": "test/tsconfig.test.json"
+          "tsconfig": "test/tsconfig.test.json",
+          "useESM": true
         }
       ]
     },
