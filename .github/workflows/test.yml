@@ -20,6 +20,7 @@ jobs:
         node_version:
           - 18
           - 20
+          - 22
     steps:
       - uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4
       - name: Test with Node.js ${{ matrix.node_version }}
