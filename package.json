@@ -59,7 +59,6 @@
   },
   "scripts": {
     "build": "node scripts/build.mjs && tsc -p tsconfig.json",
-    "coverage": "nyc report --reporter=html && open coverage/index.html",
     "lint": "prettier --check \"{src,test}/**/*.{js,json,ts}\" \"docs/*.js\" docs/package.json \"docs/src/**/*\" *.md package.json",
     "lint:fix": "prettier --write \"{src,test}/**/*.{js,json,ts}\" \"docs/*.js\" docs/package.json \"docs/src/**/*\" *.md package.json",
     "start-fixtures-server": "octokit-fixtures-server",
@@ -68,34 +67,6 @@
     "test:typescript": "npx tsc --noEmit --declaration --allowImportingTsExtensions --moduleResolution node16 --module node16 --noUnusedLocals test/typescript-validate.ts"
   },
   "license": "MIT",
-  "jest": {
-    "extensionsToTreatAsEsm": [
-      ".ts"
-    ],
-    "transform": {
-      "^.+\\.(ts|tsx)$": [
-        "ts-jest",
-        {
-          "tsconfig": "test/tsconfig.test.json",
-          "useESM": true
-        }
-      ]
-    },
-    "testPathIgnorePatterns": [
-      "/docs/"
-    ],
-    "coverageThreshold": {
-      "global": {
-        "statements": 100,
-        "branches": 100,
-        "functions": 100,
-        "lines": 100
-      }
-    },
-    "moduleNameMapper": {
-      "^(.+)\\.jsx?$": "$1"
-    }
-  },
   "release": {
     "branches": [
       "+([0-9]).x",
