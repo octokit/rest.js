@@ -1,3 +1,4 @@
+import { describe, it, expect } from "vitest";
 import fetchMock from "fetch-mock";
 
 import { Octokit } from "../../src/index.ts";

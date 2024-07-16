@@ -1,3 +1,4 @@
+import { describe, beforeEach, it, expect } from "vitest";
 // this file is not run directly but instead required in paginate-issues-test.js
 // for Node v10 and higher only
 
@@ -28,6 +29,7 @@ describe("api.github.com", () => {
       // @ts-ignore TODO: *.endpoint.merge on endpoint methods should always return .url property
       octokit.rest.issues.listForRepo.endpoint.merge(options),
     )) {
+      // @ts-ignore
       results.push(...result.data);
     }
     expect(results.length).toEqual(13);

@@ -1,3 +1,4 @@
+import { describe, beforeEach, it, expect } from "vitest";
 import { getInstance, type OctokitType } from "../util.ts";
 
 describe.skip("api.github.com", () => {

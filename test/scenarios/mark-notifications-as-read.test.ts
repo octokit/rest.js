@@ -1,3 +1,4 @@
+import { describe, beforeEach, it } from "vitest";
 import { getInstance, type OctokitType } from "../util.ts";
 
 describe("api.github.com", () => {

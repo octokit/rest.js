@@ -1,3 +1,4 @@
+import { describe, beforeEach, it, expect } from "vitest";
 import { loadFixture, fixtureToInstance, type OctokitType } from "../util.ts";
 
 describe("api.github.com", () => {
