@@ -1,5 +1,6 @@
-const nock = require("nock");
-const { Octokit } = require("../../");
+import { describe, it, expect } from "vitest";
+import nock from "nock";
+import { Octokit } from "../../src/index.ts";
 
 describe("https://github.com/octokit/rest.js/issues/841", () => {
   it("supports sending GET requests with method: HEAD", () => {
@@ -7,13 +8,13 @@ describe("https://github.com/octokit/rest.js/issues/841", () => {
       .head("/repos/whatwg/html/pulls/1")
       .query(true)
       // GitHub API returns 200 and Content-{Type|Length} headers for HEAD requsets
-      .reply(200, "", {
+      .reply(200, {
         "Content-Type": "application/json; charset=utf-8",
         "Content-Length": 19137,
       })
       .head("/repos/whatwg/html/pulls/2")
       .query(true)
-      .reply(404, "", {
+      .reply(404, {
         "Content-Type": "application/json; charset=utf-8",
         "Content-Length": 120,
       });

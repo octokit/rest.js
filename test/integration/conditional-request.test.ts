@@ -1,9 +1,9 @@
-const nock = require("nock");
-
-const { Octokit } = require("../../");
+import { describe, beforeEach, it, expect } from "vitest";
+import nock from "nock";
+import { Octokit } from "../../src/index.ts";
 
 describe("request 304s", () => {
-  let octokit;
+  let octokit: Octokit;
 
   beforeEach(() => {
     octokit = new Octokit({
@@ -16,7 +16,7 @@ describe("request 304s", () => {
 
     return octokit.rest.orgs
       .get({ org: "myorg", headers: { "If-None-Match": "etag" } })
-      .then((response) => {
+      .then(() => {
         expect.fail("should throw error");
       })
       .catch((error) => {
@@ -34,7 +34,7 @@ describe("request 304s", () => {
           "If-Modified-Since": "Sun Dec 24 2017 22:00:00 GMT-0600 (CST)",
         },
       })
-      .then((response) => {
+      .then(() => {
         expect.fail("should throw error");
       })
       .catch((error) => {
