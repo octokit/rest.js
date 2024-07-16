@@ -45,58 +45,28 @@
     "@octokit/fixtures-server": "^8.1.0",
     "@octokit/request": "^9.1.1",
     "@octokit/tsconfig": "^3.0.0",
-    "@types/jest": "^29.5.11",
     "@types/node": "^20.11.5",
+    "@vitest/coverage-v8": "^2.0.3",
     "esbuild": "^0.23.0",
     "fetch-mock": "^10.0.0",
     "glob": "^11.0.0",
-    "jest": "^29.7.0",
     "nock": "^13.5.0",
     "prettier": "^3.2.4",
     "semantic-release-plugin-update-version-in-files": "^1.1.0",
-    "ts-jest": "^29.1.1",
     "typescript": "^5.3.3",
-    "undici": "^6.4.0"
+    "undici": "^6.4.0",
+    "vitest": "^2.0.3"
   },
   "scripts": {
     "build": "node scripts/build.mjs && tsc -p tsconfig.json",
-    "coverage": "nyc report --reporter=html && open coverage/index.html",
     "lint": "prettier --check \"{src,test}/**/*.{js,json,ts}\" \"docs/*.js\" docs/package.json \"docs/src/**/*\" *.md package.json",
     "lint:fix": "prettier --write \"{src,test}/**/*.{js,json,ts}\" \"docs/*.js\" docs/package.json \"docs/src/**/*\" *.md package.json",
     "start-fixtures-server": "octokit-fixtures-server",
     "pretest": "npm run -s lint",
-    "test": "NODE_OPTIONS=\"$NODE_OPTIONS --experimental-vm-modules\" npx jest --coverage",
+    "test": "vitest run --coverage",
     "test:typescript": "npx tsc --noEmit --declaration --allowImportingTsExtensions --moduleResolution node16 --module node16 --noUnusedLocals test/typescript-validate.ts"
   },
   "license": "MIT",
-  "jest": {
-    "extensionsToTreatAsEsm": [
-      ".ts"
-    ],
-    "transform": {
-      "^.+\\.(ts|tsx)$": [
-        "ts-jest",
-        {
-          "tsconfig": "test/tsconfig.test.json",
-          "useESM": true
-        }
-      ]
-    },
-    "testPathIgnorePatterns": [
-      "/docs/"
-    ],
-    "coverageThreshold": {
-      "global": {
-        "statements": 100,
-        "branches": 100,
-        "functions": 100,
-        "lines": 100
-      }
-    },
-    "moduleNameMapper": {
-      "^(.+)\\.jsx?$": "$1"
-    }
-  },
   "release": {
     "branches": [
       "+([0-9]).x",

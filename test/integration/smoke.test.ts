@@ -1,5 +1,5 @@
+import { describe, it, expect, vi } from "vitest";
 import fetchMock from "fetch-mock";
-import { jest } from "@jest/globals";
 
 import { Octokit } from "../../src/index.ts";
 
@@ -64,10 +64,10 @@ describe("Smoke tests", () => {
       .getOnce("path:/", { status: 404, body: {} }, { overwriteRoutes: false });
 
     const consoleStub = {
-      debug: jest.fn(),
-      info: jest.fn(),
-      warn: jest.fn(),
-      error: jest.fn(),
+      debug: vi.fn(),
+      info: vi.fn(),
+      warn: vi.fn(),
+      error: vi.fn(),
     };
 
     const octokit = new Octokit({

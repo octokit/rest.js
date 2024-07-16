@@ -1,3 +1,4 @@
+import { describe, beforeEach, it, expect } from "vitest";
 import { getInstance, type OctokitType } from "../util.ts";
 
 describe("api.github.com", () => {
@@ -23,7 +24,7 @@ describe("api.github.com", () => {
       .catch((error) => {
         expect(error.message).toMatch(
           new RegExp(
-            `Validation Failed: {\\"resource\\":\\"Label\\",\\"code\\":\\"invalid\\",\\"field\\":\\"color\\"} - http://localhost:3000/docs.github.com/[a-z0-9]{10,11}/rest/reference/issues#create-a-label`,
+            `Validation Failed: {\\"resource\\":\\"Label\\",\\"code\\":\\"invalid\\",\\"field\\":\\"color\\"} - http://localhost:3000/docs\\.github\\.com/[a-z0-9]{10,12}/rest/reference/issues#create-a-label`,
           ),
         );
         expect(error.response.data.errors).toEqual([
