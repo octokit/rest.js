@@ -1,8 +1,9 @@
 // TODO: we don't currently run this test as part of our CI
 // as installing leakage broke for recent Node versions.
 // We are looking for an alternative.
-const { iterate } = require("leakage");
-const { Octokit } = require("../pkg/index.js");
+import { iterate } from "leakage-node18";
+import { Octokit } from "../pkg/dist-src/index.js";
+import { describe, it } from "vitest";
 
 const TestOctokit = Octokit.plugin((octokit) => {
   // skip sending requests altogether
@@ -10,15 +11,13 @@ const TestOctokit = Octokit.plugin((octokit) => {
 });
 
 describe("memory leaks (relax, tests run slow)", function () {
-  this.timeout(30000);
-
   it("creating many instances", () => {
     return iterate.async(() => {
       const octokit = new TestOctokit();
 
       return octokit.request("/");
     });
-  });
+  }, 30000);
 
   it("one instance, many requests", () => {
     const octokit = new TestOctokit();
@@ -26,5 +25,5 @@ describe("memory leaks (relax, tests run slow)", function () {
     return iterate.async(() => {
       return octokit.request("/");
     });
-  });
+  }, 30000);
 });
