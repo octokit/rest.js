@@ -3,7 +3,7 @@ import nock from "nock";
 import { Octokit } from "../../src/index.ts";
 
 describe("registerEndpoints", () => {
-  it.skip("optins are not altered in registered endpoint methods", () => {
+  it.skip("options are not altered in registered endpoint methods", () => {
     nock("https://api.github.com")
       .get("/repos/octocat/hello-world/issues/123")
       .reply(200, {});
