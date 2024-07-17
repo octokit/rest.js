@@ -344,7 +344,7 @@ describe("pagination", () => {
     });
   });
 
-  it.skip(".paginate() with results namespace (GET /installation/repositories, single page response)", () => {
+  it(".paginate() with results namespace (GET /installation/repositories, single page response)", () => {
     nock("https://api.github.com")
       .get("/installation/repositories")
       .query({
