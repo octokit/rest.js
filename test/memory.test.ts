@@ -6,7 +6,7 @@ import { Octokit } from "../src/index.ts";
 import { describe, it } from "vitest";
 
 const TestOctokit = Octokit.plugin((octokit) => {
-  // skip sending requests altogether
+  // @ts-expect-error skip sending requests altogether
   octokit.hook.wrap("request", () => null);
 });
 
