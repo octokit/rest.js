@@ -1,13 +1,16 @@
-const { readFileSync } = require("node:fs");
-const { resolve } = require("node:path");
-const { fetch: undiciFetch, Agent } = require("undici");
+import { describe, beforeAll, it, expect, afterAll } from "vitest";
 
-const { Octokit } = require("../../..");
+import { readFileSync } from "node:fs";
+import { resolve } from "node:path";
+import { fetch as undiciFetch, Agent } from "undici";
+import https from "node:https";
+
+import { Octokit } from "../../../src/index.ts";
 const ca = readFileSync(resolve(__dirname, "./ca.crt"));
 
 describe("custom client certificate", () => {
   let server;
-  before((done) => {
+  beforeAll((done) => {
     server = https.createServer(
       {
         key: readFileSync(resolve(__dirname, "./localhost.key")),
@@ -79,5 +82,5 @@ describe("custom client certificate", () => {
     });
   });
 
-  after((done) => server.close(done));
+  afterAll((done) => server.close(done));
 });
