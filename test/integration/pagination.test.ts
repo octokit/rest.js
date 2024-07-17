@@ -239,7 +239,7 @@ describe("pagination", () => {
     });
   });
 
-  it.skip(".paginate() with results namespace (GET /installation/repositories)", () => {
+  it(".paginate() with results namespace (GET /installation/repositories)", () => {
     nock("https://api.github.com")
       .get("/installation/repositories")
       .query({
@@ -282,9 +282,10 @@ describe("pagination", () => {
       );
 
     const octokit = new Octokit();
-    const options = octokit.rest.apps.listRepos.endpoint.merge({
-      per_page: 1,
-    });
+    const options =
+      octokit.rest.apps.listReposAccessibleToInstallation.endpoint.merge({
+        per_page: 1,
+      });
 
     return octokit.paginate(options).then((results) => {
       expect(results).to.deep.equal([{ id: "123" }, { id: "456" }]);
@@ -359,9 +360,10 @@ describe("pagination", () => {
       });
 
     const octokit = new Octokit();
-    const options = octokit.rest.apps.listRepos.endpoint.merge({
-      per_page: 1,
-    });
+    const options =
+      octokit.rest.apps.listReposAccessibleToInstallation.endpoint.merge({
+        per_page: 1,
+      });
 
     return octokit.paginate(options).then((results) => {
       expect(results).to.deep.equal([{ id: "123" }]);
