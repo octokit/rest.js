@@ -1,9 +1,10 @@
-const nock = require("nock");
-
-const { Octokit } = require("../../");
+import { describe, it, expect } from "vitest";
+import nock from "nock";
+import { Octokit } from "../../src/index.ts";
 
 describe("request errors", () => {
-  it("timeout", () => {
+  // instantiate a server for the test
+  it.skip("timeout", () => {
     nock("https://request-errors-test.com").get("/").delay(2000).reply(200, {});
 
     const octokit = new Octokit({
@@ -40,6 +41,7 @@ describe("request errors", () => {
       .get({ org: "myorg" })
 
       .catch((error) => {
+        console.log(error);
         expect(error.name).to.equal("HttpError");
         expect(error.status).to.equal(500);
         expect(error).to.have.property("stack");

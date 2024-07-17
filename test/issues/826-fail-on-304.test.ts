@@ -1,5 +1,6 @@
-const nock = require("nock");
-const { Octokit } = require("../../");
+import { describe, it, expect } from "vitest";
+import nock from "nock";
+import { Octokit } from "../../src/index.ts";
 
 describe("https://github.com/octokit/rest.js/issues/826", () => {
   it("throws error on 304 responses", () => {
@@ -15,7 +16,7 @@ describe("https://github.com/octokit/rest.js/issues/826", () => {
         org: "octokit",
         type: "public",
       })
-      .then((response) => {
+      .then(() => {
         expect.fail("should throw error");
       })
       .catch((error) => {
