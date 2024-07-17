@@ -41,7 +41,6 @@ describe("request errors", () => {
       .get({ org: "myorg" })
 
       .catch((error) => {
-        console.log(error);
         expect(error.name).to.equal("HttpError");
         expect(error.status).to.equal(500);
         expect(error).to.have.property("stack");

@@ -1,8 +1,10 @@
-const nock = require("nock");
-const { Octokit } = require("../../");
+import { describe, it, expect } from "vitest";
+import nock from "nock";
+import { Octokit } from "../../src/index.ts";
 
+// TODO: Basic Auth is not accepted by GitHub anymore
 describe("https://github.com/octokit/rest.js/issues/1279", () => {
-  it("2fa code gets stored and passed as header to listAuthorizations", () => {
+  it.skip("2fa code gets stored and passed as header to listAuthorizations", () => {
     nock("https://authentication-test-host.com", {
       reqheaders: {
         authorization: "Basic dXNlcm5hbWU6cGFzc3dvcmQ=",
@@ -41,7 +43,7 @@ describe("https://github.com/octokit/rest.js/issues/1279", () => {
         username: "username",
         password: "password",
         on2fa() {
-          return Promise.resolve(123456);
+          return Promise.resolve("123456");
         },
       },
     });
@@ -51,7 +53,7 @@ describe("https://github.com/octokit/rest.js/issues/1279", () => {
     });
   });
 
-  it("prompts for OTP again once OTP code becomes invalid", () => {
+  it.skip("prompts for OTP again once OTP code becomes invalid", () => {
     nock("https://authentication-test-host.com", {
       reqheaders: {
         authorization: "Basic dXNlcm5hbWU6cGFzc3dvcmQ=",

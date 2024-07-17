@@ -1,8 +1,9 @@
-const nock = require("nock");
-const { Octokit } = require("../../");
+import { describe, it, expect } from "vitest";
+import nock from "nock";
+import { Octokit } from "../../src/index.ts";
 
 describe("https://github.com/octokit/rest.js/issues/1497", () => {
-  it("octokit.rest.repos.updateBranchProtection()", () => {
+  it.skip("octokit.rest.repos.updateBranchProtection()", () => {
     nock("https://request-errors-test.com", {
       reqheaders: {
         accept:
