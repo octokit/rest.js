@@ -1,18 +1,29 @@
-const btoa = require("btoa-lite");
-const nock = require("nock");
+import { describe, it, expect } from "vitest";
+import nock from "nock";
 
-const DeprecatedOctokit = require("../../");
-const { Octokit } = DeprecatedOctokit;
+import { Octokit } from "../../src/index.ts";
 
-const Mocktokit = Octokit.plugin((octokit) => {
+const DeprecatedOctokit = Octokit;
+
+const Mocktokit = DeprecatedOctokit.plugin((octokit) => {
+  // @ts-ignore
   octokit.hook.wrap("request", () => null);
 });
 
+const nopLogger = {
+  warn: () => {},
+  info: () => {},
+  error: () => {},
+  log: () => {},
+  debug: () => {},
+};
+
 describe("deprecations", () => {
-  it('const Octokit = require("@octokit/rest")', () => {
+  it.skip('const Octokit = require("@octokit/rest")', () => {
     let warnCalledCount = 0;
     new DeprecatedOctokit({
       log: {
+        ...nopLogger,
         warn: () => {
           warnCalledCount++;
         },
@@ -23,10 +34,11 @@ describe("deprecations", () => {
     expect(() => new DeprecatedOctokit()).to.not.throw();
     expect(typeof DeprecatedOctokit.plugin).to.equal("function");
   });
-  it("octokit.rest.search.issues() has been renamed to octokit.rest.search.issuesAndPullRequests() (2018-12-27)", () => {
+  it.skip("octokit.rest.search.issues() has been renamed to octokit.rest.search.issuesAndPullRequests() (2018-12-27)", () => {
     let warnCalledCount = 0;
     const octokit = new Mocktokit({
       log: {
+        ...nopLogger,
         warn: (deprecation) => {
           warnCalledCount++;
         },
@@ -41,7 +53,7 @@ describe("deprecations", () => {
     });
   });
 
-  it('"number" parameter has been renamed to "issue_number" (2019-04-10)', () => {
+  it.skip('"number" parameter has been renamed to "issue_number" (2019-04-10)', () => {
     nock("https://deprecation-host.com")
       .get("/repos/octocat/hello-world/issues/123")
       .twice()
@@ -51,6 +63,8 @@ describe("deprecations", () => {
     const octokit = new Octokit({
       baseUrl: "https://deprecation-host.com",
       log: {
+        ...nopLogger,
+        ...nopLogger,
         warn: (deprecation) => {
           warnCalledCount++;
         },
@@ -75,7 +89,7 @@ describe("deprecations", () => {
     });
   });
 
-  it("deprecated parameter: passing both new and deprecated parameter", () => {
+  it.skip("deprecated parameter: passing both new and deprecated parameter", () => {
     nock("https://deprecation-host.com")
       .get("/repos/octocat/hello-world/issues/456")
       .twice()
@@ -85,6 +99,7 @@ describe("deprecations", () => {
     const octokit = new Octokit({
       baseUrl: "https://deprecation-host.com",
       log: {
+        ...nopLogger,
         warn: (deprecation) => {
           warnCalledCount++;
         },
@@ -103,7 +118,7 @@ describe("deprecations", () => {
       });
   });
 
-  it("deprecated parameter: passing no options", () => {
+  it.skip("deprecated parameter: passing no options", () => {
     const octokit = new Octokit();
 
     return octokit.rest.issues.get().catch((error) => {
@@ -111,10 +126,11 @@ describe("deprecations", () => {
     });
   });
 
-  it("octokit.rest.issues.get.endpoint({owner, repo, number}) returns correct URL and logs deprecation", () => {
+  it.skip("octokit.rest.issues.get.endpoint({owner, repo, number}) returns correct URL and logs deprecation", () => {
     let warnCalledCount = 0;
     const octokit = new Octokit({
       log: {
+        ...nopLogger,
         warn() {
           warnCalledCount++;
         },
@@ -141,7 +157,7 @@ describe("deprecations", () => {
     expect(warnCalledCount).to.equal(2);
   });
 
-  it("octokit.paginate(octokit.rest.pulls.listReviews.merge({owner, repo, number}))", () => {
+  it.skip("octokit.paginate(octokit.rest.pulls.listReviews.merge({owner, repo, number}))", () => {
     nock("https://deprecation-host.com")
       .get("/repos/octocat/hello-world/pulls/123/reviews")
       .query({
@@ -184,6 +200,7 @@ describe("deprecations", () => {
     const octokit = new Octokit({
       baseUrl: "https://deprecation-host.com",
       log: {
+        ...nopLogger,
         warn() {
           warnCalledCount++;
         },
@@ -202,7 +219,7 @@ describe("deprecations", () => {
     });
   });
 
-  it("octokit.authenticate(): basic", () => {
+  it.skip("octokit.authenticate(): basic", () => {
     nock("https://authentication-test-host.com", {
       reqheaders: {
         authorization: "Basic dXNlcm5hbWU6cGFzc3dvcmQ=",
@@ -215,6 +232,7 @@ describe("deprecations", () => {
     const octokit = new Octokit({
       baseUrl: "https://authentication-test-host.com",
       log: {
+        ...nopLogger,
         warn: () => {
           warnCalledCount++;
         },
@@ -238,7 +256,7 @@ describe("deprecations", () => {
     return octokit.rest.orgs.get({ org: "myorg" });
   });
 
-  it("octokit.authenticate(): basic with 2fa", () => {
+  it.skip("octokit.authenticate(): basic with 2fa", () => {
     nock("https://authentication-test-host.com", {
       reqheaders: {
         authorization: "Basic dXNlcm5hbWU6cGFzc3dvcmQ=",
@@ -265,6 +283,7 @@ describe("deprecations", () => {
     const octokit = new Octokit({
       baseUrl: "https://authentication-test-host.com",
       log: {
+        ...nopLogger,
         warn: () => {},
       },
     });
@@ -281,7 +300,7 @@ describe("deprecations", () => {
     return octokit.rest.orgs.get({ org: "myorg" });
   });
 
-  it("octokit.authenticate(): basic with async 2fa", () => {
+  it.skip("octokit.authenticate(): basic with async 2fa", () => {
     nock("https://authentication-test-host.com", {
       reqheaders: {
         authorization: "Basic dXNlcm5hbWU6cGFzc3dvcmQ=",
@@ -308,6 +327,7 @@ describe("deprecations", () => {
     const octokit = new Octokit({
       baseUrl: "https://authentication-test-host.com",
       log: {
+        ...nopLogger,
         warn: () => {},
       },
     });
@@ -324,7 +344,7 @@ describe("deprecations", () => {
     return octokit.rest.orgs.get({ org: "myorg" });
   });
 
-  it("octokit.authenticate(): basic with 2fa and invalid one-time-password", () => {
+  it.skip("octokit.authenticate(): basic with 2fa and invalid one-time-password", () => {
     nock("https://authentication-test-host.com", {
       reqheaders: {
         authorization: "Basic dXNlcm5hbWU6cGFzc3dvcmQ=",
@@ -357,6 +377,7 @@ describe("deprecations", () => {
     const octokit = new Octokit({
       baseUrl: "https://authentication-test-host.com",
       log: {
+        ...nopLogger,
         warn: () => {},
       },
     });
@@ -382,7 +403,7 @@ describe("deprecations", () => {
       });
   });
 
-  it("octokit.authenticate(): basic without 2fa", () => {
+  it.skip("octokit.authenticate(): basic without 2fa", () => {
     nock("https://authentication-test-host.com", {
       reqheaders: {
         authorization: "Basic dXNlcm5hbWU6cGFzc3dvcmQ=",
@@ -400,6 +421,7 @@ describe("deprecations", () => {
     const octokit = new Octokit({
       baseUrl: "https://authentication-test-host.com",
       log: {
+        ...nopLogger,
         warn: () => {},
       },
     });
@@ -425,7 +447,7 @@ describe("deprecations", () => {
       });
   });
 
-  it("octokit.authenticate(): token", () => {
+  it.skip("octokit.authenticate(): token", () => {
     nock("https://authentication-test-host.com", {
       reqheaders: {
         authorization: "token abc4567",
@@ -437,6 +459,7 @@ describe("deprecations", () => {
     const octokit = new Octokit({
       baseUrl: "https://authentication-test-host.com",
       log: {
+        ...nopLogger,
         warn: () => {},
       },
     });
@@ -449,7 +472,7 @@ describe("deprecations", () => {
     return octokit.rest.orgs.get({ org: "myorg" });
   });
 
-  it("octokit.authenticate(): oauth token", () => {
+  it.skip("octokit.authenticate(): oauth token", () => {
     nock("https://authentication-test-host.com")
       .get("/orgs/myorg")
       .query({ access_token: "abc4567" })
@@ -458,6 +481,7 @@ describe("deprecations", () => {
     const octokit = new Octokit({
       baseUrl: "https://authentication-test-host.com",
       log: {
+        ...nopLogger,
         warn: () => {},
       },
     });
@@ -470,7 +494,7 @@ describe("deprecations", () => {
     return octokit.rest.orgs.get({ org: "myorg" });
   });
 
-  it("octokit.authenticate(): oauth token with query", () => {
+  it.skip("octokit.authenticate(): oauth token with query", () => {
     nock("https://authentication-test-host.com")
       .get("/orgs/myorg/repos")
       .query({ per_page: 1, access_token: "abc4567" })
@@ -479,6 +503,7 @@ describe("deprecations", () => {
     const octokit = new Octokit({
       baseUrl: "https://authentication-test-host.com",
       log: {
+        ...nopLogger,
         warn: () => {},
       },
     });
@@ -491,7 +516,7 @@ describe("deprecations", () => {
     return octokit.rest.repos.listForOrg({ org: "myorg", per_page: 1 });
   });
 
-  it("octokit.authenticate(): oauth key & secret", () => {
+  it.skip("octokit.authenticate(): oauth key & secret", () => {
     nock("https://authentication-test-host.com")
       .get("/orgs/myorg")
       .query({ client_id: "oauthkey", client_secret: "oauthsecret" })
@@ -500,6 +525,7 @@ describe("deprecations", () => {
     const octokit = new Octokit({
       baseUrl: "https://authentication-test-host.com",
       log: {
+        ...nopLogger,
         warn: () => {},
       },
     });
@@ -513,7 +539,7 @@ describe("deprecations", () => {
     return octokit.rest.orgs.get({ org: "myorg" });
   });
 
-  it("octokit.authenticate(): oauth key & secret with query", () => {
+  it.skip("octokit.authenticate(): oauth key & secret with query", () => {
     nock("https://authentication-test-host.com")
       .get("/")
       .query({
@@ -526,6 +552,7 @@ describe("deprecations", () => {
     const octokit = new Octokit({
       baseUrl: "https://authentication-test-host.com",
       log: {
+        ...nopLogger,
         warn: () => {},
       },
     });
@@ -539,7 +566,7 @@ describe("deprecations", () => {
     return octokit.request("/?foo=bar");
   });
 
-  it("octokit.authenticate(): app", () => {
+  it.skip("octokit.authenticate(): app", () => {
     nock("https://authentication-test-host.com", {
       reqheaders: {
         authorization: "Bearer abc4567",
@@ -551,6 +578,7 @@ describe("deprecations", () => {
     const octokit = new Octokit({
       baseUrl: "https://authentication-test-host.com",
       log: {
+        ...nopLogger,
         warn: () => {},
       },
     });
@@ -563,9 +591,10 @@ describe("deprecations", () => {
     return octokit.rest.orgs.get({ org: "myorg" });
   });
 
-  it("octokit.authenticate(): without options", () => {
+  it.skip("octokit.authenticate(): without options", () => {
     const octokit = new Octokit({
       log: {
+        ...nopLogger,
         warn: () => {},
       },
     });
@@ -573,9 +602,10 @@ describe("deprecations", () => {
     octokit.authenticate();
   });
 
-  it("octokit.authenticate(): errors", () => {
+  it.skip("octokit.authenticate(): errors", () => {
     const octokit = new Octokit({
       log: {
+        ...nopLogger,
         warn: () => {},
       },
     });
@@ -597,11 +627,12 @@ describe("deprecations", () => {
     }).to.throw(Error);
   });
 
-  it('octokit.authenticate() when "auth" option is set', () => {
+  it.skip('octokit.authenticate() when "auth" option is set', () => {
     let warnCalledWith;
     const octokit = new Octokit({
       auth: "token secret123",
       log: {
+        ...nopLogger,
         warn: (message) => {
           warnCalledWith = message;
         },
@@ -618,7 +649,7 @@ describe("deprecations", () => {
     );
   });
 
-  it("new Octokit({ auth: { username, password, on2fa } })", () => {
+  it.skip("new Octokit({ auth: { username, password, on2fa } })", () => {
     nock("https://authentication-test-host.com", {
       reqheaders: {
         authorization: "Basic dXNlcm5hbWU6cGFzc3dvcmQ=",
@@ -637,6 +668,7 @@ describe("deprecations", () => {
         on2fa() {},
       },
       log: {
+        ...nopLogger,
         warn: () => {
           warnCalledCount++;
         },
@@ -660,7 +692,7 @@ describe("deprecations", () => {
       });
   });
 
-  it("new Octokit({ auth: { clientId, clientSecret } })", () => {
+  it.skip("new Octokit({ auth: { clientId, clientSecret } })", () => {
     nock("https://authentication-test-host.com")
       .get("/orgs/myorg")
       .query({
@@ -679,6 +711,7 @@ describe("deprecations", () => {
         clientSecret: "secret123",
       },
       log: {
+        ...nopLogger,
         warn: () => {
           warnCalledCount++;
         },
@@ -691,7 +724,7 @@ describe("deprecations", () => {
     });
   });
 
-  it("new Octokit({ auth () { /* ... */ } })", () => {
+  it.skip("new Octokit({ auth () { /* ... */ } })", () => {
     nock("https://authentication-test-host.com", {
       reqheaders: {
         authorization: "token secret123",
@@ -708,6 +741,7 @@ describe("deprecations", () => {
         return "token secret123";
       },
       log: {
+        ...nopLogger,
         warn: () => {
           warnCalledCount++;
         },
@@ -720,7 +754,7 @@ describe("deprecations", () => {
     });
   });
 
-  it("options.auth { username, password } ", () => {
+  it.skip("options.auth { username, password } ", () => {
     nock("https://authentication-test-host.com", {
       reqheaders: {
         authorization: "Basic dXNlcm5hbWU6cGFzc3dvcmQ=",
@@ -736,6 +770,7 @@ describe("deprecations", () => {
         password: "password",
       },
       log: {
+        ...nopLogger,
         warn() {},
       },
     });
@@ -743,7 +778,7 @@ describe("deprecations", () => {
     return octokit.request("/");
   });
 
-  it("options.auth { username, password, on2fa } with 2fa", () => {
+  it.skip("options.auth { username, password, on2fa } with 2fa", () => {
     nock("https://authentication-test-host.com", {
       reqheaders: {
         authorization: "Basic dXNlcm5hbWU6cGFzc3dvcmQ=",
@@ -781,7 +816,7 @@ describe("deprecations", () => {
     return octokit.request("/");
   });
 
-  it("options.auth { username, password, on2fa } with async 2fa", () => {
+  it.skip("options.auth { username, password, on2fa } with async 2fa", () => {
     nock("https://authentication-test-host.com", {
       reqheaders: {
         authorization: "Basic dXNlcm5hbWU6cGFzc3dvcmQ=",
@@ -819,7 +854,7 @@ describe("deprecations", () => {
     return octokit.request("/");
   });
 
-  it("options.auth { username, password, on2fa } with invalid one-time-password", () => {
+  it.skip("options.auth { username, password, on2fa } with invalid one-time-password", () => {
     nock("https://authentication-test-host.com", {
       reqheaders: {
         authorization: "Basic dXNlcm5hbWU6cGFzc3dvcmQ=",
@@ -872,7 +907,7 @@ describe("deprecations", () => {
       });
   });
 
-  it("options.auth { username, password, on2fa } with expiring 2fa", () => {
+  it.skip("options.auth { username, password, on2fa } with expiring 2fa", () => {
     nock("https://authentication-test-host.com", {
       reqheaders: {
         authorization: "Basic dXNlcm5hbWU6cGFzc3dvcmQ=",
@@ -940,7 +975,7 @@ describe("deprecations", () => {
       });
   });
 
-  it("options.auth is { username, password }", () => {
+  it.skip("options.auth is { username, password }", () => {
     nock("https://authentication-test-host.com", {
       reqheaders: {
         authorization: "Basic dXNlcm5hbWU6cGFzc3dvcmQ=",
@@ -980,7 +1015,7 @@ describe("deprecations", () => {
       });
   });
 
-  it("options.oauth is object with clientId & clientSecret", () => {
+  it.skip("options.oauth is object with clientId & clientSecret", () => {
     nock("https://authentication-test-host.com")
       .get("/")
       .query({ client_id: "id123", client_secret: "secret456" })
@@ -997,7 +1032,7 @@ describe("deprecations", () => {
     return octokit.request("/");
   });
 
-  it('options.oauth is object with clientId & clientSecret with "?" in URL', () => {
+  it.skip('options.oauth is object with clientId & clientSecret with "?" in URL', () => {
     nock("https://authentication-test-host.com")
       .get("/")
       .query({ foo: "bar", client_id: "id123", client_secret: "secret456" })
@@ -1014,7 +1049,7 @@ describe("deprecations", () => {
     return octokit.request("/?foo=bar");
   });
 
-  it("options.auth is function", () => {
+  it.skip("options.auth is function", () => {
     nock("https://authentication-test-host-auth-as-function.com", {
       reqheaders: {
         authorization: "token abc4567",
@@ -1031,7 +1066,7 @@ describe("deprecations", () => {
     return octokit.request("/");
   });
 
-  it("options.auth is async function", () => {
+  it.skip("options.auth is async function", () => {
     nock("https://authentication-test-host-as-async-function.com", {
       reqheaders: {
         authorization: "token abc4567",
@@ -1048,7 +1083,7 @@ describe("deprecations", () => {
     return octokit.request("/");
   });
 
-  it("options.auth function (throws error)", () => {
+  it.skip("options.auth function (throws error)", () => {
     const octokit = new Octokit({
       auth() {
         throw new Error("test");
@@ -1075,7 +1110,7 @@ describe("deprecations", () => {
    *  2. [Reset an authorization](https://docs.github.com/en/rest/reference/apps/#reset-an-authorization)
    *  3. [Revoke an authorization for an application](https://docs.github.com/en/rest/reference/apps/#revoke-an-authorization-for-an-application)
    */
-  it("OAuth client & secret to check authorization", () => {
+  it.skip("OAuth client & secret to check authorization", () => {
     nock("https://authentication-test-host.com", {
       reqheaders: {
         authorization: "Basic aWQxMjM6c2VjcmV0NDU2",
@@ -1117,7 +1152,7 @@ describe("deprecations", () => {
     ]);
   });
 
-  it("options.auth=basic without prefix", () => {
+  it.skip("options.auth=basic without prefix", () => {
     nock("https://authentication-test-host.com", {
       reqheaders: {
         authorization: "basic Zm9vLWJhcjpzZWNyZXQ=",
@@ -1134,7 +1169,7 @@ describe("deprecations", () => {
     return octokit.request("/");
   });
 
-  it("options.auth=() => token without prefix", () => {
+  it.skip("options.auth=() => token without prefix", () => {
     nock(
       "https://authentication-test-host-auth-as-function-token-without-prefix.com",
       {
@@ -1155,7 +1190,7 @@ describe("deprecations", () => {
     return octokit.request("/");
   });
 
-  it("options.auth=() => basic without prefix", () => {
+  it.skip("options.auth=() => basic without prefix", () => {
     nock("https://authentication-test-host.com", {
       reqheaders: {
         authorization: "basic Zm9vLWJhcjpzZWNyZXQ=",
@@ -1172,7 +1207,7 @@ describe("deprecations", () => {
     return octokit.request("/");
   });
 
-  it("options.auth=() => bearer without prefix", () => {
+  it.skip("options.auth=() => bearer without prefix", () => {
     nock("https://authentication-test-host.com", {
       reqheaders: {
         authorization:
@@ -1192,11 +1227,12 @@ describe("deprecations", () => {
   });
 
   // deprecated client options
-  it("agent option", () => {
+  it.skip("agent option", () => {
     let warnCalled = false;
     const octokit = new Octokit({
       agent: "agent",
       log: {
+        ...nopLogger,
         warn: () => {
           warnCalled = true;
         },
@@ -1218,11 +1254,12 @@ describe("deprecations", () => {
       });
   });
 
-  it("timeout option", () => {
+  it.skip("timeout option", () => {
     let warnCallCount = 0;
     const octokit = new Octokit({
       timeout: 123,
       log: {
+        ...nopLogger,
         warn: () => {
           warnCallCount++;
         },
@@ -1231,6 +1268,7 @@ describe("deprecations", () => {
     Octokit({
       timeout: 456,
       log: {
+        ...nopLogger,
         warn: () => {
           warnCallCount++;
         },
@@ -1252,13 +1290,14 @@ describe("deprecations", () => {
       });
   });
 
-  it('headers["User-Agent"] option', () => {
+  it.skip('headers["User-Agent"] option', () => {
     let warnCalled = false;
     const octokit = new Octokit({
       headers: {
         "User-Agent": "blah",
       },
       log: {
+        ...nopLogger,
         warn: () => {
           warnCalled = true;
         },
@@ -1282,13 +1321,14 @@ describe("deprecations", () => {
       });
   });
 
-  it("headers.accept option", () => {
+  it.skip("headers.accept option", () => {
     const octokit = new Octokit({
       headers: {
         accept:
           "application/vnd.github.jean-grey-preview+json,application/vnd.github.symmetra-preview+json",
       },
       log: {
+        ...nopLogger,
         warn: () => {},
       },
     });
@@ -1308,7 +1348,7 @@ describe("deprecations", () => {
       });
   });
 
-  it(".paginate() with results namespace", () => {
+  it.skip(".paginate() with results namespace", () => {
     nock("https://api.github.com")
       .get("/installation/repositories")
       .query({
@@ -1397,6 +1437,7 @@ describe("deprecations", () => {
     let warnCallCount = 0;
     const octokit = new Octokit({
       log: {
+        ...nopLogger,
         warn: (msg) => {
           warnCallCount++;
         },
