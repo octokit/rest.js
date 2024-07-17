@@ -2,7 +2,7 @@
 // as installing leakage broke for recent Node versions.
 // We are looking for an alternative.
 import { iterate } from "leakage-node18";
-import { Octokit } from "../pkg/dist-src/index.js";
+import { Octokit } from "../src/index.ts";
 import { describe, it } from "vitest";
 
 const TestOctokit = Octokit.plugin((octokit) => {
