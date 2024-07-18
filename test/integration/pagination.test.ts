@@ -370,13 +370,14 @@ describe("pagination", () => {
     });
   });
 
-  it.skip("does not paginate non-paginated response with total_count property", () => {
+  it("does not paginate non-paginated response with total_count property", () => {
     nock("https://api.github.com")
       .get("/repos/octokit/rest.js/commits/abc4567/status")
       .reply(200, {
         state: "success",
         total_count: 2,
         statuses: [{ id: 1 }, { id: 2 }],
+        url: "https://api.github.com/repos/octokit/rest.js/commits/abc4567/status",
       });
 
     const octokit = new Octokit();

@@ -3,14 +3,13 @@ import nock from "nock";
 import { Octokit } from "../../src/index.ts";
 
 describe("request errors", () => {
-  // instantiate a server for the test
-  it.skip("timeout", () => {
+  it("timeout", () => {
     nock("https://request-errors-test.com").get("/").delay(2000).reply(200, {});
 
     const octokit = new Octokit({
       baseUrl: "https://request-errors-test.com",
       request: {
-        timeout: 100,
+        signal: AbortSignal.timeout(100),
       },
     });
 
