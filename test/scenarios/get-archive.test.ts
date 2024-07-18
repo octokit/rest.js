@@ -12,10 +12,6 @@ describe.skip("api.github.com", () => {
     });
   });
 
-  if ("cy" in global) {
-    return it.skip("octokit.rest.repos.archive() (#758)");
-  }
-
   it('octokit.rest.repos.downloadTarballArchive({owner: "octokit-fixture-org", repo: "get-archive"})', () => {
     return octokit.rest.repos
       .downloadTarballArchive({

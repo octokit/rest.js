@@ -1,5 +1,6 @@
-const nock = require("nock");
-const { Octokit } = require("../../");
+import { describe, it, expect } from "vitest";
+import nock from "nock";
+import { Octokit } from "../../src/index.ts";
 
 describe("https://github.com/octokit/rest.js/issues/765", () => {
   it("octokit.rest.issues.update({..., milestone: null})", () => {

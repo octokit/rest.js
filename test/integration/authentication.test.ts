@@ -1,9 +1,9 @@
-const lolex = require("lolex");
-const nock = require("nock");
-const { createAppAuth } = require("@octokit/auth-app");
-const { createActionAuth } = require("@octokit/auth-action");
+import { describe, it, expect, vi } from "vitest";
+import nock from "nock";
+import { createAppAuth } from "@octokit/auth-app";
+import { createActionAuth } from "@octokit/auth-action";
 
-const { Octokit } = require("../..");
+import { Octokit } from "../../src/index.ts";
 
 describe("authentication", () => {
   it("unauthenticated", () => {
@@ -69,6 +69,9 @@ describe("authentication", () => {
       baseUrl: "https://authentication-test-host.com",
       auth: "token abc4567",
       log: {
+        error() {},
+        debug() {},
+        info() {},
         warn() {},
       },
     });
@@ -119,7 +122,15 @@ describe("authentication", () => {
 
   it("invalid auth errors", () => {
     expect(() => {
-      Octokit({ auth: {}, log: { warn() {} } });
+      new Octokit({
+        auth: {},
+        log: {
+          error() {},
+          debug() {},
+          info() {},
+          warn() {},
+        },
+      });
     }).to.throw(Error);
   });
 
@@ -203,7 +214,7 @@ x//0u+zd/R/QRUzLOw4N72/Hu+UG6MNt5iDZFCtapRaKt6OvSBwy8w==
       .get("/")
       .reply(200, {});
 
-    const clock = lolex.install({
+    const clock = vi.useFakeTimers({
       now: 0,
       toFake: ["Date"],
     });
@@ -211,14 +222,14 @@ x//0u+zd/R/QRUzLOw4N72/Hu+UG6MNt5iDZFCtapRaKt6OvSBwy8w==
     const octokit = new Octokit({
       authStrategy: createAppAuth,
       auth: {
-        id: APP_ID,
+        appId: APP_ID,
         privateKey: PRIVATE_KEY,
         installationId: 123,
       },
     });
 
     return octokit.request("/").then(() => {
-      clock.uninstall();
+      clock.useRealTimers();
     });
   });
 });

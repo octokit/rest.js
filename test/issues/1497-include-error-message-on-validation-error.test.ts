@@ -1,12 +1,12 @@
-const nock = require("nock");
-const { Octokit } = require("../../");
+import { describe, it, expect } from "vitest";
+import nock from "nock";
+import { Octokit } from "../../src/index.ts";
 
 describe("https://github.com/octokit/rest.js/issues/1497", () => {
   it("octokit.rest.repos.updateBranchProtection()", () => {
     nock("https://request-errors-test.com", {
       reqheaders: {
-        accept:
-          "application/vnd.github.hellcat-preview+json,application/vnd.github.luke-cage-preview+json,application/vnd.github.zzzax-preview+json",
+        accept: "application/vnd.github.v3+json",
         authorization: "token secret123",
       },
     })
@@ -56,7 +56,7 @@ describe("https://github.com/octokit/rest.js/issues/1497", () => {
       .catch((error) => {
         expect(error).to.have.property(
           "message",
-          `Validation Failed: "Only organization repositories can have users and team restrictions"`,
+          `Validation Failed: "Only organization repositories can have users and team restrictions" - https://docs.github.com/en/rest/reference/repos/#update-branch-protection`,
         );
       });
   });

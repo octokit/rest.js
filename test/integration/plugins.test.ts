@@ -1,22 +1,28 @@
-const { Octokit } = require("../../");
+import { describe, it, expect } from "vitest";
+import { Octokit } from "../../src/index.ts";
 
 describe("plugins", () => {
   it("gets called in constructor", () => {
     const MyOctokit = Octokit.plugin((octokit) => {
+      // @ts-ignore
       octokit.foo = "bar";
     });
     const myClient = new MyOctokit();
+    // @ts-ignore
     expect(myClient.foo).to.equal("bar");
   });
 
   it("does not override plugins of original constructor", () => {
     const MyOctokit = Octokit.plugin((octokit) => {
+      // @ts-ignore
       octokit.foo = "bar";
     });
     const myClient = new MyOctokit();
+    // @ts-ignore
     expect(myClient.foo).to.equal("bar");
 
     const octokit = new Octokit();
+    // @ts-ignore
     expect(octokit.foo).to.equal(undefined);
   });
 

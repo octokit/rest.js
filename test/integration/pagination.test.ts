@@ -1,6 +1,6 @@
-const nock = require("nock");
-
-const { Octokit } = require("../../");
+import { describe, it, expect } from "vitest";
+import nock from "nock";
+import { Octokit } from "../../src/index.ts";
 
 describe("pagination", () => {
   it(".paginate()", () => {
@@ -282,9 +282,10 @@ describe("pagination", () => {
       );
 
     const octokit = new Octokit();
-    const options = octokit.rest.apps.listRepos.endpoint.merge({
-      per_page: 1,
-    });
+    const options =
+      octokit.rest.apps.listReposAccessibleToInstallation.endpoint.merge({
+        per_page: 1,
+      });
 
     return octokit.paginate(options).then((results) => {
       expect(results).to.deep.equal([{ id: "123" }, { id: "456" }]);
@@ -359,9 +360,10 @@ describe("pagination", () => {
       });
 
     const octokit = new Octokit();
-    const options = octokit.rest.apps.listRepos.endpoint.merge({
-      per_page: 1,
-    });
+    const options =
+      octokit.rest.apps.listReposAccessibleToInstallation.endpoint.merge({
+        per_page: 1,
+      });
 
     return octokit.paginate(options).then((results) => {
       expect(results).to.deep.equal([{ id: "123" }]);
@@ -375,6 +377,7 @@ describe("pagination", () => {
         state: "success",
         total_count: 2,
         statuses: [{ id: 1 }, { id: 2 }],
+        url: "https://api.github.com/repos/octokit/rest.js/commits/abc4567/status",
       });
 
     const octokit = new Octokit();

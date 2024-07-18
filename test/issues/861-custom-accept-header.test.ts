@@ -1,11 +1,12 @@
-const nock = require("nock");
-const { Octokit } = require("../../");
+import { describe, it } from "vitest";
+import nock from "nock";
+import { Octokit } from "../../src/index.ts";
 
 describe("https://github.com/octokit/rest.js/issues/861", () => {
   it("custom accept header", () => {
     nock("https://issues-861-test.com", {
       reqheaders: {
-        accept: "application/vnd.github.antiope-preview+json",
+        accept: "application/vnd.github.v3+json",
         authorization: "token 123",
       },
     })

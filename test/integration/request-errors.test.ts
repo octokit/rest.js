@@ -1,6 +1,6 @@
-const nock = require("nock");
-
-const { Octokit } = require("../../");
+import { describe, it, expect } from "vitest";
+import nock from "nock";
+import { Octokit } from "../../src/index.ts";
 
 describe("request errors", () => {
   it("timeout", () => {
@@ -9,7 +9,7 @@ describe("request errors", () => {
     const octokit = new Octokit({
       baseUrl: "https://request-errors-test.com",
       request: {
-        timeout: 100,
+        signal: AbortSignal.timeout(100),
       },
     });
 
