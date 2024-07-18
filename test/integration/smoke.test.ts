@@ -56,7 +56,7 @@ describe("Smoke tests", () => {
     expect(octokit.paginate).toBeInstanceOf(Function);
   });
 
-  it.skip("@octokit/plugin-request-log", () => {
+  it("@octokit/plugin-request-log", () => {
     const mock = fetchMock
       .sandbox()
       .getOnce("path:/", { status: 200, body: {} })
@@ -92,9 +92,9 @@ describe("Smoke tests", () => {
         },
         () => {
           expect(consoleStub.debug.mock.calls.length).toEqual(2);
-          expect(consoleStub.info.mock.calls.length).toEqual(2);
+          expect(consoleStub.info.mock.calls.length).toEqual(1);
           expect(consoleStub.warn.mock.calls.length).toEqual(0);
-          expect(consoleStub.error.mock.calls.length).toEqual(0);
+          expect(consoleStub.error.mock.calls.length).toEqual(1);
         },
       );
   });
