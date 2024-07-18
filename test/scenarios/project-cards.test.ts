@@ -13,7 +13,7 @@ describe("api.github.com", () => {
   });
 
   // blocked by renovate/octokit-plugin-rest-endpoint-methods-5.x
-  it.skip("octokit.rest.projects.*ProjectCard()", () => {
+  it("octokit.rest.projects.*ProjectCard()", () => {
     return octokit.rest.projects
       .createCard({
         column_id: 1000,
