@@ -4,7 +4,7 @@ import { graphql } from "gatsby";
 
 import IndexPage from "./index-page";
 
-export default ({ data, pageContext }) => {
+export default function Template({ data, pageContext }) {
   return <IndexPage version={pageContext.version} data={data} />;
 };
 
@@ -22,7 +22,7 @@ export const query = graphql`
     # staticMethods are pages sourced from this repo
     staticMethods: allMarkdownRemark(
       filter: { fields: { version: { eq: $version } } }
-      sort: { fields: fields___slug }
+      sort: { fields: { slug: ASC } }
     ) {
       edges {
         node {
@@ -42,11 +42,11 @@ export const query = graphql`
     # from https://github.com/octokit/plugin-rest-endpoint-methods.js
     endpointScopes: allMarkdownRemark(
       filter: { fields: { version: { eq: $endpoints } } }
-      sort: { fields: fields___slug }
+      sort: { fields: { slug: ASC } }
     ) {
       # endpoints are grouped by the directory they reside in, as
       # configured in the onCreateNode hook in gatsby-node.js
-      group(field: fields___parentRelativeDirectory) {
+      group(field: { fields: { parentRelativeDirectory: SELECT } }) {
         fieldValue # this is the parentRelativeDirectory field
         edges {
           node {
