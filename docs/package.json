@@ -14,7 +14,7 @@
     "gatsby-plugin-typography": "^5.0.0",
     "gatsby-remark-prismjs": "^7.0.0",
     "gatsby-source-filesystem": "^5.0.0",
-    "gatsby-source-git": "^1.0.2",
+    "gatsby-source-git": "git+https://github.com/stevetweeddale/gatsby-source-git",
     "gatsby-transformer-remark": "^6.0.0",
     "html-react-parser": "^5.0.0",
     "lodash": "^4.17.15",
@@ -27,5 +27,13 @@
     "title-case": "^4.0.0",
     "typography": "^0.16.21",
     "typography-theme-github": "^0.16.19"
+  },
+  "overrides": {
+    "react-debounce-render": {
+      "react": "$react"
+    }
+  },
+  "dependencies": {
+    "elasticlunr": "^0.9.5"
   }
 }
