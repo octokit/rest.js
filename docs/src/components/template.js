@@ -6,7 +6,7 @@ import IndexPage from "./index-page";
 
 export default function Template({ data, pageContext }) {
   return <IndexPage version={pageContext.version} data={data} />;
-};
+}
 
 export function Head() {
   return (
