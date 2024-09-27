@@ -64,7 +64,7 @@
     "start-fixtures-server": "octokit-fixtures-server",
     "pretest": "npm run -s lint",
     "test": "vitest run --coverage",
-    "test:typescript": "npx tsc --noEmit --declaration --allowImportingTsExtensions --moduleResolution node16 --module node16 --noUnusedLocals test/typescript-validate.ts"
+    "test:typescript": "npx tsc --noEmit --declaration --allowImportingTsExtensions --moduleResolution node16 --module node16 --noUnusedLocals --exactOptionalPropertyTypes --strict test/typescript-validate.ts"
   },
   "license": "MIT",
   "release": {
