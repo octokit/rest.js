@@ -21,7 +21,6 @@ describe("Smoke tests", () => {
         expect(
           mock.callHistory.calls()[0].options.headers!["user-agent"],
         ).toMatch(/^my-app\/1.2.3 /);
-        // expect(headers["user-agent"]).toMatch(/^my-app\/1.2.3 /);
 
         return { ok: true };
       });
