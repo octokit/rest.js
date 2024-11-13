@@ -17,9 +17,11 @@ describe("Smoke tests", () => {
   it("userAgent option", () => {
     const mock = fetchMock
       .createInstance()
-      .getOnce("https://api.github.com/", (_url, { headers }) => {
-        // @ts-ignore headers has wrong typing in fetch-mock 8.3.2
-        expect(headers["user-agent"]).toMatch(/^my-app\/1.2.3 /);
+      .getOnce("https://api.github.com/", (_url) => {
+        expect(
+          mock.callHistory.calls()[0].options.headers!["user-agent"],
+        ).toMatch(/^my-app\/1.2.3 /);
+        // expect(headers["user-agent"]).toMatch(/^my-app\/1.2.3 /);
 
         return { ok: true };
       });
