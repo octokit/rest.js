@@ -16,10 +16,11 @@ describe("Smoke tests", () => {
 
   it("userAgent option", () => {
     const mock = fetchMock
-      .sandbox()
-      .getOnce("https://api.github.com/", (_url, { headers }) => {
-        // @ts-ignore headers has wrong typing in fetch-mock 8.3.2
-        expect(headers["user-agent"]).toMatch(/^my-app\/1.2.3 /);
+      .createInstance()
+      .getOnce("https://api.github.com/", (_url) => {
+        expect(
+          mock.callHistory.calls()[0].options.headers!["user-agent"],
+        ).toMatch(/^my-app\/1.2.3 /);
 
         return { ok: true };
       });
@@ -27,7 +28,7 @@ describe("Smoke tests", () => {
     const octokit = new Octokit({
       userAgent: "my-app/1.2.3",
       request: {
-        fetch: mock,
+        fetch: mock.fetchHandler,
       },
     });
     return octokit.request("/");
@@ -35,12 +36,12 @@ describe("Smoke tests", () => {
 
   it("@octokit/plugin-rest-endpoint-methods", () => {
     const mock = fetchMock
-      .sandbox()
+      .createInstance()
       .getOnce("path:/repos/octocat/hello-world", { ok: true });
 
     const octokit = new Octokit({
       request: {
-        fetch: mock,
+        fetch: mock.fetchHandler,
       },
     });
 
@@ -58,7 +59,7 @@ describe("Smoke tests", () => {
 
   it("@octokit/plugin-request-log", () => {
     const mock = fetchMock
-      .sandbox()
+      .createInstance()
       .getOnce("path:/", { status: 200, body: {} })
       .getOnce("path:/", { status: 404, body: {} }, { overwriteRoutes: false });
 
@@ -72,7 +73,7 @@ describe("Smoke tests", () => {
     const octokit = new Octokit({
       log: consoleStub,
       request: {
-        fetch: mock,
+        fetch: mock.fetchHandler,
       },
     });
 
