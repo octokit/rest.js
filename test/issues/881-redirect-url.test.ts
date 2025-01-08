@@ -9,7 +9,7 @@ describe("https://github.com/octokit/rest.js/issues/881", () => {
       "https://issue-881-codeload.github.com/octocat/Hello-World/legacy.tar.gz/master";
 
     const mock = fetchMock
-      .sandbox()
+      .createInstance()
       .headOnce(
         "https://api.github.com/repos/octocat/Hello-World/tarball/master",
         {
@@ -20,7 +20,7 @@ describe("https://github.com/octokit/rest.js/issues/881", () => {
 
     const octokit = new Octokit({
       request: {
-        fetch: mock,
+        fetch: mock.fetchHandler,
       },
     });
 
