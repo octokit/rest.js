@@ -36,7 +36,7 @@
     "@octokit/core": "^5.0.2",
     "@octokit/plugin-paginate-rest": "11.4.4-cjs.2",
     "@octokit/plugin-request-log": "^4.0.0",
-    "@octokit/plugin-rest-endpoint-methods": "v13.3.2-cjs.1"
+    "@octokit/plugin-rest-endpoint-methods": "13.3.2-cjs.1"
   },
   "devDependencies": {
     "@octokit/auth-action": "^4.0.1",
