@@ -10,7 +10,7 @@
   },
   "devDependencies": {
     "@gatsby-contrib/gatsby-plugin-elasticlunr-search": "^3.0.0",
-    "gatsby": "^5.0.0",
+    "gatsby": "^5.14.1",
     "gatsby-plugin-typography": "^5.0.0",
     "gatsby-remark-prismjs": "^7.0.0",
     "gatsby-source-filesystem": "^5.0.0",
