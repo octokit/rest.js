@@ -54,7 +54,7 @@
     "prettier": "^3.2.4",
     "semantic-release-plugin-update-version-in-files": "^2.0.0",
     "typescript": "^5.3.3",
-    "undici": "^6.4.0",
+    "undici": "^7.0.0",
     "vitest": "^3.0.0"
   },
   "scripts": {
