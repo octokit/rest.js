@@ -60,13 +60,13 @@ async function main() {
             import: "./dist-src/index.js",
             // Tooling currently are having issues with the "exports" field when there is no "default", ex: TypeScript, eslint
             default: "./dist-src/index.js",
-          }
+          },
         },
         sideEffects: false,
       },
       null,
-      2
-    )
+      2,
+    ),
   );
 }
 main();
