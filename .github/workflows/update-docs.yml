@@ -7,6 +7,11 @@ jobs:
   update_docs:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/create-github-app-token@v2
+        id: app-token
+        with:
+          app-id: ${{ vars.OCTOKIT_APP_ID }}
+          private-key: ${{ secrets.OCTOKIT_APP_PRIVATE_KEY }}
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
       - uses: actions/setup-node@v4
         with:
@@ -18,4 +23,4 @@ jobs:
       - uses: maxheld83/ghpages@master
         env:
           BUILD_DIR: docs/public/
-          GH_PAT: ${{ secrets.OCTOKITBOT_PAT }}
+          GH_PAT: ${{ steps.app-token.outputs.token }}
