@@ -45,7 +45,7 @@
     "@octokit/fixtures-server": "^8.1.0",
     "@octokit/request": "^10.0.0",
     "@octokit/tsconfig": "^4.0.0",
-    "@types/node": "^22.0.0",
+    "@types/node": "^24.0.0",
     "@vitest/coverage-v8": "^4.0.0",
     "esbuild": "^0.25.0",
     "fetch-mock": "^12.0.0",
