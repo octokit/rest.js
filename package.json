@@ -45,8 +45,8 @@
     "@octokit/fixtures-server": "^8.1.0",
     "@octokit/request": "^10.0.6",
     "@octokit/tsconfig": "^4.0.0",
-    "@types/node": "^22.0.0",
-    "@vitest/coverage-v8": "^3.0.0",
+    "@types/node": "^24.0.0",
+    "@vitest/coverage-v8": "^4.0.0",
     "esbuild": "^0.25.0",
     "fetch-mock": "^12.0.0",
     "glob": "^11.0.0",
@@ -55,7 +55,7 @@
     "semantic-release-plugin-update-version-in-files": "^2.0.0",
     "typescript": "^5.3.3",
     "undici": "^7.0.0",
-    "vitest": "^3.0.0"
+    "vitest": "^4.0.0"
   },
   "scripts": {
     "build": "node scripts/build.mjs && tsc -p tsconfig.json",
