@@ -22,7 +22,7 @@ jobs:
           - 22
           - 24
     steps:
-      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
+      - uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd # v5
       - name: Test with Node.js ${{ matrix.node_version }}
         uses: actions/setup-node@v6
         with:
@@ -38,7 +38,7 @@ jobs:
     steps:
       - run: exit 1
         if: ${{ needs.test_matrix.result != 'success' }}
-      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
+      - uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd # v5
       - run: npm ci
       - run: npm run lint
       - run: npm run test:typescript
