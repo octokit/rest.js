@@ -53,6 +53,7 @@
     "nock": "^14.0.0-beta.8",
     "prettier": "^3.2.4",
     "semantic-release-plugin-update-version-in-files": "^2.0.0",
+    "tinyglobby": "^0.2.15",
     "typescript": "^5.3.3",
     "undici": "^7.0.0",
     "vitest": "^4.0.0"
