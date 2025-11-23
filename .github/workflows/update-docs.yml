@@ -15,7 +15,7 @@ jobs:
       - uses: actions/checkout@1af3b93b6815bc44a9784bd300feb67ff0d1eeb3 # v6
       - uses: actions/setup-node@v6
         with:
-          node-version: 24
+          node-version: 22 # This version is known working by the docs
           cache: npm
       - run: npm ci
       - run: npm --prefix ./docs ci ./docs
