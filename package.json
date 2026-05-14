@@ -55,7 +55,7 @@
     "semantic-release-plugin-update-version-in-files": "^2.0.0",
     "tinyglobby": "^0.2.15",
     "typescript": "^5.3.3",
-    "undici": "^7.0.0",
+    "undici": "^8.0.0",
     "vitest": "^4.0.0"
   },
   "scripts": {
