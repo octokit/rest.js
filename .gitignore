@@ -3,3 +3,5 @@ node_modules
 
 # Pika builds
 pkg/
+# Sourcey generated documentation output
+docs/sourcey/.sourcey/
