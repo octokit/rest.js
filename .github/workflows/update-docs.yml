@@ -12,7 +12,7 @@ jobs:
         with:
           app-id: ${{ vars.OCTOKIT_APP_ID }}
           private-key: ${{ secrets.OCTOKIT_APP_PRIVATE_KEY }}
-      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
       - uses: actions/setup-node@v6
         with:
           node-version: 22 # This version is known working by the docs
