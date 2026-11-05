@@ -46,7 +46,7 @@
     "@octokit/request": "^10.0.6",
     "@octokit/tsconfig": "^4.0.0",
     "@types/node": "^24.0.0",
-    "@vitest/coverage-v8": "^4.0.0",
+    "@vitest/coverage-v8": "^5.0.0",
     "esbuild": "^0.28.0",
     "fetch-mock": "^12.0.0",
     "glob": "^13.0.0",
@@ -56,7 +56,7 @@
     "tinyglobby": "^0.2.15",
     "typescript": "^5.3.3",
     "undici": "^7.0.0",
-    "vitest": "^4.0.0"
+    "vitest": "^5.0.0"
   },
   "scripts": {
     "build": "node scripts/build.mjs && tsc -p tsconfig.json",
